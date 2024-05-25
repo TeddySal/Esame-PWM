@@ -1,6 +1,7 @@
 {
     "name": "Detective",
     "surname": "Ciccio",
+    "username":"DottorCiccio",
     "date_of_birth":"12-10-1993",
     "email":"detective@gmail.com",
     "password":"ciccio123",
