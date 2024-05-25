@@ -1,0 +1,17 @@
+{
+    "name": "Detective",
+    "surname": "Ciccio",
+    "date_of_birth":"12-10-1993",
+    "email":"detective@gmail.com",
+    "password":"ciccio123",
+    "liked_artist":[],
+    "liked_genres":[],
+    "playlist":{
+        "personal":[],
+        "liked":[]
+    },
+    "market":"IT"
+
+
+  }
+  
