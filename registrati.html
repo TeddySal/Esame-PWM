@@ -82,7 +82,6 @@
   </head>
   <body>
     <div class="container d-flex" style="height: 100vh; margin-top: 100px;">
-        <div class="card" style="width: 25rem; border: none;">
             <form class="p-2">
               <div class="mb-2">
                 <p style="color: white; font-size: 25pt;" >Crea account</p>
@@ -96,13 +95,17 @@
             <div class="mb-2">
                 <input placeholder="Ripeti password" type="password" class="form-control" id="exampleInputPassword1">
               </div>
-              <div id="passwordHelpBlock" class="form-text" style="color: white;">La tua password deve contenere almeno 8 caretteri, almeno una lettera Maiuscola e almeno un carettere speciale</div>
-              
+              <div id="passwordHelpBlock" class="form-text" style="color: white;">*La tua password deve contenere almeno 8 caretteri, almeno una lettera Maiuscola e almeno un carettere speciale</div><br>
+              <p style="color: white; font-size: 15pt;" >Username</p>
+              <input placeholder="Scegliere una username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <p style="color: white; font-size: 15pt;" >Data di nascita:</p>
+              <input type="date" id="dateStandard" name="dateStandard" style="color: black;">
+          
               <div class="mb-3">
                 <button type="submit" class="btn w-100">Crea</button>
               </div>
                 <a href="#" style="text-decoration: underline; color: white;">Hai già un'account?</a>
-              </div>
+              
             </form>
             
         </div>
