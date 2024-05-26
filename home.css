@@ -1,0 +1,68 @@
+@import "variables.css";
+
+body {
+    background-color: var(--main-bg-color);
+}
+
+.blur {
+    backdrop-filter: blur(28.5px);
+}
+
+.nav-link {
+    color: white;
+}
+
+.box {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 80px;
+    height: 80px;
+}
+.nav-box {
+    padding: 20px;
+    border-radius: 10px;
+    color: var(--nav-icon-color);
+}
+
+.active {
+    color: white !important;
+}
+
+.nav-box:hover {
+    background-color: var(--nav-item-hover);
+    color: var(--nav-icon-color);
+    border-radius: 10px;
+}
+
+svg {
+    display: block;
+    margin: auto;
+
+}
+
+.dropdown-menu {
+    background-color: var(--input-bg-color);
+    border-radius: 10px;
+    width: 200px;
+}
+
+.dropdown-item {
+    color: white;
+    margin: 10px;
+    width: auto;
+    font-size: 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--nav-item-hover);
+    color: white;
+    border-radius: 10px;
+}
+
+.menu-icon {
+    color: var(--nav-icon-color) !important;
+}
+
+.menu-icon:hover {
+    color: white !important;
+}

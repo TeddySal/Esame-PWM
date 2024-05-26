@@ -5,115 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-    input,.btn {
-      height: 55px;
-    }
-
-    .btn {
-      background-color: rgb(255, 255, 255);
-      color: grey;
-    }
-
-    .btn:hover {
-      background-color: rgb(255, 255, 255);
-    }
-
-    #exampleInputEmail1, #exampleInputPassword1{
-      background-color: rgb(30,30,30); 
-      border: none; 
-      color:white;
-      
-    }
-
-    #exampleInputEmail1:focus, #exampleInputPassword1:focus{
-      border: 1px solid grey;
-      border-color: grey;
-      
-    }
-
-    #exampleInputEmail1, #exampleInputPassword1, .btn {
-      border-radius: 12px;
-    }
-
-    #exampleInputEmail1::placeholder, #exampleInputPassword1::placeholder {
-      color: grey;
-    }
-
-    body{
-      background-color: rgb(16, 16, 16);
-      background-position: fixed;
-      
-    }
-
-    .card {
-      background-color: rgb(16, 16, 16);
-    }
-
-    .hr-text {
-      border: 0;
-      line-height: 1em;
-      position: relative;
-      text-align: center;
-      height: 1.5em;
-      font-size: 14px;
-      margin: 30px 15px;
-    }
-    
-    .hr-text::before {
-        content: "";
-        background: rgba(243, 245, 247, 0.15);
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 100%;
-        height: 1px;
-    }
-    
-    .hr-text::after {
-        content: attr(data-content);
-        position: relative;
-        padding: 0 7px;
-        line-height: 1.5em;
-        color: white;
-        background-color: #1a1a1a;
-    }
-    </style>
+    <link rel="stylesheet" href="custom.css">
   </head>
   <body>
-    <div class="container d-flex justify-content-center" style="height: 100vh; margin-top: 100px;">
-            <form class="p-2">
-              <div class="mb-2">
-                <p style="color: white; font-size: 25pt;" >Crea account</p>
-                <p style="color: white; font-size: 15pt;" >E-mail</p>
-                <input placeholder="Inserire la tua mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              </div>
-              <p style="color: white; font-size: 15pt;" >Password</p>
-              <div class="mb-2">
-                <input placeholder="Password" type="password" class="form-control" id="exampleInputPassword1">
-              </div>
+    <div class="container d-flex justify-content-center" style="height: 100vh;">
+          <form class="p-2">
             <div class="mb-2">
-                <input placeholder="Ripeti password" type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-              <div id="passwordHelpBlock" class="form-text mt-3 mb-3" style="color: white;">*La tua password deve contenere almeno 8 caretteri, almeno una lettera maiuscola e almeno un carettere speciale</div>
-              <p style="color: white; font-size: 15pt;" >Username</p>
-              <input placeholder="Scegliere un username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <p style="color: white; font-size: 25pt;" >Crea account</p>
+              <p style="color: white; font-size: 15pt;" >E-mail</p>
+              <input placeholder="Inserire la tua mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <p style="color: white; font-size: 15pt;" >Password</p>
+            <div class="mb-2">
+              <input placeholder="Password" type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+          <div class="mb-2">
+              <input placeholder="Ripeti password" type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div id="passwordHelpBlock" class="form-text mt-3 mb-3" style="color: white;">*La tua password deve contenere almeno 8 caretteri, almeno una lettera maiuscola e almeno un carettere speciale</div>
+            <p style="color: white; font-size: 15pt;" >Username</p>
+            <input placeholder="Scegliere un username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div class="row">
+            <div class="col">
               <p style="color: white; font-size: 15pt;" class="mt-3" >Data di nascita:</p>
-              <input type="date" id="dateStandard" name="dateStandard" style="color: black;">
+              <input type="date" id="dateStandard" name="dateStandard" class="date">
+            </div>
+            <div class="col">
               <p style="color: white; font-size: 15pt;" class="mt-3">Market:</p>
               <select class="form-select mb-3" aria-label="Default select example">
-                <option selected></option>
+                <option selected>Scegli il paese</option>
                 <option value="1">EN</option>
                 <option value="2">IT</option>
                 <option value="3">ES</option>
                 <option value="3">US</option>
               </select>
-              <div class="mb-3">
-                <button type="submit" class="btn w-100">Crea</button>
-              </div>
-                <a href="#" style="text-decoration: underline; color: white;">Hai già un'account?</a>
-              
-            </form>
+            </div>
+          </div>
+
+            <div class="mb-3 mt-3">
+              <button type="submit" class="btn w-100">Crea</button>
+            </div>
+              <a href="#" style="text-decoration: underline; color: white;">Hai già un'account?</a>
+            
+          </form>
             
         </div>
     </div>
