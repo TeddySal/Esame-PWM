@@ -13,24 +13,23 @@ input,.btn {
   background-color: rgb(255, 255, 255);
 }
 
-#exampleInputEmail1, #exampleInputPassword1{
+#email, #password{
   background-color: var(--input-bg-color); 
   border: none; 
   color:white;
-  
 }
 
-#exampleInputEmail1:focus, #exampleInputPassword1:focus{
+#email:focus, #password:focus{
   border: 1px solid grey;
   border-color: grey;
   
 }
 
-#exampleInputEmail1, #exampleInputPassword1, .btn {
+#email, #password, .btn {
   border-radius: 12px;
 }
 
-#exampleInputEmail1::placeholder, #exampleInputPassword1::placeholder {
+#email::placeholder, #password::placeholder {
   color: grey;
 }
 
@@ -89,4 +88,12 @@ body {
   height: 55px;
   font-size: 1rem;
   padding: 10px;
+}
+
+.btn-disabled {
+  cursor: not-allowed !important;
+}
+
+.btn-disabled:hover {
+  color: gray;
 }
