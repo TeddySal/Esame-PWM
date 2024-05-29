@@ -15,9 +15,11 @@ async function getApiToken() {
 }
 
 if (localStorage.getItem('api_key') == null) {
-    getApiToken().then((res) => {
+    getApiToken()
+    .then((res) => {
         localStorage.setItem('api_key', res.token_type+' '+res.access_token);
-    });
+    })
+    
 } else {
     console.log('[Info]: Api_key gia presente');
 }
