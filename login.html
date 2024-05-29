@@ -71,8 +71,11 @@
         fetch('http://localhost:3000/login', options)
             .then((res) => res.json())
             .then((res) => {
-              localStorage.setItem('id_user', res);
-              window.location = 'home.html';
+              console.log(res);
+              if (res.code != 404) {
+                localStorage.setItem('id_user', res);
+                window.location = 'home.html';
+              }
             })
             .catch((err) => console.log(err));
         

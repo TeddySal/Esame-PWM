@@ -26,7 +26,7 @@ async function loginUser(res, body) {
         let user = await client.db('Users').collection('user').findOne({email: body.email, password: body.password});
         console.log(user);
         if (user == null) {
-            res.status(404).send({"error": "[ERRORE]: Utente non trovato"});
+            res.status(404).send({code:404, error: "[ERRORE]: Utente non trovato"});
         } else {
             res.json(user._id);
         }
@@ -57,24 +57,29 @@ async function addUser(res, newUser) {
         await client.connect();
         let user = await client.db('Users').collection('user').findOne({email: newUser.email});
         if (user == null) {
-            await client.db('Users').collection('user').insertOne(
-                {
-                    email: newUser.email,
-                    password: newUser.password,
-                    username: newUser.username,
-                    date_of_birth: newUser.date_of_birth,
-                    liked_artist:[],
-                    liked_genres:[],
-                    playlist:{
-                        personal:[],
-                        liked:[]
-                    },
-                    market: newUser.market
-                }
-            );
-            res.status(201).send('Utente aggiunto');
+            let user = await client.db('Users').collection('user').findOne({username: newUser.username});
+            if (user == null) {
+                await client.db('Users').collection('user').insertOne(
+                    {
+                        email: newUser.email,
+                        password: newUser.password,
+                        username: newUser.username,
+                        date_of_birth: newUser.date_of_birth,
+                        liked_artist:[],
+                        liked_genres:[],
+                        playlist:{
+                            personal:[],
+                            liked:[]
+                        },
+                        market: newUser.market
+                    }
+                );
+                res.status(201).send({code: 201, text: 'Utente aggiunto'});
+            } else {
+                res.status(400).send({code: 400, errore: "Utente gia presente, cambiare username"});
+            }
         } else {
-            res.status(400).send({errore: "Utente gia presente"});
+            res.status(400).send({code: 400, errore: "Utente gia presente, cambiare email"});
         }
 
         

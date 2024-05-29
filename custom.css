@@ -13,23 +13,23 @@ input,.btn {
   background-color: rgb(255, 255, 255);
 }
 
-#email, #password{
+#email, #password, #username, #ver-password{
   background-color: var(--input-bg-color); 
   border: none; 
   color:white;
 }
 
-#email:focus, #password:focus{
+#email:focus, #password:focus, #username:focus, #ver-password:focus{
   border: 1px solid grey;
   border-color: grey;
   
 }
 
-#email, #password, .btn {
+#email, #password, #username, #ver-password,  .btn {
   border-radius: 12px;
 }
 
-#email::placeholder, #password::placeholder {
+#email::placeholder, #password::placeholder, #username::placeholder, #ver-password::placeholder {
   color: grey;
 }
 

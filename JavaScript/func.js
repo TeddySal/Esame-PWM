@@ -22,12 +22,12 @@ if (localStorage.getItem('api_key') == null) {
     console.log('[Info]: Api_key gia presente');
 }
 
-fetch(`https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02`, {
+/*fetch(`https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02`, {
     method: "GET",
     headers: {
         Authorization: localStorage.getItem('api_key')
     }
 }).then((res) => res.json())
-  .then((json) => console.log(json));
+  .then((json) => console.log(json));*/
 
 
