@@ -36,26 +36,39 @@ async function loginUser(res, body) {
 }
 
 async function addUser(res, newUser) {
-    if (newUser.email === undefined) {
+    if (newUser.email === "") {
         res.status(400).send({"error": "email mancante"});
         return;
     }
-    if (newUser.password === undefined) {
+    if (newUser.password === "") {
         res.status(400).send({"error": "password mancante"});
         return;
     }
-    if (newUser.date_of_birth === undefined) {
+    if (newUser.date_of_birth === "") {
         res.status(400).send({"error": "Data di nascita mancante"});
         return;
     }
-    if (newUser.market === undefined) {
+    if (newUser.market === "") {
         res.status(400).send({"error": "market mancante"});
+        return;
+    }
+    if(newUser.password.length<8){
+        res.status(400).send({"code":400,"type":"password","error": "Password troppo corta"});
+        return;
+    }
+    if ((newUser.password.match(/[a-z]/g)==null) || (newUser.password.match(/[A-Z]/g)==null)) {
+        res.status(400).send({"code":400,"type":"password","error": "La password deve contenere caratteri maiuscoli e minuscoli"});
+        return;
+    }
+   //console.log(newUser.password.match(/[A-Z]/g));
+    if ((newUser.password.match(/[^a-zA-Z\d]/g)==null)){
+        res.status(400).send({"code":400,"type":"password","error": "La password deve contenere almeno un carattere speciale"});
         return;
     }
 
     try {
         await client.connect();
-        let user = await client.db('Users').collection('user').findOne({email: newUser.email});
+        let user = await client.db('Users').collection('user').findOne({email: newUser.email}); 
         if (user == null) {
             let user = await client.db('Users').collection('user').findOne({username: newUser.username});
             if (user == null) {
@@ -76,10 +89,10 @@ async function addUser(res, newUser) {
                 );
                 res.status(201).send({code: 201, text: 'Utente aggiunto'});
             } else {
-                res.status(400).send({code: 400, errore: "Utente gia presente, cambiare username"});
+                res.status(400).send({code: 400,type:"username", errore: "Utente gia presente, cambiare username"});
             }
         } else {
-            res.status(400).send({code: 400, errore: "Utente gia presente, cambiare email"});
+            res.status(400).send({code: 400,type:"email", errore: "Utente gia presente, cambiare email"});
         }
 
         
