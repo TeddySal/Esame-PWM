@@ -52,7 +52,7 @@
     <div class="mt-4 d-none" id="doporegistrazione">
 
       <div class="container mt-3">
-      <p style="color:grey; font-size: 20pt;" class="mt-4">Aggiungi i tuoi generti musicali preferiti:</p>
+      <p style="color:grey; font-size: 20pt;" class="mt-4">Aggiungi i tuoi generi musicali preferiti:</p>
 
         <select class="form-select form-select-lg mb-3" aria-label="Large select example" onchange="addGenre(this.value);" id="sel-gen">
             <option value="" selected>Genres</option>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="mb-3 mt-3">
-      <button type="submit" class="btn btn-primary" id="add-gen" style="float:right; margin-right:190px">Aggiungi</button>
+      <button type="submit" class="btn btn-primary" id="add-gen" style="float:right; margin-right:190px" onclick="save()">Aggiungi</button>
     </div>
 
     </div>
@@ -121,6 +121,15 @@
           clone.classList.remove('d-none');
           list.before(clone);
       }
+      function save() {
+        var ul = document.getElementsByTagName('ul');
+            var li = ul[0].getElementsByTagName('li');
+            var array = new Array();
+            for (var i = 0; i < li.length; i++) {
+                array.push(li[i].innerText)
+            }
+        console.log(array);
+}
   </script>
     <script>
       let reg_form = document.getElementById('reg-form');
