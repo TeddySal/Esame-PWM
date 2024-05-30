@@ -145,4 +145,3 @@ app.post('/addLikedArtist', (req, res) => {
 app.listen(port, () => {
     console.log(`Listening to port:${port}`);
 })
-
