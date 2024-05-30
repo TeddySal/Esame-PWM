@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+const fs = require('fs');
 
 const uri = "mongodb+srv://dottorciccio03:DetectiveCiccio03@esame-pwm.usssncc.mongodb.net/";
 
@@ -34,6 +35,7 @@ async function loginUser(res, body) {
         await client.close();
     }
 }
+
 
 async function addUser(res, newUser) {
     if (newUser.email === "") {
@@ -115,6 +117,11 @@ app.post('/addUser', (req, res) => {
        .catch((err) => console.log(err));
 })
 
+app.get('/getGenres', (req, res)=>{
+    res.send(fs.readFileSync('generi.json'))
+})
+
 app.listen(port, () => {
     console.log(`Listening to port:${port}`);
 })
+
