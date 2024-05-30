@@ -97,3 +97,15 @@ body {
 .btn-disabled:hover {
   color: gray;
 }
+
+.search-artist, .search-artist:focus {
+  background-color: var(--input-bg-color);
+  border: none;
+  color: white;
+}
+
+.search-artist::placeholder {
+  color: gray;
+}
+
+

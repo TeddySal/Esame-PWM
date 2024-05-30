@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const fs = require('fs');
 
 const uri = "mongodb+srv://dottorciccio03:DetectiveCiccio03@esame-pwm.usssncc.mongodb.net/";
@@ -89,7 +89,8 @@ async function addUser(res, newUser) {
                         market: newUser.market
                     }
                 );
-                res.status(201).send({code: 201, text: 'Utente aggiunto'});
+                user = await client.db('Users').collection('user').findOne({email: newUser.email});
+                res.status(201).send({code: 201, text: 'Utente aggiunto', id: user._id});
             } else {
                 res.status(400).send({code: 400,type:"username", errore: "Utente gia presente, cambiare username"});
             }
@@ -98,6 +99,21 @@ async function addUser(res, newUser) {
         }
 
         
+    } finally {
+        await client.close();
+    }
+}
+
+async function addLikedArtist(res, body) {
+    try {
+        await client.connect()
+        for (let i = 0; i < body.liked_artist.length; i++) {
+            await client.db('Users').collection('user').updateOne(
+                {_id: new ObjectId(body.id)},
+                {$push: {liked_artist: body.liked_artist[i]}}
+            );
+        }
+        res.status(201).send({message: "Fatto"});
     } finally {
         await client.close();
     }
@@ -119,6 +135,11 @@ app.post('/addUser', (req, res) => {
 
 app.get('/getGenres', (req, res)=>{
     res.send(fs.readFileSync('generi.json'))
+})
+
+app.post('/addLikedArtist', (req, res) => {
+    addLikedArtist(res, req.body)
+        .catch((err) => console.log(err));
 })
 
 app.listen(port, () => {
