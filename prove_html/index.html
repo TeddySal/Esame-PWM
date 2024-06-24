@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        .item {
+            display: block;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+        .box {
+    width: 80px;
+    height: 80px;
+}
+
+.nav-box {
+    padding: 20px;
+    border-radius: 10px;
+    color: var(--nav-icon-color);
+}
+.active {
+    color: white !important;
+}
+
+.nav-box:hover {
+    background-color: var(--nav-item-hover);
+    color: var(--nav-icon-color);
+    border-radius: 10px;
+}
+
+svg {
+    display: block;
+    margin: auto;
+
+}
+.dropdown-menu {
+    background-color: var(--input-bg-color);
+    border-radius: 10px;
+    width: 200px;
+}
+
+.dropdown-item {
+    color: white;
+    margin: 10px;
+    width: auto;
+    font-size: 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--nav-item-hover);
+    color: white;
+    border-radius: 10px;
+}
+
+.menu-icon {
+    color: var(--nav-icon-color) !important;
+}
+
+.menu-icon:hover {
+    color: white !important;
+}
+    </style>
+</head>
+<body onload="loadGenres();">
+    <div class="m-0 p-0 d-flex w-100">
+        <div class="d-flex flex-column flex-shrink-0" style="width: 78px; height: 100vh; background-color: rgb(16, 16, 16);">
+          <a href="/" class="d-block p-3 link-body-emphasis text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
+            <img src="img/logo1.png" alt="" width="45" height="45">
+          </a>
+          <ul class="nav nav-flush flex-column mb-auto text-center h-100 justify-content-center">
+            <li class="nav-item">
+                <div class="box">
+                    <a class="nav-link active nav-box" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+                        </svg>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="box">
+                    <a href="#" class="nav-link nav-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="box">
+                    <a class="nav-link nav-box" href="preferiti.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="box">
+                    <a href="profilo.html" class="nav-link nav-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                    </a>
+                </div>
+            </li>
+          </ul>
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center w-100">
+            <div class="elevated rounded-4 position-absolute" id="elevated">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="post d-flex">
+                            <div class="input-group p-3">
+                                <input type="text" class="inpt-search focus-ring focus-ring-dark" placeholder="Ricerca..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mt-3">
+                                <button class="btn search-btn" type="button">Cerca</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="post">
+                            <div class="card" style="width: 40rem; color: white; border: none; border-radius: 0px; background-color: transparent;">
+                                <div class="row g-0">
+                                  <div class="col-md-4">
+                                    <img src="img/prova-playlist.jpg" class="img-fluid rounded-4 m-3 shadow-sm" alt="..." width="200" height="200" >
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <h5 class="card-title mt-3">Quest For Fire</h5>
+                                      <a href="" class="btn position-absolute bottom-0 end-0 mb-3" style="color: black; float: right; bottom: 300px;">Dettagli</a>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="post">
+                            <div class="card" style="width: 40rem; color: white; border: none; border-radius: 0px; background-color: transparent;">
+                                <div class="row g-0">
+                                  <div class="col-md-4">
+                                    <img src="img/prova-playlist-2.jpg" class="img-fluid rounded-4 m-3 shadow-sm" alt="..." width="200" height="200" >
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <h5 class="card-title mt-3">Recess</h5>
+                                      <a href="" class="btn position-absolute bottom-0 end-0 mb-3" style="color: black; float: right; bottom: 300px;">Dettagli</a>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+        
+
+        
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="JavaScript/func.js"></script>
+    <script>
+        /*
+        async function loadGenres() {
+            const options =  {
+            method: "GET",
+            headers: {
+                Authorization: localStorage.getItem('api_key')
+            }
+        }
+            fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds',options)
+                .then((res) => {
+                    if (!res.ok) {
+                        if (res.status == 401) {
+                            getApiToken()
+                                .then((res) => {
+                                    localStorage.setItem('api_key', res.token_type+' '+res.access_token);
+                                })
+                            loadGenres();
+                        }
+                    } else {
+                        return res.json();
+                    }
+                })
+                .then((json) => {
+                    console.log(json);
+                    let select = document.getElementById('sel-gen');
+                    for (let i = 0; i < json.genres.length; i++) {
+                        let option = document.createElement('option');
+                        option.value = json.genres[i];
+                        option.innerHTML = json.genres[i];
+                        select.appendChild(option);
+                    }
+                });
+
+            //console.log(res);
+        }
+        const list = document.getElementById('selected-genres');
+        function addGenre(genre) {
+            let clone = list.cloneNode(true);
+
+            clone.getElementsByClassName('form-check-label')[0].innerHTML = genre;
+            clone.classList.remove('d-none');
+            list.before(clone);
+        }*/
+    </script>
+</body>
+</html>

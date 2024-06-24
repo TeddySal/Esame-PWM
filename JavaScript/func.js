@@ -24,6 +24,16 @@ if (localStorage.getItem('api_key') == null) {
     console.log('[Info]: Api_key gia presente');
 }
 
+function checkForAccount() {
+  if (localStorage.getItem('id_user') === null) {
+      document.getElementById('nav-btn').classList.remove('d-none');
+      document.getElementById('nav-list').classList.add('d-none');
+  } else {
+      document.getElementById('nav-btn').classList.add('d-none');
+      document.getElementById('nav-list').classList.remove('d-none');
+  }
+}
+
 let reg_form = document.getElementById('reg-form');
 let pref_form = document.getElementById('user-pref');
 let artist_id = [];
@@ -213,5 +223,10 @@ document.getElementById('avanti').addEventListener('click', (e) => {
 
 });
 
-
-
+function changeScreenMedia(media) {
+  if (media.matches) {
+      document.getElementById('mobileHead').classList.remove('d-none');
+  } else {
+      document.getElementById('mobileHead').classList.add('d-none');
+  }
+}
