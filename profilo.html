@@ -270,8 +270,10 @@
         document.getElementById('createPlt').onclick = () => {
             console.log('Hello');
         }
-       fetch("http://localhost:3000/getUser/"+localStorage.getItem('id_user'), {method:'GET',mode:'no-cors'})
-        .then (res=>response.json())
+
+
+       fetch("http://localhost:3000/getUser/"+localStorage.getItem('id_user'), {method:'GET'})
+        .then (res=>res.json())
         .then (res=>{
             document.getElementById('username').textContent = res.username;
             document.getElementById('nome').textContent = res.name+" "+res.surname;
