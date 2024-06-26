@@ -113,8 +113,8 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card-body p-4">
-                          <h5 class="card-title h2">Salillari Tedi</h5>
-                          <p class="card-text">Teddy03</p>
+                          <h5 class="card-title h2" id="nome"></h5>
+                          <p class="card-text" id="username"></p>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center">
@@ -270,6 +270,17 @@
         document.getElementById('createPlt').onclick = () => {
             console.log('Hello');
         }
+       fetch("http://localhost:3000/getUser/"+localStorage.getItem('id_user'), {method:'GET',mode:'no-cors'})
+        .then (res=>response.json())
+        .then (res=>{
+            document.getElementById('username').textContent = res.username;
+            document.getElementById('nome').textContent = res.name+" "+res.surname;
+
+        })
+        
+       
+        
+
     </script>
   </body>
 </html>

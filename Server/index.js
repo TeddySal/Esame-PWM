@@ -134,8 +134,21 @@ async function addPlaylist(res, body){
         res.status(201).send("playlist creata");
 
         
+    }finally{
+        await client.close();
     }
-    finally{
+}
+
+async function getUser(res, id){
+    try{
+        await client.connect();
+        let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(id)})
+        if(user===null)
+            res.status(404).send("utente non è stato trovato");
+        else
+            res.status(201).send(user)
+
+    }finally{
         await client.close();
     }
 }
@@ -147,6 +160,10 @@ app.get('/', (req, res) => {
 app.post('/login', (req, res) => {
     loginUser(res, req.body)
         .catch((err) => console.log(err));
+})
+
+app.get('/getUser/:id', (req, res )=>{
+    getUser(res,req.params.id);
 })
 
 app.post('/addUser', (req, res) => {
