@@ -119,6 +119,27 @@ async function addLikedArtist(res, body) {
     }
 }
 
+async function addPlaylist(res, body){
+    try{
+        await client.connect();
+        await client.db('Users').collection('playlist').insertOne(
+            {
+                id_user: body.id_user,
+                isPublic: body.isPublic,
+                name: body.name,
+                songs: body.songs
+            }
+
+        )
+        res.status(201).send("playlist creata");
+
+        
+    }
+    finally{
+        await client.close();
+    }
+}
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
@@ -140,6 +161,10 @@ app.get('/getGenres', (req, res)=>{
 app.post('/addLikedArtist', (req, res) => {
     addLikedArtist(res, req.body)
         .catch((err) => console.log(err));
+})
+
+app.post('/addPlaylist', (req, res) => {
+    addPlaylist(res, req.body)
 })
 
 app.listen(port, () => {
