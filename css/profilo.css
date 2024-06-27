@@ -1,9 +1,47 @@
- #cerca, #namePlaylist{
+@import url(variables.css);
+
+#cerca, #namePlaylist{
     background-color: var(--input-bg-color); 
     border: none; 
     color:white;
-  }
+}
 
 #namePlaylist::placeholder, #cerca::placeholder{
     color: grey;
-  }
+}
+
+.song-list {
+  overflow-y: auto;
+  height: 300px;
+}
+
+.list-group-item {
+  background-color: var(--input-bg-color);
+  border-color: var(--input-bg-color);
+  color: white;
+  border-bottom: 1px solid #161616;
+}
+
+.close-btn {
+  transition: .2s;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  stroke: gray;
+  stroke-width: .3;
+}
+
+#delSong {
+  fill: red;
+  transition: .2s;
+}
+
+#delSong:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  stroke: red;
+  stroke-width: .3;
+}
+

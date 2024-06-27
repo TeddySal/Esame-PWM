@@ -183,18 +183,60 @@
             <button class="btn" onclick="showElev();">Ritorna normale</button>
         </div>
 
-        <div class="modify-card rounded-4 position-absolute mt-4 d-none" id="creaPlaylist" style=" width: 650px; height: 650px; ">
-            <button class="btn" onclick="returnPlaylist();">Annulla</button>
-            <div class="container  align-items-center" >
-                <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
-                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
-                <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist">
+        <div class="modify-card rounded-4 position-absolute p-4 d-none" id="creaPlaylist" style=" width: 650px; height: 650px; ">
+            <div class="row">
+                <div class="col-12 " >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16" onclick="returnPlaylist();" style="float: right">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </div>
+                <div class="col-12">
+                    <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
+                </div>
+                <div class="col-12">
+                    <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
+                    <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist">
+                </div>
+                <div class="col-12">
                     <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
                     <form class="d-flex" role="search" action="#">
                       <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
-                      <button class="btn btn-outline-success" type="submit" id="cercaBtn" >Cerca</button>
-                    </form>     
+                      <button class="btn btn-light" type="submit" id="cercaBtn" >Cerca</button>
+                    </form>
+                </div>
+                <div class="col-12">
+                    <div class="song-list mt-3">
+                        <ul class="list-group" id="songList">
+                            <li class="list-group-item d-none" id="song">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img class="songImg" src="..." alt="..." width="60" height="60">
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="vstack">
+                                            <div class="pt-2">
+                                                <h6 class="songName"></h6>
+                                            </div>
+                                            <div class="">
+                                                <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 d-flex align-items-center justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
+                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            
+
+
+
         </div>
 
     </div>
@@ -295,6 +337,12 @@
             changeScreenMedia(media);
         });
 
+        document.getElementById('cercaBtn').addEventListener('click',()=>{  
+            //console.log("ciao");
+            let q = document.getElementById('cerca').value;
+            search(q);
+        });
+
         document.getElementById('createPlt').onclick = () => {
             console.log('Hello');
         }
@@ -310,7 +358,13 @@
 
         
 
-
+        document.querySelectorAll('[id=delSong]').forEach((el) => {
+            el.addEventListener('click', (event) => {
+                event.preventDefault();
+                console.log('hello');
+                el.parentElement.parentElement.parentElement.remove();
+            });
+        });
         
        
         

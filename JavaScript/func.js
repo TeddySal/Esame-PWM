@@ -155,14 +155,7 @@ function changeScreenMedia(media) {
   } else {
       document.getElementById('mobileHead').classList.add('d-none');
   }
-}
-
-
-document.getElementById('cercaBtn').addEventListener('click',()=>{  
-  console.log("ciao");
-  let q = document.getElementById('cerca').value;
-  search(q);})
-   
+}  
 
 function search(q){
   console.log("ciao");
@@ -176,9 +169,30 @@ function search(q){
         return res.json();
       }
     })
-    .then((track)=>{
+    .then((track) => {
       console.log(track);
-    }
-      )
+      const song = document.getElementById('song');
+      let clone = song.cloneNode(true);
+      clone.id = 'artistSong';
+
+      clone.getElementsByClassName('songImg')[0].src = track.tracks.items[0].album.images[2].url;
+      clone.getElementsByClassName('songName')[0].textContent = track.tracks.items[0].name;;
+      for(let i = 0; i < track.tracks.items[0].artists.length; i++) {
+        if (clone.getElementsByClassName('artistsNames')[0].textContent == '') {
+          clone.getElementsByClassName('artistsNames')[0].textContent = clone.getElementsByClassName('artistsNames')[0].textContent  + track.tracks.items[0].artists[i].name; 
+        } else {
+          clone.getElementsByClassName('artistsNames')[0].textContent = clone.getElementsByClassName('artistsNames')[0].textContent + ', ' + track.tracks.items[0].artists[i].name ; 
+        }
+      }
+
+      clone.getElementsByClassName('bi')[0].addEventListener('click', (event) => {
+        event.preventDefault();
+        clone.getElementsByClassName('bi')[0].parentElement.parentElement.parentElement.remove();
+      });
+
+      clone.classList.remove('d-none');
+
+      song.before(clone);
+    });
 }
 

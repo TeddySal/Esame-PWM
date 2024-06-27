@@ -50,7 +50,7 @@
   </head>
   <body onload="loadGenres();">
     <div class="container d-flex justify-content-center" style="height: 100vh;" id="registrazione">
-      <form name="regForm" class="p-2 " id="reg-form">
+      <form name="regForm" class="p-2 d-none" id="reg-form">
         <div class="mb-2">
           <p style="color: white; font-size: 25pt;" class="mt-3" >Crea account</p>
           <p style="color: white; font-size: 15pt;" >E-mail</p>
@@ -91,7 +91,7 @@
         
       </form>
       
-      <form name="userPref " class="p-2 d-none" id="user-pref">
+      <form name="userPref " class="p-2 " id="user-pref">
         <div class="mb-2">
           <p style="color: white; font-size: 25pt;" class="mt-3" >Aggiungi i tuoi generi preferiti</p>
           <select class="form-select form-select-lg mb-3" aria-label="Large select example" onchange="addGenre(this.value);" id="sel-gen">
