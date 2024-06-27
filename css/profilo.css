@@ -1,0 +1,9 @@
+ #cerca, #namePlaylist{
+    background-color: var(--input-bg-color); 
+    border: none; 
+    color:white;
+  }
+
+#namePlaylist::placeholder, #cerca::placeholder{
+    color: grey;
+  }

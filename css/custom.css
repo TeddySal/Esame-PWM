@@ -13,7 +13,7 @@ input,.btn {
   background-color: rgb(255, 255, 255);
 }
 
-#email, #password, #username, #ver-password{
+#email, #password, #username, #ver-password, #cerca, #nomePlaylist{
   background-color: var(--input-bg-color); 
   border: none; 
   color:white;
@@ -29,7 +29,7 @@ input,.btn {
   border-radius: 12px;
 }
 
-#email::placeholder, #password::placeholder, #username::placeholder, #ver-password::placeholder {
+#email::placeholder, #password::placeholder, #username::placeholder, #ver-password::placeholder{
   color: grey;
 }
 

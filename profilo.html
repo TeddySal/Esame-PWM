@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/profilo.css">
     <style>
         @media screen and (max-width: 576px){
             .box {
@@ -138,8 +139,8 @@
                                 <li class="list-group-item card bg-transparent">
                                     <div class="card bg-transparent border-0" style="width: 150px;" >
                                         <div class="card-head" style="height: 150px;">
-                                            <div>
-                                                <svg id="createPlt" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                            <div onclick="creaPlaylist();">
+                                                <svg id="createPlt" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16" >
                                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                                                 </svg>
@@ -181,6 +182,21 @@
         <div class="modify-card rounded-4 position-absolute mt-4 d-none" id="modCard">
             <button class="btn" onclick="showElev();">Ritorna normale</button>
         </div>
+
+        <div class="modify-card rounded-4 position-absolute mt-4 d-none" id="creaPlaylist" style=" width: 650px; height: 650px; ">
+            <button class="btn" onclick="returnPlaylist();">Annulla</button>
+            <div class="container  align-items-center" >
+                <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
+                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
+                <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist">
+                    <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
+                    <form class="d-flex" role="search" action="#">
+                      <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
+                      <button class="btn btn-outline-success" type="submit" id="cercaBtn" >Cerca</button>
+                    </form>     
+            </div>
+        </div>
+
     </div>
 
     <footer class="d-none" id="mobileHead">
@@ -253,6 +269,18 @@
             document.getElementById('modCard').classList.remove('d-none');
         }
 
+        function creaPlaylist() {
+            document.getElementById('header').classList.add('blur');
+            document.getElementById('elevated').classList.add('blur');
+            document.getElementById('creaPlaylist').classList.remove('d-none');
+        }
+
+        function returnPlaylist() {
+            document.getElementById('header').classList.remove('blur');
+            document.getElementById('elevated').classList.remove('blur');
+            document.getElementById('creaPlaylist').classList.add('d-none');
+        }
+
         function showElev() {
             document.getElementById('header').classList.remove('blur');
             document.getElementById('elevated').classList.remove('blur');
@@ -279,6 +307,10 @@
             document.getElementById('nome').textContent = res.name+" "+res.surname;
 
         })
+
+        
+
+
         
        
         
