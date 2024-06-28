@@ -183,7 +183,7 @@
             <button class="btn" onclick="showElev();">Ritorna normale</button>
         </div>
 
-        <div class="modify-card rounded-4 position-absolute p-4 d-none" id="creaPlaylist" style=" width: 650px; height: 650px; ">
+        <div class="modify-card rounded-4 position-absolute p-4 d-none" id="creaPlaylist" style=" width: 700px; height: 750px; ">
             <div class="row">
                 <div class="col-12 " >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16" onclick="returnPlaylist();" style="float: right">
@@ -197,6 +197,10 @@
                     <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
                     <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist">
                 </div>
+                <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
+                    <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
+                    <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;">Playlist privata</label>
+                  </div>
                 <div class="col-12">
                     <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
                     <form class="d-flex" role="search" action="#">
@@ -233,7 +237,11 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="col-12">
+                <div class="text-right">
+                    <button type="button" class="btn float-right" style="margin-left: 575px; margin-top: 25px;" onclick="salva();">Salva</button>
+                </div>
+            </div>
 
 
 
@@ -365,6 +373,55 @@
                 el.parentElement.parentElement.parentElement.remove();
             });
         });
+
+        function salva(){
+            let name = document.getElementById('namePlaylist').value;
+            let songName = document.querySelectorAll("h6.songName");
+            let playlist = [];
+            if(document.getElementById('privata').checked){
+                privata = true;
+            }else{
+                privata = false;
+            }
+            for(let i = 0; i<songName.length; i++){
+                 playlist[i] = songName[i].innerHTML;
+            }
+
+            console.log(name);
+            console.log(playlist);
+            console.log(privata);
+
+const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(
+      {
+        id_user: localStorage.getItem('id_user'), 
+        isPrivate: privata,
+        name: name,
+        songs: playlist
+
+      }
+    )
+  }
+
+  fetch('http://localhost:3000/addPlaylist', options)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.code == 400) {
+            console.log('errore')
+        } else if (res.code == 201) {
+          console.log('ok')
+        }
+      })
+      .catch((err) => console.log(err));
+};
+
+
         
        
         

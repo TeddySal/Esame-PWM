@@ -125,7 +125,7 @@ async function addPlaylist(res, body){
         await client.db('Users').collection('playlist').insertOne(
             {
                 id_user: body.id_user,
-                isPublic: body.isPublic,
+                isPrivate: body.isPublic,
                 name: body.name,
                 songs: body.songs
             }
