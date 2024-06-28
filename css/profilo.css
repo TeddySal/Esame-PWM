@@ -12,7 +12,7 @@
 
 .song-list {
   overflow-y: auto;
-  height: 300px;
+  height: 250px;
 }
 
 .list-group-item {

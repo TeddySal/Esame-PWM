@@ -120,27 +120,38 @@ async function addLikedArtist(res, body) {
 }
 
 async function addPlaylist(res, body){
-    try{
+    try {
         await client.connect();
-        await client.db('Users').collection('playlist').insertOne(
+        let result = await client.db('Users').collection('playlist').insertOne(
             {
-                id_user: body.id_user,
+                id_user: new ObjectId(body.id_user),
                 isPrivate: body.isPublic,
                 name: body.name,
                 songs: body.songs
             }
 
-        )
+        );
+        let id = result.insertedId.toHexString();
+        //console.log(id);
+        //let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(body.id_user)});
+        //console.log(user);
+        await client.db('Users').collection('user').updateOne(
+            { _id: new ObjectId(body.id_user)},
+            { $push: { "playlist.personal": id }}
+        );
+
+        //console.log(respn);
+
         res.status(201).send("playlist creata");
 
         
-    }finally{
+    } finally {
         await client.close();
     }
 }
 
 async function getUser(res, id){
-    try{
+    try {
         await client.connect();
         let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(id)})
         if(user===null)
@@ -148,14 +159,49 @@ async function getUser(res, id){
         else
             res.status(201).send(user)
 
-    }finally{
+    } finally {
         await client.close();
     }
 }
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
+async function getPublicPlaylist(res) {
+    try {
+        await client.connect();
+        let playlist = await client.db('Users').collection('playlist').find({isPublic: true}).toArray();
+
+        if (playlist === null) {
+            res.status(404).send('Non esistono playlist pubbliche');
+        } else {
+            res.status(200).send(playlist);
+        }
+    } finally {
+        await client.close();
+    }
+}
+
+async function getPlaylist(res, user_id) {
+    try {
+        await client.connect();
+        let playlistDB = await client.db('Users').collection('user').findOne({_id: new ObjectId(user_id)});
+        let playlist= {
+            personal: [],
+            liked: []
+        };
+        
+        for (let i = 0; i < playlistDB.playlist.personal.length; i++) {
+            playlist.personal.push(await client.db('Users').collection('playlist').findOne({_id: new ObjectId(playlistDB.playlist.personal[i])}));
+        }
+
+        for (let i = 0; i < playlistDB.playlist.liked.length; i++) {
+            playlist.liked.push(await client.db('Users').collection('playlist').findOne({_id: new ObjectId(playlistDB.playlist.liked[i])}));
+        }
+
+        res.status(200).send(playlist);
+
+    } finally {
+        await client.close();
+    }
+}
 
 app.post('/login', (req, res) => {
     loginUser(res, req.body)
@@ -182,6 +228,16 @@ app.post('/addLikedArtist', (req, res) => {
 
 app.post('/addPlaylist', (req, res) => {
     addPlaylist(res, req.body)
+})
+
+app.get('/getPublicPlaylist', (req, res) => {
+    getPublicPlaylist(res)
+        .catch((err) => console.log(err));
+})
+
+app.get('/getPlaylist/:id', (req, res) => {
+    getPlaylist(res, req.params.id)
+        .catch((err) => console.log(err));
 })
 
 app.listen(port, () => {

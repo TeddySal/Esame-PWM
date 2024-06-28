@@ -160,3 +160,14 @@ svg {
     border: .6px solid rgb(45, 45, 45);
     color: white;
 }
+
+.footer .navbar {
+    position: fixed;
+    background-color: var(--main-header-bg);
+    backdrop-filter: blur(28.5px);
+}
+
+.add-playlist-card {
+    background-color: var(--main-bg-elevated);
+    border: .6px solid rgb(45, 45, 45);
+}

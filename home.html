@@ -18,13 +18,17 @@
                 width: 50px;
             }
         }
+
+        .border-bottom-color {
+            border-bottom: 1px solid rgb(45, 45, 45) !important;
+        }
     </style>
   </head>
-  <body onload="checkForAccount();">
+  <body onload="checkForAccount();showPublicPlaylist();">
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
-                <a href="/" class="navbar-brand d-flex w-50 me-auto">
+                <a href="home.html" class="navbar-brand d-flex w-50 me-auto">
                     <img src="img/logo1.png" alt="" width="50" height="50">
                 </a> 
                 <div class="navbar-collapse collapse w-100">
@@ -94,75 +98,18 @@
     <div class="container d-flex justify-content-center">
         <div class="elevated rounded-4 " id="elevated">
             <div class="row">
-                <div class="col-md-12">
+                <div id="playPost" class="col-md-12 d-none">
                     <div class="post">
-                        <div class="card" style="color: white; border: none; border-radius: 0px; background-color: transparent;">
+                        <div class="card border-bottom-color" style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
                             <div class="row">
                               <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="img/prova-playlist.jpg" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
+                                <img src="img/playlist_img.png" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
                               </div>
                               <div class="col-md-8">
                                 <div class="card-body h-50">
-                                  <h5 class="card-title mt-3">Quest For Fire</h5>
+                                  <h5 class="card-title mt-3"></h5>
                                 </div>
-                                <div class="card-footer">
-                                    <a href="" class="btn mb-3" style="color: black;">Dettagli</a>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="post">
-                        <div class="card" style="color: white; border: none; border-radius: 0px; background-color: transparent;">
-                            <div class="row">
-                              <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="img/prova-playlist.jpg" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
-                              </div>
-                              <div class="col-md-8">
-                                <div class="card-body h-50">
-                                  <h5 class="card-title mt-3">Quest For Fire</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="" class="btn mb-3" style="color: black;">Dettagli</a>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="post">
-                        <div class="card" style="color: white; border: none; border-radius: 0px; background-color: transparent;">
-                            <div class="row">
-                              <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="img/prova-playlist.jpg" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
-                              </div>
-                              <div class="col-md-8">
-                                <div class="card-body h-50">
-                                  <h5 class="card-title mt-3">Quest For Fire</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="" class="btn mb-3" style="color: black;">Dettagli</a>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="post">
-                        <div class="card" style="color: white; border: none; border-radius: 0px; background-color: transparent;">
-                            <div class="row">
-                              <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="img/prova-playlist.jpg" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
-                              </div>
-                              <div class="col-md-8">
-                                <div class="card-body h-50">
-                                  <h5 class="card-title mt-3">Quest For Fire</h5>
-                                </div>
-                                <div class="card-footer">
+                                <div class="card-footer" style="border-top: none;">
                                     <a href="" class="btn mb-3" style="color: black;">Dettagli</a>
                                 </div>
                               </div>
@@ -171,13 +118,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     
-    <footer class="d-none" id="mobileHead">
-        <nav class="navbar navbar-expand fixed-bottom justify-content-center">
-            <div class="container">
+    <footer class="footer d-none" id="mobileHead">
+        <nav class="navbar navbar-expand p-0 fixed-bottom justify-content-center">
+            <div class="container-fluid">
                 <div class="w-100">
                     <ul class="navbar-nav w-100 justify-content-center flex-row">
                         <li class="nav-item">
@@ -236,6 +182,9 @@
         media.addEventListener('change', function() {
             changeScreenMedia(media);
         });
+
+
+
     </script>
   </body>
 </html>

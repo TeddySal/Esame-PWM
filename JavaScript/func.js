@@ -196,3 +196,54 @@ function search(q){
     });
 }
 
+function showPublicPlaylist() {
+  fetch(`http://localhost:3000/getPublicPlaylist`, {method: "GET"})
+  .then((res) => res.json())
+  .then((playlist) => {
+      const playPost = document.getElementById('playPost');
+      for (let i = 0; i < playlist.length; i++) {
+          let clone = playPost.cloneNode(true);
+
+          if (i == playlist.length-1)   clone.childNodes[1].childNodes[1].classList.remove('border-bottom-color');
+
+          clone.getElementsByClassName('card-title')[0].textContent = playlist[i].name;
+
+          clone.classList.remove('d-none');
+
+          playPost.before(clone);
+      }
+  }).catch((err) => console.log(err));
+}
+
+function getUserPlaylist(id_user) {
+  fetch('http://localhost:3000/getPlaylist/'+localStorage.getItem('id_user'), {method: "GET"})
+    .then((res) => res.json())
+    .then((playlist) => {
+      
+      const myPlaylist = document.getElementById('myplay');
+      console.log(myPlaylist);
+
+      for (let i = 0; i < playlist.personal.length; i++) {
+          let clone = myPlaylist.cloneNode(true);
+
+          clone.getElementsByClassName('text-white')[0].textContent = playlist.personal[i].name;
+
+          clone.classList.remove('d-none');
+
+          myPlaylist.before(clone);
+      }
+
+      const myFavPlaylist = document.getElementById('myfavplay');
+
+      for (let i = 0; i < playlist.liked.length; i++) {
+          let clone = myFavPlaylist.cloneNode(true);
+
+          clone.getElementsByClassName('text-white')[0].textContent = playlist.liked[i].name;
+
+          clone.classList.remove('d-none');
+
+          myFavPlaylist.before(clone);
+      }
+          
+  }).catch((err) => console.log(err));
+}

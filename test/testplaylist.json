@@ -1,6 +1,35 @@
-{
-    "id_user": "665489f401eb3bf4a0349461",
-    "isPublic": false,
-    "name":"nome",
-    "songs":[]
-}
+[
+    {
+        "id_user": "665489f401eb3bf4a0349461",
+        "isPublic": true,
+        "name": "Kerke's music",
+        "songs": [
+            "100 MESSAGGI",
+            "Sintetico (feat. Tony Boy)",
+            "Mentalité",
+            "Algo Muy Raro"
+        ]
+    },
+    {
+        "id_user": "665489f401eb3bf4a0349461",
+        "isPublic": false,
+        "name": "Kerke's music",
+        "songs": [
+            "100 MESSAGGI",
+            "Sintetico (feat. Tony Boy)",
+            "Mentalité",
+            "Algo Muy Raro"
+        ]
+    },
+    {
+        "id_user": "665489f401eb3bf4a0349461",
+        "isPublic": true,
+        "name": "Teddy music",
+        "songs": [
+            "100 MESSAGGI",
+            "Sintetico (feat. Tony Boy)",
+            "Mentalité",
+            "Algo Muy Raro"
+        ]
+    }
+]
