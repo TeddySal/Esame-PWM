@@ -231,6 +231,53 @@ async function deletePlaylist(res, user_id) {
     }
 }
 
+async function addLikedPlaylist(res, body) {
+    try {
+        await client.connect();
+        
+        let playlist = await client.db('Users').collection('user').findOne(
+            {  
+                username: body.username,
+                "playlist.liked": new ObjectId(body.id_playlist)
+
+            }
+        );
+        console.log(playlist);
+        if (playlist === null) {
+            let result = await client.db('Users').collection('user').updateOne(
+                {username: body.username},
+                {$push: {"playlist.liked": new ObjectId(body.id_playlist)}}
+            );
+            console.log(result);
+            res.status(201).send({success: {status: 201, message: "Playlist aggiunti ai preferiti"}});
+        } else {
+            await client.db('Users').collection('user').updateOne(
+                {username: body.username},
+                {$pull: {"playlist.liked": new ObjectId(body.id_playlist)}}
+            );
+            res.status(200).send({success: {status: 200, message: "Playlist eliminata dai mi piace"}});
+            /*removeLikedPlaylist(res, body)
+                .catch((err) => console.log(err));*/
+        }
+        
+    } finally {
+        await client.close();
+    }
+}
+
+async function removeLikedPlaylist(res, body) {
+    try {
+        await client.connect();
+        await client.db('Users').collection('user').updateOne(
+            {_id: new ObjectId(body.id_user)},
+            {$unset: {"personal.liked": body.id_playlist}}
+        );
+        res.status(200).send({success: {status: 200, message: "Playlist eliminata dai mi piace"}});
+    } finally {
+        client.close();
+    }
+}
+
 app.post('/login', (req, res) => {
     loginUser(res, req.body)
         .catch((err) => console.log(err));
@@ -277,6 +324,11 @@ app.get('/getPlaylist/:username', (req, res) => {
 
 app.delete('/deletePlaylist/:id', (req, res) => {
     deletePlaylist(res, req.params.id)
+        .catch((err) => console.log(err));
+})
+
+app.post('/addLikedPlaylist', (req, res) => {
+    addLikedPlaylist(res, req.body)
         .catch((err) => console.log(err));
 })
 

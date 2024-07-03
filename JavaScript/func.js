@@ -209,12 +209,13 @@ function showPublicPlaylist() {
           clone.getElementsByClassName('post-username')[0].textContent = playlist[i].username;
           clone.getElementsByClassName('card-title')[0].textContent = playlist[i].name;
           clone.getElementsByClassName('card-text')[0].textContent = playlist[i].description;
-          clone.getElementsByClassName('btn')[0].href = 'playlist.html?playid='+playlist[i]._id;
+          clone.getElementsByClassName('btn-light')[0].setAttribute('data-bs-playlistId', playlist[i]._id);
 
           clone.classList.remove('d-none');
 
           playPost.before(clone);
       }
+      document.getElementById('placeHolder').classList.add('d-none');
   }).catch((err) => console.log(err));
 }
 
@@ -301,4 +302,69 @@ async function getUserPlaylist(id_user) {
 
         
   }).catch((err) => console.log(err));
+}
+
+function showPlaylistInfo(viewPlaylist, playlistId) {
+  const options =  {
+    method: "GET",
+    headers: {
+        Authorization: localStorage.getItem('api_key')
+    }
+  }
+  const title = viewPlaylist.querySelector('.modal-title');
+  const user = viewPlaylist.querySelector('.playlist-username');
+  const descr = viewPlaylist.querySelector('.playlist-descr');
+  let songsId = "";
+
+  fetch(`http://localhost:3000/getPlaylistInfo/${playlistId}`, {method: "GET"})
+    .then((res) => res.json())
+    .then((playlist) => {
+      title.textContent = playlist.name;
+      user.textContent = playlist.username;
+      descr.textContent = playlist.description;
+      playlist.songs.forEach((song) => songsId = songsId+song+",");
+      //console.log(songsId);
+      /*
+      fetch('https://api.spotify.com/v1/tracks?ids='+songsId,options)
+      .then((res) => {
+          if (!res.ok) {
+              if (res.status == 401) {
+                  getApiToken()
+                      .then((res) => {
+                          localStorage.setItem('api_key', res.token_type+' '+res.access_token);
+                      })
+                      showPlaylistInfo(viewPlaylist, playlistId);
+              } else if (res.status == 429) {
+                console.log(res);
+              }
+          } else {
+              return res.json();
+          }
+      })
+      .then((json) => {
+          console.log(json);
+          document.querySelectorAll('[id=song]').forEach((element) => element.remove());
+          const song = document.getElementById('showSong');
+          for (let i = 0; i < json.tracks.length-1; i++) {
+            let clone = song.cloneNode(true);
+            clone.id = 'song';
+
+            clone.getElementsByClassName('song-img')[0].src = json.tracks[i].album.images[0].url;
+            clone.getElementsByClassName('song-name')[0].textContent = json.tracks[i].name;
+
+            json.tracks[i].artists.forEach((artist) => {
+              if (clone.getElementsByClassName('artist-name')[0].textContent == '') {
+                clone.getElementsByClassName('artist-name')[0].textContent = clone.getElementsByClassName('artist-name')[0].textContent  + artist.name; 
+              } else {
+                clone.getElementsByClassName('artist-name')[0].textContent = clone.getElementsByClassName('artist-name')[0].textContent + ', ' + artist.name; 
+              }
+            })
+            
+
+            clone.classList.remove('d-none');
+
+            song.before(clone);
+          }
+      }).catch((err) => console.log(err));*/
+    }).catch((err) => console.log(err));
 }

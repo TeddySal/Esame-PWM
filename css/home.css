@@ -8,6 +8,15 @@
     }
 }
 
+@keyframes placeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 body {
     background-color: var(--main-bg-color);
 }
@@ -95,10 +104,17 @@ svg {
 .btn:hover {
   background-color: rgb(255, 255, 255);
 }
-#playPost {
+#playPost, #placeHolder {
     background-color: var(--main-bg-elevated);
     border: .6px solid rgb(45, 45, 45);
-    width: 100%;
+}
+
+#placeHolder {
+    animation: placeIn .5s;
+}
+
+#playPost {
+    animation: placeIn .5s;
 }
 
 .elevated {
@@ -176,4 +192,41 @@ svg {
 .add-playlist-card {
     background-color: var(--main-bg-elevated);
     border: .6px solid rgb(45, 45, 45);
+}
+
+.list-group-item {
+    border: none;
+}
+
+.modal-content, .list-group-item {
+    background-color: var(--main-bg-elevated);
+    color: white;
+}
+
+.song-list {
+    border-top: 1px solid rgb(45, 45, 45);
+}
+
+.close-btn {
+    transition: .2s;
+}
+  
+.close-btn:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+    stroke: gray;
+    stroke-width: .3;
+}
+
+.like-playlist {
+    float: right; 
+    text-decoration: none; 
+    color: gray;
+    transition: .3s;
+}
+
+.like-playlist:hover {
+    color: red;
+    transform: scale(1.2);
+    fill: red;
 }

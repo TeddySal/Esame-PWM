@@ -98,6 +98,40 @@
     <div class="container d-flex justify-content-center">
         <div style="width: 42rem;">
             <div class="row">
+                <div id="placeHolder" class="col-md-12 mb-3 rounded-4">
+                    <div class="row">
+                        <div class="col-12 border-bottom-color">
+                            
+                            <div class="hstack">
+                                <div class="placeholder-glow">
+                                    <span class="placeholder m-2" style="background-color: gray; width: 50px; height: 50px; border-radius: 50%;"></span>
+                                </div>
+                                <div class="pt-2 placeholder-glow">
+                                    <h5 class="text-white post-username placeholder">Placeholder</h5>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12">
+                            <div class="card" aria-hidden="true" style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
+                                <div class="row">
+                                  <div class="col-md-4 d-flex justify-content-center align-items-center placeholder-glow">
+                                    <span class="placeholder m-2 rounded-4" style="background-color: gray; width: 200px; height: 200px;"></span>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body h-50 placeholder-glow">
+                                      <h5 class="card-title mt-3 placeholder col-4"></h5>
+                                      <p class="card-text placeholder" style="color: gray;">Placeholder</p>
+                                    </div>
+                                    <div class="card-footer placeholder-glow" style="border-top: none;">
+                                        <a href="#" class="btn btn-light mb-3 disabled placeholder col-6" aria-disabled="true" style="color: black;"></a>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="playPost" class="col-md-12 mb-3 rounded-4 d-none">
                     <div class="row">
                         <div class="col-12 border-bottom-color">
@@ -120,11 +154,24 @@
                                   </div>
                                   <div class="col-md-8">
                                     <div class="card-body h-50">
-                                      <h5 class="card-title mt-3"></h5>
+                                        <div class="">
+                                            <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                                </svg>
+                                            </div>
+
+                                            <h5 class="card-title mt-3"></h5>
+
+                                        </div>
+
                                       <p class="card-text" style="color: gray;"></p>
                                     </div>
                                     <div class="card-footer" style="border-top: none;">
-                                        <a href="#" class="btn mb-3" style="color: black;">Dettagli</a>
+                                        <button class="btn btn-light mb-3 like-btn" style="color: black;" data-bs-toggle="modal" data-bs-target="#viewPlaylist">Dettagli</button >
                                     </div>
                                   </div>
                                 </div>
@@ -135,6 +182,53 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade modal-lg" id="viewPlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col d-flex">
+                        <img src="img/playlist_img.png" alt="" width="200" height="200" class="me-4">
+                        <div class="vstack">
+                            <div>
+                                <h1 class="modal-title " id="exampleModalLabel"></h1>
+                            </div> 
+                            <div>
+                                <p class="playlist-username fs-2 text-white-50" style="color: gray;"></p>
+                            </div>
+                            <div>
+                                <small class="playlist-descr" style="color: gray;"></small>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-12 mt-4 song-list">
+                        <div class="list-group list-group">
+                            <div id="showSong" class="list-group-item ">
+                                <div class="d-flex w-100">
+                                    <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
+                                    <div>
+                                        <h5 class="mb-1 song-name">Quest For Fire</h5>
+                                        <small class="artist-name" style="color: gray;">Skrillex</small>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
     <footer class="footer d-none" id="mobileHead">
         <nav class="navbar navbar-expand p-0 fixed-bottom justify-content-center">
@@ -199,7 +293,42 @@
         });
 
 
+        const viewPlaylist = document.getElementById('viewPlaylist');
+        if (viewPlaylist) {
+            viewPlaylist.addEventListener('show.bs.modal', (event) => {
+                const btn = event.relatedTarget;
+                const playlistId = btn.getAttribute('data-bs-playlistId');
+                showPlaylistInfo(viewPlaylist, playlistId);
+            });
+        }
 
+        const likeBtn = document.querySelector('.like-playlist');
+        console.log(likeBtn);
+        async function addOrRemoveLikedPlaylist() {
+            const btn = document.querySelector('.like-btn');
+            fetch(`http://localhost:3000/addlikedPlaylist`, {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                      username: await getUsernameFromId(), 
+                      id_playlist: btn.getAttribute('data-bs-playlistId')
+                    }
+                ) 
+            }).then((res) => res.json())
+                .then((res) => {
+                    if (res.success.status == 201) {
+                        document.querySelector('.bi-heart').classList.add('d-none');
+                        document.querySelector('.bi-heart-fill').classList.remove('d-none');
+                    } else if (res.success.status == 200) {
+                        document.querySelector('.bi-heart').classList.remove('d-none');
+                        document.querySelector('.bi-heart-fill').classList.add('d-none');
+                    }
+                });
+        }
     </script>
   </body>
 </html>
