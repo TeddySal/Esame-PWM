@@ -122,11 +122,13 @@ async function addLikedArtist(res, body) {
 async function addPlaylist(res, body){
     try {
         await client.connect();
+        console.log(body);
         let result = await client.db('Users').collection('playlist').insertOne(
             {
-                id_user: new ObjectId(body.id_user),
-                isPrivate: body.isPublic,
+                username: body.username,
+                isPublic: body.isPublic,
                 name: body.name,
+                description: body.description,
                 songs: body.songs
             }
 
@@ -136,8 +138,8 @@ async function addPlaylist(res, body){
         //let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(body.id_user)});
         //console.log(user);
         await client.db('Users').collection('user').updateOne(
-            { _id: new ObjectId(body.id_user)},
-            { $push: { "playlist.personal": id }}
+            { username: body.username},
+            { $push: { "playlist.personal": new ObjectId(id) }}
         );
 
         //console.log(respn);
@@ -150,17 +152,14 @@ async function addPlaylist(res, body){
     }
 }
 
-async function getUser(res, id){
+async function getUser(res, id) {
     try {
         await client.connect();
-        let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(id)})
-        if(user===null)
-            res.status(404).send("utente non è stato trovato");
-        else
-            res.status(201).send(user)
-
+        let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(id)});
+        console.log(user);
+        res.status(201).send(user);
     } finally {
-        await client.close();
+        //await client.close();
     }
 }
 
@@ -179,11 +178,14 @@ async function getPublicPlaylist(res) {
     }
 }
 
-async function getPlaylist(res, user_id) {
+async function getPlaylist(res, username) {
     try {
         await client.connect();
-        let playlistDB = await client.db('Users').collection('user').findOne({_id: new ObjectId(user_id)});
-        let playlist= {
+        //res.status(200).send({error: "Help"});
+        console.log(username);
+        let playlistDB = await client.db('Users').collection('user').findOne({username: username});
+        console.log(playlistDB);
+        let playlist = {
             personal: [],
             liked: []
         };
@@ -197,7 +199,33 @@ async function getPlaylist(res, user_id) {
         }
 
         res.status(200).send(playlist);
+        
+    } finally {
+       await client.close();
+    }
+}
 
+async function getPlaylistInfo(res, id_play) {
+    try {
+        await client.connect();
+        let plalist = await client.db('Users').collection('playlist').findOne({_id: new ObjectId(id_play)});
+
+        if (plalist === null) {
+            res.status(404).send({error: {status: 404, message: "Playlist non trovata"}});
+        } else {
+            res.status(200).send(plalist);
+        }
+    } finally {
+        await client.close();
+    }
+}
+
+// TODO: Creare una funzione che ellimini le playlist dal db
+async function deletePlaylist(res, user_id) {
+    try {
+        await client.connect();
+
+        const result = null;
     } finally {
         await client.close();
     }
@@ -208,8 +236,9 @@ app.post('/login', (req, res) => {
         .catch((err) => console.log(err));
 })
 
-app.get('/getUser/:id', (req, res )=>{
-    getUser(res,req.params.id);
+app.get('/getUser/:id', (req, res) => {
+    getUser(res, req.params.id)
+        .catch((err) => console.log(err));
 })
 
 app.post('/addUser', (req, res) => {
@@ -228,6 +257,7 @@ app.post('/addLikedArtist', (req, res) => {
 
 app.post('/addPlaylist', (req, res) => {
     addPlaylist(res, req.body)
+        .catch((err) => console.log(err));
 })
 
 app.get('/getPublicPlaylist', (req, res) => {
@@ -235,8 +265,18 @@ app.get('/getPublicPlaylist', (req, res) => {
         .catch((err) => console.log(err));
 })
 
-app.get('/getPlaylist/:id', (req, res) => {
-    getPlaylist(res, req.params.id)
+app.get('/getPlaylistInfo/:id', (req, res) => {
+    getPlaylistInfo(res, req.params.id)
+        .catch((err) => console.log(err));
+})
+
+app.get('/getPlaylist/:username', (req, res) => {
+    getPlaylist(res, req.params.username)
+        .catch((err) => console.log(err));
+})
+
+app.delete('/deletePlaylist/:id', (req, res) => {
+    deletePlaylist(res, req.params.id)
         .catch((err) => console.log(err));
 })
 

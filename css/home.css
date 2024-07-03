@@ -1,9 +1,10 @@
 @import "variables.css";
 
 @media screen and (max-width: 768px){
-    .elevated {
+    #playPost {
         width: 100% !important;
         text-align: center;
+        border-radius: 0;
     }
 }
 
@@ -93,6 +94,11 @@ svg {
 
 .btn:hover {
   background-color: rgb(255, 255, 255);
+}
+#playPost {
+    background-color: var(--main-bg-elevated);
+    border: .6px solid rgb(45, 45, 45);
+    width: 100%;
 }
 
 .elevated {

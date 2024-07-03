@@ -26,9 +26,12 @@
             align-items: center;
         }
 
+
+
         #createPlt {
             transition: .2s;
         }
+
         #createPlt:hover {
             transform: scale(1.2);
             fill: white;
@@ -122,7 +125,7 @@
                         <img src="img/Default_pfp.svg.png" class="img-fluid p-3" alt="..." style="border-radius: 50%; width: 150px; height: 150px;">
                     </div>
                     <div class="col-md-12">
-                        <button class="btn modify-btn" style="width: 90%; margin-left: 30px;margin-right: 30px;" onclick="showMod();">Modifica profilo</button>
+                        <button class="btn modify-btn" style="width: 90%; margin-left: 30px;margin-right: 30px;" onclick="/*showMod();*/" data-bs-target="#modifyModal" data-bs-toggle="modal">Modifica profilo</button>
                     </div>
                     <div class="col-md-12 d-flex">
                         <div role="button" id="myPlaylist" class="user-tab user-tab-active">
@@ -138,7 +141,7 @@
                                 <li class="list-group-item card bg-transparent">
                                     <div class="card bg-transparent border-0" style="width: 150px;" >
                                         <div class="card-head" style="height: 150px;">
-                                            <div onclick="creaPlaylist();">
+                                            <div  data-bs-toggle="modal" data-bs-target="#createPlaylistModal">
                                                 <svg id="createPlt" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16" >
                                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
@@ -161,12 +164,16 @@
                             </ol>
                         </div>
                         <div id="dispMyFavPlaylist" class="d-flex flex-row flex-nowrap overflow-auto d-none">
+                            <div class="w-100 text-center" id="nolpText">
+                                <p style="color: gray;">Non ci sono playlist</p>
+                            </div>
+                            
                             <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
                                 <li id="myfavplay" class="list-group-item card bg-transparent d-none">
                                     <div class="card bg-transparent border-0" style="width: 150px;">
-                                        <img src="img/prova-playlist-2.jpg" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
+                                        <img src="... class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
                                         <div class="card-body text-center">
-                                          <h6 class="text-white">Quest For Fire</h3>
+                                          <h6 class="text-white"></h3>
                                         </div>
                                     </div>
                                 </li>
@@ -177,74 +184,170 @@
             </div>
         </div>
 
+        <div class="modal fade" tabindex="-1" id="modifyModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--
         <div class="modify-card rounded-4 position-absolute mt-4 d-none" id="modCard">
             <button class="btn" onclick="showElev();">Ritorna normale</button>
         </div>
-
+        
         <div class="add-playlist-card rounded-4 position-absolute p-4 d-none" id="creaPlaylist">
-            <div class="row">
-                <div class="col-12 " >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16" onclick="returnPlaylist();" style="float: right">
-                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                    </svg>
-                </div>
-                <div class="col-12">
-                    <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
-                </div>
-                <div class="col-12">
-                    <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
-                    <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist">
-                </div>
-                <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
-                    <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
-                    <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;">Playlist privata</label>
-                  </div>
-                <div class="col-12">
-                    <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
-                    <form class="d-flex" role="search" action="#">
-                      <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
-                      <button class="btn btn-light" type="submit" id="cercaBtn" >Cerca</button>
-                    </form>
-                </div>
-                <div class="col-12">
-                    <div class="song-list mt-3">
-                        <ul class="list-group" id="songList">
-                            <li class="list-group-item d-none" id="song">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <img class="songImg" src="..." alt="..." width="60" height="60">
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="vstack">
-                                            <div class="pt-2">
-                                                <h6 class="songName"></h6>
-                                            </div>
-                                            <div class="">
-                                                <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
+            <form action="#">
+                <div class="row">
+                    <div class="col-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16" onclick="returnPlaylist();" style="float: right">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                        </svg>
+                    </div>
+                    <div class="col-12">
+                        <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
+                    </div>
+                    <div class="col-12">
+                        <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
+                        <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist" required>
+                    </div>
+                    <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
+                        <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
+                        <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch">Playlist privata</label>
+                    </div>
+                    <div class="col-12">
+                        <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
+                        <form class="d-flex" role="search" action="#">
+                          <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
+                          <button class="btn btn-light" type="submit" id="cercaBtn" >Cerca</button>
+                        </form>
+                    </div>
+                    <div class="col-12">
+                        <div class="song-list mt-3">
+                            <ul class="list-group" id="songList">
+                                <li class="list-group-item d-none" id="song">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <img class="songImg" src="..." alt="..." width="60" height="60">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="vstack">
+                                                <div class="pt-2">
+                                                    <h6 class="songName"></h6>
+                                                </div>
+                                                <div class="">
+                                                    <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-2 d-flex align-items-center justify-content-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
+                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                            </svg>
+                                        </div>
                                     </div>
-                                    <div class="col-2 d-flex align-items-center justify-content-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
-                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="float-end">
+                            <button type="submit" class="btn btn-light" onclick="salva();">Salva</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="float-end">
-                    <button type="button" class="btn btn-light" onclick="salva();">Salva</button>
-                </div>
-            </div>
-
-
-
+            </form>
         </div>
 
+        -->
+
+        <div class="modal fade" id="createPlaylistModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg  modal-fullscreen-md-down">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5 text-white" id="staticBackdropLabel">Crea Playlist</h1>
+                  <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                  </button>
+
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-12">
+                                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
+                                <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist" required>
+                            </div>
+                            <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
+                                <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
+                                <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch">Playlist privata</label>
+                            </div>
+                            <div class="col-12">
+                                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci una descrizione della playlist</p>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Inserisci la descrizione qui" id="floatingTextarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
+                                <div class="d-flex">
+                                    <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
+                                    <button class="btn btn-light" type="button" id="cercaBtn" >Cerca</button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="song-list mt-3">
+                                    <ul class="list-group" id="songList">
+                                        <li class="list-group-item d-none" id="song">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <img class="songImg" src="..." alt="..." width="60" height="60">
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="vstack">
+                                                        <div class="pt-2">
+                                                            <h6 class="songName"></h6>
+                                                        </div>
+                                                        <div class="">
+                                                            <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
+                                                        </div>
+                                                        <div class="id-song d-none">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 d-flex align-items-center justify-content-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
+                                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" onclick="salva();">Salva</button>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer d-none" id="mobileHead">
@@ -323,11 +426,15 @@
             document.getElementById('creaPlaylist').classList.remove('d-none');
         }
 
+        /*
+
         function returnPlaylist() {
             document.getElementById('header').classList.remove('blur');
             document.getElementById('elevated').classList.remove('blur');
             document.getElementById('creaPlaylist').classList.add('d-none');
         }
+
+        */
 
         function showElev() {
             document.getElementById('header').classList.remove('blur');
@@ -344,16 +451,16 @@
         });
 
         document.getElementById('cercaBtn').addEventListener('click',()=>{  
-            //console.log("ciao");
+            console.log("ciao");
             let q = document.getElementById('cerca').value;
             search(q);
         });
 
         document.getElementById('createPlt').onclick = () => {
-            console.log('Hello');
+            //console.log('Hello');
         };
 
-
+        
        fetch("http://localhost:3000/getUser/"+localStorage.getItem('id_user'), {method:'GET'})
         .then((res) => res.json())
         .then((res) => {
@@ -372,87 +479,13 @@
             });
         });
 
-        function salva(){
-            let name = document.getElementById('namePlaylist').value;
-            let songName = document.querySelectorAll("h6.songName");
-            let playlist = [];
-            if(document.getElementById('privata').checked){
-                privata = true;
-            }else{
-                privata = false;
+        document.getElementById('privata').addEventListener('click', (event) => {
+            if (document.getElementById('privata').checked) {
+                document.getElementById('textSwitch').textContent = 'Playlist pubblica';
+            } else {
+                document.getElementById('textSwitch').textContent = 'Playlist privata';
             }
-            for(let i = 0; i<songName.length; i++){
-                 playlist[i] = songName[i].innerHTML;
-            }
-
-            console.log(name);
-            console.log(playlist);
-            console.log(privata);
-
-            const options = {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(
-                  {
-                    id_user: localStorage.getItem('id_user'), 
-                    isPrivate: privata,
-                    name: name,
-                    songs: playlist
-                
-                  }
-                )
-              }
-          
-              fetch('http://localhost:3000/addPlaylist', options)
-                  .then((res) => res.json())
-                  .then((res) => {
-                    console.log(res);
-                    if (res.code == 400) {
-                        console.log('errore')
-                    } else if (res.code == 201) {
-                      console.log('ok')
-                    }
-                  })
-                  .catch((err) => console.log(err));
-            };
-            console.log('http://localhost:3000/getPlaylist/'+localStorage.getItem('id_user'));
-
-        /*
-            fetch('http://localhost:3000/getPlaylist/'+localStorage.getItem('id_user'), {method: "GET"})
-                .then((res) => res.json())
-                .then((playlist) => {
-                    
-                    const myPlaylist = document.getElementById('myPlaylist');
-                    console.log(myPlaylist);
-
-                    for (let i = 0; i < playlist.personal.length; i++) {
-                        let clone = myPlaylist.cloneNode(true);
-
-                        clone.getElementsByClassName('text-white')[0].textContent = playlist.personal[i].name;
-
-                        clone.classList.remove('d-none');
-
-                        myPlaylist.before(clone);
-                    }
-
-                    const myFavPlaylist = document.getElementById('myFavPlaylist');
-
-                    for (let i = 0; i < playlist.liked.length; i++) {
-                        let clone = myFavPlaylist.cloneNode(true);
-
-                        clone.getElementsByClassName('text-white')[0].textContent = playlist.liked[i].name;
-
-                        clone.classList.remove('d-none');
-
-                        myFavPlaylist.before(clone);
-                    }
-                        
-                }).catch((err) => console.log(err));
-       
-        */
+        });
 
     </script>
   </body>

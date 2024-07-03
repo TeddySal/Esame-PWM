@@ -7,38 +7,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/home.css">
-    <style>
-        @media screen and (max-width: 576px){
-            .box {
-                width: 70px;
-            }
-        }
-        @media screen and (max-width: 375px){
-            .box {
-                width: 50px;
-            }
-        }
-
-        .border-bottom-color {
-            border-bottom: 1px solid rgb(45, 45, 45) !important;
-        }
-    </style>
   </head>
-  <body onload="checkForAccount();showPublicPlaylist();">
+  <body onload="checkForAccount(); showPlaylistInfo();">
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
-                <a href="home.html" class="navbar-brand d-flex w-50 me-auto">
+                <a href="/" class="navbar-brand d-flex w-50 me-auto">
                     <img src="img/logo1.png" alt="" width="50" height="50">
                 </a> 
                 <div class="navbar-collapse collapse w-100">
                     <ul class="navbar-nav w-100 justify-content-center">
                         <li class="nav-item">
                             <div class="box">
-                                <a class="nav-link active nav-box" href="home.html">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                                        <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
-                                    </svg>
+                                <a class="nav-link nav-box" href="home.html">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                                      </svg>
                                 </a>
                             </div>
                         </li>
@@ -62,10 +46,10 @@
                         </li>
                         <li class="nav-item">
                             <div class="box">
-                                <a href="profilo.html" class="nav-link nav-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                                    </svg>
+                                <a href="profilo.html" class="nav-link nav-box active" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                      </svg>
                                 </a>
                             </div>
                         </li>
@@ -95,49 +79,38 @@
             </div>
         </nav>
     </header>
+
     <div class="container d-flex justify-content-center">
-        <div style="width: 42rem;">
+        <div class="elevated rounded-4 " id="elevated">
             <div class="row">
-                <div id="playPost" class="col-md-12 mb-3 rounded-4 d-none">
-                    <div class="row">
-                        <div class="col-12 border-bottom-color">
-                            
-                            <div class="hstack">
-                                <div>
-                                    <img src="img/Default_pfp.svg.png" alt="" width="50" height="50" class="p-2">
+                <div id="playInfo" class="col-md-12">
+                    <div class="post">
+                        <div class="card border-bottom-color" style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
+                            <div class="row">
+                              <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                <img src="img/playlist_img.png" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body h-50">
+                                  <h5 class="card-title mt-3">Hello</h5>
                                 </div>
-                                <div class="pt-2">
-                                    <h5 class="text-white post-username"></h5>
+                                <div class="card-footer" style="border-top: none;">
+                                    <p>Descrizione</p>
                                 </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-12">
-                            <div class="card " style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
-                                <div class="row">
-                                  <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                    <img src="img/playlist_img.png" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="card-body h-50">
-                                      <h5 class="card-title mt-3"></h5>
-                                      <p class="card-text" style="color: gray;"></p>
-                                    </div>
-                                    <div class="card-footer" style="border-top: none;">
-                                        <a href="#" class="btn mb-3" style="color: black;">Dettagli</a>
-                                    </div>
-                                  </div>
-                                </div>
+                              </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    
+                </div>
             </div>
         </div>
     </div>
-    
+
     <footer class="footer d-none" id="mobileHead">
-        <nav class="navbar navbar-expand p-0 fixed-bottom justify-content-center">
+        <nav class="navbar  p-0 fixed-bottom justify-content-center">
             <div class="container-fluid">
                 <div class="w-100">
                     <ul class="navbar-nav w-100 justify-content-center flex-row">
@@ -183,23 +156,20 @@
             </div>
         </nav>
     </footer>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="JavaScript/func.js"></script>
     <script>
-        //document.getElementsByClassName('post')[document.getElementsByClassName('post').length-1].classList.remove('post');
+        const url = window.location.search;
+        const urlParams = new URLSearchParams(url);
+        const playlistId = urlParams.get('playid');
 
-
-        let media = window.matchMedia('((max-width: 768px))');
-
-        changeScreenMedia(media);
-
-        media.addEventListener('change', function() {
-            changeScreenMedia(media);
-        });
-
-
-
+        function showPlaylistInfo() {
+            fetch(`http://localhost:3000/getPlaylistInfo/${playlistId}`, {method: "GET"})
+                .then((res) => res.json())
+                .then((playlist) => {
+                    console.log(playlist);
+                }).catch((err) => console.log(err));
+        }
     </script>
   </body>
 </html>

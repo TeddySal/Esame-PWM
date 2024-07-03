@@ -158,7 +158,6 @@ function changeScreenMedia(media) {
 }  
 
 function search(q){
-  console.log("ciao");
   fetch(`https://api.spotify.com/v1/search?q=${q}&type=track&market=IT&limit=1`, {method: "GET",
     headers: {Authorization: localStorage.getItem('api_key')}})
     .then((res) => {
@@ -176,7 +175,8 @@ function search(q){
       clone.id = 'artistSong';
 
       clone.getElementsByClassName('songImg')[0].src = track.tracks.items[0].album.images[2].url;
-      clone.getElementsByClassName('songName')[0].textContent = track.tracks.items[0].name;;
+      clone.getElementsByClassName('songName')[0].textContent = track.tracks.items[0].name;
+      clone.getElementsByClassName('id-song')[0].textContent = track.tracks.items[0].id;
       for(let i = 0; i < track.tracks.items[0].artists.length; i++) {
         if (clone.getElementsByClassName('artistsNames')[0].textContent == '') {
           clone.getElementsByClassName('artistsNames')[0].textContent = clone.getElementsByClassName('artistsNames')[0].textContent  + track.tracks.items[0].artists[i].name; 
@@ -201,12 +201,15 @@ function showPublicPlaylist() {
   .then((res) => res.json())
   .then((playlist) => {
       const playPost = document.getElementById('playPost');
+      console.log(playlist);
       for (let i = 0; i < playlist.length; i++) {
           let clone = playPost.cloneNode(true);
 
-          if (i == playlist.length-1)   clone.childNodes[1].childNodes[1].classList.remove('border-bottom-color');
-
+          //if (i == playlist.length-1)   clone.childNodes[1].childNodes[1].classList.remove('border-bottom-color');
+          clone.getElementsByClassName('post-username')[0].textContent = playlist[i].username;
           clone.getElementsByClassName('card-title')[0].textContent = playlist[i].name;
+          clone.getElementsByClassName('card-text')[0].textContent = playlist[i].description;
+          clone.getElementsByClassName('btn')[0].href = 'playlist.html?playid='+playlist[i]._id;
 
           clone.classList.remove('d-none');
 
@@ -215,13 +218,57 @@ function showPublicPlaylist() {
   }).catch((err) => console.log(err));
 }
 
-function getUserPlaylist(id_user) {
-  fetch('http://localhost:3000/getPlaylist/'+localStorage.getItem('id_user'), {method: "GET"})
-    .then((res) => res.json())
-    .then((playlist) => {
+async function getUsernameFromId() {
+  const result = await fetch(`http://localhost:3000/getUser/${localStorage.getItem('id_user')}`, {method: "GET"});
+  const username = (await result.json()).username;
+  return username;
+}
+
+async function salva() {
+  let name = document.getElementById('namePlaylist').value;
+  let songName = document.querySelectorAll(".id-song");
+  let description = document.getElementById('floatingTextarea').value;
+  let playlist = [];
+
+  (document.getElementById('privata').checked) ? privata = true : privata = false;
+  
+  songName.forEach((element) => playlist.push(element.textContent));
+  playlist.pop();
+
+  const options = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+          username: await getUsernameFromId(), 
+          isPublic: privata,
+          name: name,
+          description: description,
+          songs: playlist
       
+        }
+      )
+  };
+
+  fetch('http://localhost:3000/addPlaylist', options)
+    .then((res) => {
+      if (!res.ok) {
+        alert('errore');
+      } else {
+        window.location = 'profilo.html';
+      }
+    }).catch((err) => console.log(err));
+}
+
+async function getUserPlaylist(id_user) {
+  fetch('http://localhost:3000/getPlaylist/'+await getUsernameFromId(), {method: "GET"})
+    .then((res) => res.json())
+    .then((playlist) => {  
       const myPlaylist = document.getElementById('myplay');
-      console.log(myPlaylist);
+      //console.log(myPlaylist);
 
       for (let i = 0; i < playlist.personal.length; i++) {
           let clone = myPlaylist.cloneNode(true);
@@ -234,8 +281,11 @@ function getUserPlaylist(id_user) {
       }
 
       const myFavPlaylist = document.getElementById('myfavplay');
+      const nolpText = document.getElementById('nolpText');
 
-      for (let i = 0; i < playlist.liked.length; i++) {
+      if (playlist.liked.length != 0) {
+        nolpText.classList.add('d-none');
+        for (let i = 0; i < playlist.liked.length; i++) {
           let clone = myFavPlaylist.cloneNode(true);
 
           clone.getElementsByClassName('text-white')[0].textContent = playlist.liked[i].name;
@@ -243,7 +293,12 @@ function getUserPlaylist(id_user) {
           clone.classList.remove('d-none');
 
           myFavPlaylist.before(clone);
+        }
+      } else {
+        nolpText.classList.remove('d-none');
       }
-          
+
+
+        
   }).catch((err) => console.log(err));
 }

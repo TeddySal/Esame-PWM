@@ -45,3 +45,25 @@
   stroke-width: .3;
 }
 
+.add-playlist-card {
+  max-width: 700px;
+}
+
+.modal-content {
+  background-color: var(--main-bg-color);
+  color: white;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+#floatingTextarea {
+  background-color: var(--input-bg-color);
+  border: none;
+  color: white;
+}

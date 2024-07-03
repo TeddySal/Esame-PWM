@@ -72,6 +72,7 @@ svg {
     </style>
 </head>
 <body onload="loadGenres();">
+    <!--
     <div class="m-0 p-0 d-flex w-100">
         <div class="d-flex flex-column flex-shrink-0" style="width: 78px; height: 100vh; background-color: rgb(16, 16, 16);">
           <a href="/" class="d-block p-3 link-body-emphasis text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
@@ -186,53 +187,76 @@ svg {
         
 
     </div>
+    -->
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Launch static backdrop modal
+    </button>
+      
+      <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Crea Playlist</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
+                            <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist" required>
+                        </div>
+                        <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
+                            <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
+                            <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch">Playlist privata</label>
+                        </div>
+                        <div class="col-12">
+                        
+                                <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
+                              <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
+                              <button class="btn btn-light" type="submit" id="cercaBtn" >Cerca</button>
+                            
+                        </div>
+                        <div class="col-12">
+                            <div class="song-list mt-3">
+                                <ul class="list-group" id="songList">
+                                    <li class="list-group-item d-none" id="song">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img class="songImg" src="..." alt="..." width="60" height="60">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="vstack">
+                                                    <div class="pt-2">
+                                                        <h6 class="songName"></h6>
+                                                    </div>
+                                                    <div class="">
+                                                        <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 d-flex align-items-center justify-content-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
+                                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Salva</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script src="JavaScript/func.js"></script>
-    <script>
-        /*
-        async function loadGenres() {
-            const options =  {
-            method: "GET",
-            headers: {
-                Authorization: localStorage.getItem('api_key')
-            }
-        }
-            fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds',options)
-                .then((res) => {
-                    if (!res.ok) {
-                        if (res.status == 401) {
-                            getApiToken()
-                                .then((res) => {
-                                    localStorage.setItem('api_key', res.token_type+' '+res.access_token);
-                                })
-                            loadGenres();
-                        }
-                    } else {
-                        return res.json();
-                    }
-                })
-                .then((json) => {
-                    console.log(json);
-                    let select = document.getElementById('sel-gen');
-                    for (let i = 0; i < json.genres.length; i++) {
-                        let option = document.createElement('option');
-                        option.value = json.genres[i];
-                        option.innerHTML = json.genres[i];
-                        select.appendChild(option);
-                    }
-                });
-
-            //console.log(res);
-        }
-        const list = document.getElementById('selected-genres');
-        function addGenre(genre) {
-            let clone = list.cloneNode(true);
-
-            clone.getElementsByClassName('form-check-label')[0].innerHTML = genre;
-            clone.classList.remove('d-none');
-            list.before(clone);
-        }*/
-    </script>
+    <script src="/JavaScript/func.js"></script>
 </body>
 </html>
