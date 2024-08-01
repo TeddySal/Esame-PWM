@@ -95,85 +95,100 @@
             </div>
         </nav>
     </header>
-    <div class="container d-flex justify-content-center">
-        <div style="width: 42rem;">
-            <div class="row">
-                <div id="placeHolder" class="col-md-12 mb-3 rounded-4">
-                    <div class="row">
-                        <div class="col-12 border-bottom-color">
-                            
-                            <div class="hstack">
-                                <div class="placeholder-glow">
-                                    <span class="placeholder m-2" style="background-color: gray; width: 50px; height: 50px; border-radius: 50%;"></span>
+    <div class="container">
+        <div class="d-flex justify-content-center mb-3">
+            <div class="hstack display-search" style="width: 42rem;">
+                <div class="p-2 section">
+                    <div role="button" class="active mb-1" id="textSection">Playlist pubbliche</div>
+                    <div class="white-box m-auto"></div>
+                </div>
+                <div class="p-2 section">                    
+                    <div role="button" class="text-white-50 mb-1" id="textSection">Mi piace</div>
+                    <div class="white-box m-auto d-none"></div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div style="width: 42rem;">
+                <div class="row">
+                    <div id="placeHolder" class="col-md-12 mb-3 rounded-4">
+                        <div class="row">
+                            <div class="col-12 border-bottom-color">
+                                
+                                <div class="hstack">
+                                    <div class="placeholder-glow">
+                                        <span class="placeholder m-2" style="background-color: gray; width: 50px; height: 50px; border-radius: 50%;"></span>
+                                    </div>
+                                    <div class="pt-2 placeholder-glow">
+                                        <h5 class="text-white post-username placeholder">Placeholder</h5>
+                                    </div>
                                 </div>
-                                <div class="pt-2 placeholder-glow">
-                                    <h5 class="text-white post-username placeholder">Placeholder</h5>
-                                </div>
+                                
                             </div>
-                            
-                        </div>
-                        <div class="col-12">
-                            <div class="card" aria-hidden="true" style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
-                                <div class="row">
-                                  <div class="col-md-4 d-flex justify-content-center align-items-center placeholder-glow">
-                                    <span class="placeholder m-2 rounded-4" style="background-color: gray; width: 200px; height: 200px;"></span>
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="card-body h-50 placeholder-glow">
-                                      <h5 class="card-title mt-3 placeholder col-4"></h5>
-                                      <p class="card-text placeholder" style="color: gray;">Placeholder</p>
+                            <div class="col-12">
+                                <div class="card" aria-hidden="true" style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
+                                    <div class="row">
+                                      <div class="col-md-4 d-flex justify-content-center align-items-center placeholder-glow">
+                                        <span class="placeholder m-2 rounded-4" style="background-color: gray; width: 200px; height: 200px;"></span>
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="card-body h-50 placeholder-glow">
+                                          <h5 class="card-title mt-3 placeholder col-4"></h5>
+                                          <p class="card-text placeholder" style="color: gray;">Placeholder</p>
+                                        </div>
+                                        <div class="card-footer placeholder-glow" style="border-top: none;">
+                                            <a href="#" class="btn btn-light mb-3 disabled placeholder col-6" aria-disabled="true" style="color: black;"></a>
+                                        </div>
+                                      </div>
                                     </div>
-                                    <div class="card-footer placeholder-glow" style="border-top: none;">
-                                        <a href="#" class="btn btn-light mb-3 disabled placeholder col-6" aria-disabled="true" style="color: black;"></a>
-                                    </div>
-                                  </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="playPost" class="col-md-12 mb-3 rounded-4 d-none">
-                    <div class="row">
-                        <div class="col-12 border-bottom-color">
-                            
-                            <div class="hstack">
-                                <div>
-                                    <img src="img/Default_pfp.svg.png" alt="" width="50" height="50" class="p-2">
+                    <div id="playPost" class="col-md-12 mb-3 rounded-4 d-none">
+                        <div class="row">
+                            <div class="col-12 border-bottom-color">
+                                
+                                <div class="hstack">
+                                    <div>
+                                        <img src="img/Default_pfp.svg.png" alt="" width="50" height="50" class="p-2">
+                                    </div>
+                                    <div class="pt-2">
+                                        <h5 class="text-white post-username"></h5>
+                                    </div>
                                 </div>
-                                <div class="pt-2">
-                                    <h5 class="text-white post-username"></h5>
-                                </div>
+                                
                             </div>
-                            
-                        </div>
-                        <div class="col-12">
-                            <div class="card " style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
-                                <div class="row">
-                                  <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                    <img src="img/playlist_img.png" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="card-body h-50">
-                                        <div class="">
-                                            <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                </svg>
+                            <div class="col-12">
+                                <div class="card " style="color: white; border: none; border-radius: 0px; background-color: transparent; ">
+                                    <div class="row">
+                                      <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                        <img src="img/playlist_img.png" class="img-fluid rounded-4 p-2 shadow-sm" alt="..." width="200" height="200" >
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="card-body h-50">
+                                            <div class="">
+                                                <!--
+                                                <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                                    </svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                                    </svg>
+                                                </div>
+    -->
+                                                <h5 class="card-title mt-3"></h5>
+    
                                             </div>
-
-                                            <h5 class="card-title mt-3"></h5>
-
+    
+                                          <p class="card-text" style="color: gray;"></p>
                                         </div>
-
-                                      <p class="card-text" style="color: gray;"></p>
+                                        <div class="card-footer" style="border-top: none;">
+                                            <button class="btn btn-light mb-3 like-btn" style="color: black;" data-bs-toggle="modal" data-bs-target="#viewPlaylist">Dettagli</button >
+                                        </div>
+                                      </div>
                                     </div>
-                                    <div class="card-footer" style="border-top: none;">
-                                        <button class="btn btn-light mb-3 like-btn" style="color: black;" data-bs-toggle="modal" data-bs-target="#viewPlaylist">Dettagli</button >
-                                    </div>
-                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -181,6 +196,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="modal fade modal-lg" id="viewPlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -198,8 +214,20 @@
                     <div class="col d-flex">
                         <img src="img/playlist_img.png" alt="" width="200" height="200" class="me-4">
                         <div class="vstack">
-                            <div>
-                                <h1 class="modal-title " id="exampleModalLabel"></h1>
+                            <div class="hstack">
+                                <div>
+                                    <h1 class="modal-title " id="exampleModalLabel"></h1>
+                                </div>
+                                <div class="ms-auto">
+                                    <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                        </svg>
+                                    </div>
+                                </div>
                             </div> 
                             <div>
                                 <p class="playlist-username fs-2 text-white-50" style="color: gray;"></p>
@@ -323,12 +351,20 @@
                     if (res.success.status == 201) {
                         document.querySelector('.bi-heart').classList.add('d-none');
                         document.querySelector('.bi-heart-fill').classList.remove('d-none');
+                        document.querySelector('.bi-heart-fill').classList.add('like-playlist-fill');
                     } else if (res.success.status == 200) {
                         document.querySelector('.bi-heart').classList.remove('d-none');
                         document.querySelector('.bi-heart-fill').classList.add('d-none');
+                        document.querySelector('.bi-heart-fill').classList.remove('like-playlist-fill');
                     }
                 });
         }
+
+        const textSection = document.getElementById('textSection');
+        const whiteBox = document.querySelector('.white-box');
+        textSection.addEventListener('mouseover', (event) => {
+            whiteBox.classList.remove('d-none');
+        });
     </script>
   </body>
 </html>

@@ -76,6 +76,8 @@ async function addUser(res, newUser) {
             if (user == null) {
                 await client.db('Users').collection('user').insertOne(
                     {
+                        name: newUser.name,
+                        surname: newUser.surname,
                         email: newUser.email,
                         password: newUser.password,
                         username: newUser.username,
@@ -85,8 +87,7 @@ async function addUser(res, newUser) {
                         playlist:{
                             personal:[],
                             liked:[]
-                        },
-                        market: newUser.market
+                        }
                     }
                 );
                 user = await client.db('Users').collection('user').findOne({email: newUser.email});
@@ -104,9 +105,16 @@ async function addUser(res, newUser) {
     }
 }
 
-async function addLikedArtist(res, body) {
+async function addLikedArtistAndGenres(res, body) {
     try {
         await client.connect()
+        for (let i = 0; i < body.liked_genres.length; i++) {
+            await client.db('Users').collection('user').updateOne(
+                {_id: new ObjectId(body.id)},
+                {$push: {liked_genres: body.liked_genres[i]}}
+            );
+        }
+
         for (let i = 0; i < body.liked_artist.length; i++) {
             await client.db('Users').collection('user').updateOne(
                 {_id: new ObjectId(body.id)},
@@ -297,8 +305,8 @@ app.get('/getGenres', (req, res)=>{
     res.send(fs.readFileSync('generi.json'))
 })
 
-app.post('/addLikedArtist', (req, res) => {
-    addLikedArtist(res, req.body)
+app.post('/addLikedArtistAndGenres', (req, res) => {
+    addLikedArtistAndGenres(res, req.body)
         .catch((err) => console.log(err));
 })
 

@@ -56,6 +56,24 @@ body {
     color: white !important;
 }
 
+.display-search {
+    background-color: var(--main-bg-elevated);
+    border-radius: 20px;
+    border: .6px solid rgb(45, 45, 45);
+}
+
+.section {
+    width: 50%;
+    text-align: center;
+}
+
+.white-box {
+    width: 50%;
+    height: 2px;
+    background-color: white;
+    transition: .5s;
+}
+
 .nav-box:hover {
     background-color: var(--nav-item-hover);
     color: var(--nav-icon-color);
@@ -219,9 +237,14 @@ svg {
 }
 
 .like-playlist {
-    float: right; 
     text-decoration: none; 
     color: gray;
+    transition: .3s;
+}
+
+.like-playlist-fill {
+    text-decoration: none; 
+    color: red;
     transition: .3s;
 }
 
@@ -229,4 +252,13 @@ svg {
     color: red;
     transform: scale(1.2);
     fill: red;
+}
+
+.search-input {
+    background-color: var(--input-bg-color);
+    border: none;
+}
+
+.search-input::placeholder {
+    color: white  ;
 }

@@ -94,12 +94,16 @@ async function loadGenres() {
 }
 
 const list = document.getElementById('selected-genres');
+const likedGenres = [];
 function addGenre(genre) {
     let clone = list.cloneNode(true);
 
-    clone.getElementsByClassName('form-check-label')[0].innerHTML = genre;
-    clone.classList.remove('d-none');
-    list.before(clone);
+    if (!likedGenres.includes(genre)) {
+      clone.getElementsByClassName('form-check-label')[0].innerHTML = genre;
+      clone.classList.remove('d-none');
+      list.before(clone);
+      likedGenres.push(genre);
+    }
 }
 
 
@@ -304,7 +308,7 @@ async function getUserPlaylist(id_user) {
   }).catch((err) => console.log(err));
 }
 
-function showPlaylistInfo(viewPlaylist, playlistId) {
+async function showPlaylistInfo(viewPlaylist, playlistId) {
   const options =  {
     method: "GET",
     headers: {
@@ -316,9 +320,20 @@ function showPlaylistInfo(viewPlaylist, playlistId) {
   const descr = viewPlaylist.querySelector('.playlist-descr');
   let songsId = "";
 
+  let res = await fetch(`http://localhost:3000/getUser/${localStorage.getItem('id_user')}`, {method: "GET"});
+  let json = await res.json();
+
   fetch(`http://localhost:3000/getPlaylistInfo/${playlistId}`, {method: "GET"})
     .then((res) => res.json())
     .then((playlist) => {
+      const ris = json.playlist.liked.find((element) => element == playlist._id);
+      if (ris !== undefined) {
+        document.querySelector('.bi-heart').classList.add('d-none');
+        document.querySelector('.bi-heart-fill').classList.remove('d-none');
+      } else {
+        document.querySelector('.bi-heart').classList.remove('d-none');
+        document.querySelector('.bi-heart-fill').classList.add('d-none');
+      }
       title.textContent = playlist.name;
       user.textContent = playlist.username;
       descr.textContent = playlist.description;
