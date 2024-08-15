@@ -160,6 +160,37 @@ async function addPlaylist(res, body){
     }
 }
 
+async function addCommunity(res, body){
+    try {
+        await client.connect();
+        console.log(body);
+        let result = await client.db('Users').collection('community').insertOne(
+            {
+                name: body.name,
+                description: body.description,
+                users: [body.user_id],
+            }
+
+        );
+        //let id = result.insertedId.toHexString();
+        //console.log(id);
+        //let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(body.id_user)});
+        //console.log(user);
+        /*await client.db('Users').collection('user').updateOne(
+            { username: body.username},
+            { $push: { "playlist.personal": new ObjectId(id) }}
+        );*/
+
+        //console.log(respn);
+
+        res.status(201).send("Community creata");
+
+        
+    } finally {
+        await client.close();
+    }
+}
+
 async function getUser(res, id) {
     try {
         await client.connect();
@@ -228,6 +259,21 @@ async function getPlaylistInfo(res, id_play) {
     }
 }
 
+async function getCommunity(res, q){
+
+    try{
+        await client.connect();
+        let rc = await client.db('Users').collection('community').findOne({name: q});
+        if(rc === null){
+            res.status(404).send({error: {status: 404, message:"Nessuna community trovata"}});
+        }else{
+            res.status(200).send(rc);
+        }
+    } finally {
+        await client.close();
+    }
+}
+
 // TODO: Creare una funzione che ellimini le playlist dal db
 async function deletePlaylist(res, user_id) {
     try {
@@ -286,6 +332,18 @@ async function removeLikedPlaylist(res, body) {
     }
 }
 
+async function joinCom(res, body){
+ 
+    await client.connect();
+    const filter = {name: body.community};
+    const update = {$set: {users: body.user_id}};
+    
+    await client.db('Users').collection('community').updateOne(filter, update);
+  
+  }
+
+
+
 app.post('/login', (req, res) => {
     loginUser(res, req.body)
         .catch((err) => console.log(err));
@@ -315,6 +373,11 @@ app.post('/addPlaylist', (req, res) => {
         .catch((err) => console.log(err));
 })
 
+app.post('/addCommunity', (req, res) => {
+    addCommunity(res, req.body)
+        .catch((err) => console.log(err));
+})
+
 app.get('/getPublicPlaylist', (req, res) => {
     getPublicPlaylist(res)
         .catch((err) => console.log(err));
@@ -330,6 +393,11 @@ app.get('/getPlaylist/:username', (req, res) => {
         .catch((err) => console.log(err));
 })
 
+app.get('/getCommunity/:q', (req, res) => {
+    getCommunity(res, req.params.q)
+        .catch((err) => console.log(err));
+})
+
 app.delete('/deletePlaylist/:id', (req, res) => {
     deletePlaylist(res, req.params.id)
         .catch((err) => console.log(err));
@@ -340,7 +408,14 @@ app.post('/addLikedPlaylist', (req, res) => {
         .catch((err) => console.log(err));
 })
 
+app.post('/joinCom', (req, res) => {
+    joinCom(res, req.body)
+        .catch((err) => console.log(err));
+})
+
 app.listen(port, () => {
     console.log(`Listening to port:${port}`);
 })
+
+
 

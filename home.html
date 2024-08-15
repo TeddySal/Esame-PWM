@@ -22,6 +22,8 @@
         .border-bottom-color {
             border-bottom: 1px solid rgb(45, 45, 45) !important;
         }
+
+        
     </style>
   </head>
   <body onload="checkForAccount();showPublicPlaylist();">
@@ -238,14 +240,14 @@
                         </div>
                         
                     </div>
-                    <div class="col-12 mt-4 song-list">
+                    <div class="col-12 mt-4 song-list " >
                         <div class="list-group list-group">
                             <div id="showSong" class="list-group-item ">
                                 <div class="d-flex w-100">
                                     <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
                                     <div>
-                                        <h5 class="mb-1 song-name">Quest For Fire</h5>
-                                        <small class="artist-name" style="color: gray;">Skrillex</small>
+                                        <h5 class="mb-1 song-name" id="song-name">Quest For Fire</h5>
+                                        <small class="artist-name" style="color: gray;" id="artist-name">Skrillex</small>
                                     </div>
                                     
                                 </div>
@@ -327,6 +329,13 @@
                 const btn = event.relatedTarget;
                 const playlistId = btn.getAttribute('data-bs-playlistId');
                 showPlaylistInfo(viewPlaylist, playlistId);
+                //res = showPlaylistInfo(viewPlaylist, playlistId);
+                //console.log(res);
+                //res =>res.json();
+                /*for(let i=0;i<2;i++){
+                document.getElementById('song-name').textContent = res.name[i];
+                //
+                }*/
             });
         }
 
@@ -365,6 +374,12 @@
         textSection.addEventListener('mouseover', (event) => {
             whiteBox.classList.remove('d-none');
         });
+
+       
+        
+
+
+
     </script>
   </body>
 </html>

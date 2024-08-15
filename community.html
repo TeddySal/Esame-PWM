@@ -34,9 +34,24 @@
             fill: white;
             cursor: pointer;
         }
+
+        #nameCommunity::placeholder, #cerca::placeholder, #DescriptionCommunity::placeholder{
+    color: grey;
+}
+
+#cerca, #nameCommunity,#creaCommunity,#DescriptionCommunity{
+    background-color: var(--input-bg-color); 
+    border: none; 
+    color:white;
+}
+
+        
+   
     </style>
   </head>
   <body onload="checkForAccount(); getUserPlaylist(localStorage.getItem('id_user'));">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
@@ -66,7 +81,7 @@
                         <li class="nav-item">
                             <div class="box">
                                 <a class="nav-link nav-box" href="community.html">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-people-fill" viewBox="0 0 16 16">
                                         <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
                                       </svg>
                                 </a>
@@ -75,7 +90,7 @@
                         <li class="nav-item">
                             <div class="box">
                                 <a href="profilo.html" class="nav-link nav-box active" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="grey" class="bi bi-person" viewBox="0 0 16 16">
                                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                       </svg>
                                 </a>
@@ -107,148 +122,127 @@
             </div>
         </nav>
     </header>
-
-    <div class="container d-flex justify-content-center align-content-center" id="cont">
-        <div class="elevated rounded-4 position-absolute" id="elevated">
-            <div class="card" style="background-color: transparent; color: white; border: none;">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card-body p-4">
-                          <h5 class="card-title h2" id="nome"></h5>
-                          <p class="card-text" id="username"></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 d-flex justify-content-center">
-                        <img src="img/Default_pfp.svg.png" class="img-fluid p-3" alt="..." style="border-radius: 50%; width: 150px; height: 150px;">
-                    </div>
-                    <div class="col-md-12">
-                        <button class="btn modify-btn" style="width: 90%; margin-left: 30px;margin-right: 30px;" onclick="showMod();">Modifica profilo</button>
-                    </div>
-                    <div class="col-md-12 d-flex">
-                        <div role="button" id="myPlaylist" class="user-tab user-tab-active">
-                            <p>Le tue playlist</p>
-                        </div>
-                        <div role="button" id="myFavPlaylist" class="user-tab">
-                            <p>Playlist preferite</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div id="dispMyPlaylist" class="d-flex flex-row flex-nowrap overflow-auto">
-                            <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
-                                <li class="list-group-item card bg-transparent">
-                                    <div class="card bg-transparent border-0" style="width: 150px;" >
-                                        <div class="card-head" style="height: 150px;">
-                                            <div onclick="creaPlaylist();">
-                                                <svg id="createPlt" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16" >
-                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="card-body text-center">
-                                          <h6 class="text-white">Crea</h3>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li id="myplay" class="list-group-item card bg-transparent d-none">
-                                    <div class="card bg-transparent border-0" style="width: 150px;">
-                                        <img src="img/playlist_img.png" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
-                                        <div class="card-body text-center">
-                                          <h6 class="text-white"></h3>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-                        <div id="dispMyFavPlaylist" class="d-flex flex-row flex-nowrap overflow-auto d-none">
-                            <div class="w-100 text-center" id="nolpText">
-                                <p style="color: gray;">Non ci sono playlist</p>
-                            </div>
-                            
-                            <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
-                                <li id="myfavplay" class="list-group-item card bg-transparent d-none">
-                                    <div class="card bg-transparent border-0" style="width: 150px;">
-                                        <img src="... class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
-                                        <div class="card-body text-center">
-                                          <h6 class="text-white"></h3>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modify-card rounded-4 position-absolute mt-4 d-none" id="modCard">
-            <button class="btn" onclick="showElev();">Ritorna normale</button>
-        </div>
-
-        <div class="add-playlist-card rounded-4 position-absolute p-4 d-none" id="creaPlaylist">
+   
+    <div class="search d-flex justify-content-center align-items-center" style="margin-bottom: 20px;">
+        <div style="width: 42rem;">
             <form action="#">
-                <div class="row">
-                    <div class="col-12">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16" onclick="returnPlaylist();" style="float: right">
-                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                        </svg>
-                    </div>
-                    <div class="col-12">
-                        <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
-                    </div>
-                    <div class="col-12">
-                        <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
-                        <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist" required>
-                    </div>
-                    <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
-                        <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
-                        <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch">Playlist privata</label>
-                    </div>
-                    <div class="col-12">
-                        <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
-                        <form class="d-flex" role="search" action="#">
-                          <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
-                          <button class="btn btn-light" type="submit" id="cercaBtn" >Cerca</button>
-                        </form>
-                    </div>
-                    <div class="col-12">
-                        <div class="song-list mt-3">
-                            <ul class="list-group" id="songList">
-                                <li class="list-group-item d-none" id="song">
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <img class="songImg" src="..." alt="..." width="60" height="60">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="vstack">
-                                                <div class="pt-2">
-                                                    <h6 class="songName"></h6>
-                                                </div>
-                                                <div class="">
-                                                    <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2 d-flex align-items-center justify-content-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
-                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="float-end">
-                            <button type="submit" class="btn btn-light" onclick="salva();">Salva</button>
-                        </div>
-                    </div>
+                <div class="d-flex">
+                    <input type="text" class="form-control me-3 search-input" id="searchCommunity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Cerca community">
+                    <button class="btn btn-light" id="cerca" type="button" onclick="cercaCommunity()">Cerca</button>
+                </div>
+                <div id="risultati">
+
                 </div>
             </form>
         </div>
     </div>
 
+    <div class="container d-flex justify-content-center align-content-center" id="cont">
+        
+        <div class="elevated rounded-4 position-absolute" id="elevated">
+            
+            <div class="card" style="background-color: transparent; color: white; border: none;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-body p-4">
+                          <h5 class="card-title h3" id="titolo">Community</h5>
+                          <p class="card-text" id="username">Kerke03</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4"> 
+                        <div class="card-body p-4">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="creaCommunity">
+                                Crea community
+                              </button>
+                              
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Crea la tua community</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="margin-bottom: 200px; ;">
+                                        <form action="#">
+                                            <div class="row">
+                                            <div class="col-12">
+                                            <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
+                                            <input placeholder="Nome community" type="input" class="form-control" id="nameCommunity" required>
+                                            <div class="col-12">
+                                                <p style="color: grey; font-size: 15pt; margin-top: 20px;" >Descrizione community</p>
+                                                <div>
+                                                    <textarea class="form-control" id="DescriptionCommunity" rows="3"></textarea>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                        </div>  
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                                      <button type="button" class="btn btn-primary" onclick="salvaCommunity();">Salva</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>                      </div></div>
+                     
+                        <div class="row" style="margin-left: 10px; margin-bottom: 50px;">
+                            <div class="col-4">
+                              <div class="list-group" id="list-tab" role="tablist">
+                                <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Community 1</a>
+                                <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Community 2</a>
+                                <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Community 3</a>
+                                <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Community 4</a>
+                              </div>
+                            </div>
+                            <div class="col-8">
+                              <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">CONDIVISIONI COMMUNITY 1</div>
+                                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">CONDIVISIONI COMMUNITY 2</div>
+                                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">CONDIVISIONI COMMUNITY 3</div>
+                                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">CONDIVISIONI COMMUNITY 4</div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+
+                      
+                            
+                           
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    
+    <div id="ggg" class="container d-flex justify-content-center align-content-center d-none" >
+        
+        <div class="elevated rounded-4 position-absolute" id="elevated">
+            
+            <div class="card" style="background-color: transparent; color: white; border: none;">
+                <div class="row">
+                    <div class="col-4" style="margin-top: 20px; margin-bottom: 10px; margin-left: 10px;"><h5 id="nomecommunity">NOME COMMUNITY</h5></div>
+                </div>
+                <div class="row" style="  margin-left: 10px;" id="descrizionecommunity">viva l'italia evvai</div>
+            </div>
+            <div class="row">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary me-md-2" type="button" style="margin-bottom: 10px;" id="uniscitiCom">Unisciti</button>
+                    
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    
     <footer class="footer d-none" id="mobileHead">
         <nav class="navbar  p-0 fixed-bottom justify-content-center">
             <div class="container-fluid">
@@ -297,6 +291,20 @@
         </nav>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="JavaScript/func.js"></script>
+    <script src="JavaScript/func.js">
+    </script>
+    <script>
+       function cercaCommunity(){
+            const q = document.getElementById('searchCommunity').value;
+            document.getElementById('ggg').classList.remove('d-none');
+            document.getElementById('cont').classList.add('d-none');
+            console.log(q);
+            getCommunity(q);
+        }
+
+
+
+
+    </script>
   </body>
 </html>

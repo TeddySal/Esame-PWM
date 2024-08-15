@@ -106,7 +106,11 @@ function addGenre(genre) {
     }
 }
 
-
+async function connectToDatabase() {
+  if (!client.isConnected()) {
+      await client.connect();
+  }
+}
 
 function searchArtist(name) {
   fetch(`https://api.spotify.com/v1/search?q=artist:${name}&type=artist&market=IT&limit=10`, {method: "GET",
@@ -258,6 +262,7 @@ async function salva() {
       )
   };
 
+
   fetch('http://localhost:3000/addPlaylist', options)
     .then((res) => {
       if (!res.ok) {
@@ -266,6 +271,83 @@ async function salva() {
         window.location = 'profilo.html';
       }
     }).catch((err) => console.log(err));
+}
+
+
+
+
+
+async function salvaCommunity(){
+  let name = document.getElementById('nameCommunity').value;
+  let description = document.getElementById('DescriptionCommunity').value;
+  let user_id = localStorage.getItem('id_user');
+  console.log(user_id)
+  const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+   body: JSON.stringify(
+    {
+      name: name,
+      description: description,
+      users: user_id
+    }
+   )
+
+};
+
+fetch('http://localhost:3000/addCommunity', options)
+  .then((res)=>{
+    if (!res.ok) {
+    alert('errore');
+  } else {
+    window.location = 'community.html';
+  }
+}).catch((err) => console.log(err));
+
+
+}
+
+
+async function joinCommunity(user_id, id, community) {
+  
+  fetch(`http://localhost:3000/joinCom`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+          {
+            name: community,
+            users: {user_id}
+            
+
+          }
+      ) 
+  })
+}
+
+
+
+
+async function getCommunity(q){
+
+  fetch(`http://localhost:3000/getCommunity/${q}`, {method: "GET"})
+  .then((res)=>res.json())
+  .then((community)=>{
+    console.log(community);
+    //let risultati = document.getElementById('risultati');
+    //await connectToDatabase();
+    document.getElementById('nomecommunity').textContent = community.name;
+    document.getElementById('descrizionecommunity').textContent = community.description;
+    let user_id = localStorage.getItem('id_user');
+    document.getElementById('uniscitiCom').addEventListener("click", joinCommunity(user_id,community.name));
+ 
+  })
 }
 
 async function getUserPlaylist(id_user) {
@@ -339,7 +421,7 @@ async function showPlaylistInfo(viewPlaylist, playlistId) {
       descr.textContent = playlist.description;
       playlist.songs.forEach((song) => songsId = songsId+song+",");
       //console.log(songsId);
-      /*
+      
       fetch('https://api.spotify.com/v1/tracks?ids='+songsId,options)
       .then((res) => {
           if (!res.ok) {
@@ -380,6 +462,8 @@ async function showPlaylistInfo(viewPlaylist, playlistId) {
 
             song.before(clone);
           }
-      }).catch((err) => console.log(err));*/
+      }).catch((err) => console.log(err));
     }).catch((err) => console.log(err));
 }
+
+

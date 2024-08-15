@@ -6,7 +6,7 @@
     color:white;
 }
 
-#namePlaylist::placeholder, #cerca::placeholder{
+#namePlaylist, #nameCommunity::placeholder, #cerca::placeholder{
     color: grey;
 }
 
