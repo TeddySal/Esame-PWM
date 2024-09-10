@@ -166,9 +166,10 @@ async function addCommunity(res, body){
         console.log(body);
         let result = await client.db('Users').collection('community').insertOne(
             {
+                admin: body.admin,
                 name: body.name,
                 description: body.description,
-                users: [body.user_id],
+                users: [body.admin],
             }
 
         );
@@ -195,7 +196,7 @@ async function getUser(res, id) {
     try {
         await client.connect();
         let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(id)});
-        console.log(user);
+        //console.log(user);
         res.status(201).send(user);
     } finally {
         //await client.close();
@@ -340,8 +341,33 @@ async function joinCom(res, body){
     
     await client.db('Users').collection('community').updateOne(filter, update);
   
-  }
+}
 
+async function getCommunity(res, user) {
+    try {
+        await client.connect();
+
+        let comm = await client.db('Users').collection('community').find({users: user}).toArray();
+        if (comm.length == 0) {
+            res.status(404).send({error: {status: 404, message: 'Non ci sono community a cui fai parte'}});
+        } else {
+            res.status(200).send(comm);
+        }
+        console.log(comm.length);
+    } finally {
+        await client.close();
+    }
+}
+
+async function getUsers(res) {
+    try {
+        await client.connect();
+        let users = await client.db('Users').collection('user').find().toArray();
+        res.status(200).send(users);
+    } finally {
+        await client.close();
+    }
+}
 
 
 app.post('/login', (req, res) => {
@@ -410,6 +436,16 @@ app.post('/addLikedPlaylist', (req, res) => {
 
 app.post('/joinCom', (req, res) => {
     joinCom(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.get('/getCommunity/:user', (req, res) => {
+    getCommunity(res, req.params.user)
+        .catch((err) => console.log(err));
+})
+
+app.get('/getUsers', (req, res) => {
+    getUsers(res)
         .catch((err) => console.log(err));
 })
 

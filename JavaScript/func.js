@@ -291,22 +291,23 @@ async function salvaCommunity(){
 
    body: JSON.stringify(
     {
+      admin: await getUsernameFromId(user_id),
       name: name,
       description: description,
-      users: user_id
+      users: await getUsernameFromId(user_id)
     }
    )
 
-};
+  };
 
-fetch('http://localhost:3000/addCommunity', options)
-  .then((res)=>{
-    if (!res.ok) {
-    alert('errore');
-  } else {
-    window.location = 'community.html';
-  }
-}).catch((err) => console.log(err));
+  fetch('http://localhost:3000/addCommunity', options)
+    .then((res)=>{
+      if (!res.ok) {
+      alert('errore');
+    } else {
+      window.location = 'community.html';
+    }
+  }).catch((err) => console.log(err));
 
 
 }
