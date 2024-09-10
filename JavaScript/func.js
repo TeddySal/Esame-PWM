@@ -165,6 +165,9 @@ function changeScreenMedia(media) {
   }
 }  
 
+
+
+
 function search(q){
   fetch(`https://api.spotify.com/v1/search?q=${q}&type=track&market=IT&limit=1`, {method: "GET",
     headers: {Authorization: localStorage.getItem('api_key')}})
@@ -232,6 +235,8 @@ async function getUsernameFromId() {
   const username = (await result.json()).username;
   return username;
 }
+
+
 
 async function salva() {
   let name = document.getElementById('namePlaylist').value;
@@ -333,6 +338,14 @@ async function joinCommunity(user_id, id, community) {
 }
 
 
+function searchUser(q){
+  fetch(`http://localhost:3000/getUserFromUsername/${q}`, {method: "GET"})
+  .then((res)=>res.json())
+  .then((user)=>{
+    console.log(user);
+    
+  })
+}
 
 
 async function getCommunity(q){

@@ -168,10 +168,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Aggiungi utenti</p>
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item" id="userList"></li>
-                                                    </ul>
+                                                    <p style="color: grey; font-size: 15pt; margin-top: 20px;" >Aggiungi utenti</p>
+                                                    <div>
+                                                        <form>
+                                                            <div class="d-flex">
+                                                                <input type="text" class="form-control me-3 search-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="cerca utente" id="cercaUser">
+                                                                <button class="btn btn-light" onclick="searchUser(document.getElementById('cercaUser').value);">Cerca</button>
+                                                            </div>
+                                            
+                                                        </form>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -298,6 +304,11 @@
             getCommunity(q);
         }
 
+        /*function cercaUser(){
+            const q = document.getElementById('cercaUser').value;
+            searchUser(q);
+        }*/
+
         const setUsername = async () => {
             document.getElementById('username').textContent = await getUsernameFromId();
         }
@@ -329,9 +340,7 @@
                     for (let i = 0; i < users.length; i++) {
                         let clone = userList.cloneNode(true);
                         console.log(users[i].username);
-
                         clone.textContent = users[i].username;
-
                         userList.before(clone);
                     }
                 });

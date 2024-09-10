@@ -245,6 +245,20 @@ async function getPlaylist(res, username) {
     }
 }
 
+async function getUserFromUsername(res, user) {
+    try{
+        await client.connect();
+        let username = await client.db('Users').collection('user').findOne({username: user});
+        if(username === null){
+            res.status(404).send({error: {status: 404, message: "Username non trovato"}});
+        } else {
+            res.status(200).send(username);
+        }
+    } finally {
+        await client.close();
+    }
+  }
+
 async function getPlaylistInfo(res, id_play) {
     try {
         await client.connect();
@@ -421,6 +435,11 @@ app.get('/getPlaylist/:username', (req, res) => {
 
 app.get('/getCommunity/:q', (req, res) => {
     getCommunity(res, req.params.q)
+        .catch((err) => console.log(err));
+})
+
+app.get('/getUserFromUsername/:q', (req, res) => {
+    getUserFromUsername(res, req.params.q)
         .catch((err) => console.log(err));
 })
 
