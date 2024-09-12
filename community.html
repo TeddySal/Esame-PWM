@@ -155,7 +155,7 @@
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" style="margin-bottom: 200px;">
-                                        <form action="#">
+                                        <form>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
@@ -172,13 +172,21 @@
                                                     <div>
                                                         <form>
                                                             <div class="d-flex">
-                                                                <input type="text" class="form-control me-3 search-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="cerca utente" id="cercaUser">
-                                                                <button class="btn btn-light" onclick="searchUser(document.getElementById('cercaUser').value);">Cerca</button>
+                                                                <input type="text" class="form-control me-3 search-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="cerca utente" id="cercaUser"  oninput="searchUser(this.value);">
                                                             </div>
-                                            
                                                         </form>
                                                     </div>
 
+                                                </div>
+                                                <div class="col-12">
+                                                    <p style="color: red" id="warningUser"></p>
+                                                    <ul class="list-group" style="margin-top: 20px;">
+                                                        <li class="list-group-item" >
+                                                            <span id="userList" style="font-size: 1.25rem;"></span>
+                                                            <div role="button" class="btn btn-light float-end" onclick="aggiungiUtenti(document.getElementById('userList').textContent)">Invita</div>
+                                                        </li>
+                                                    </ul>
+                                                    
                                                 </div>
                                             </div>
                                         </form>
@@ -296,59 +304,11 @@
     <script src="JavaScript/func.js">
     </script>
     <script>
-       function cercaCommunity(){
-            const q = document.getElementById('searchCommunity').value;
-            document.getElementById('ggg').classList.remove('d-none');
-            document.getElementById('cont').classList.add('d-none');
-            console.log(q);
-            getCommunity(q);
-        }
-
-        /*function cercaUser(){
-            const q = document.getElementById('cercaUser').value;
-            searchUser(q);
-        }*/
 
         const setUsername = async () => {
-            document.getElementById('username').textContent = await getUsernameFromId();
+          document.getElementById('username').textContent = await getUsernameFromId();
         }
-
-        async function showCommunity() {
-            const username = await getUsernameFromId();
-            fetch(`http://localhost:3000/getCommunity/${username}`, {method: 'GET'})
-                .then((res) => res.json())
-                .then((comm) => {
-                    let item = document.getElementById('list-home-list');
-                    console.log(item);
-                    for (let i = 0; i < comm.length; i++) {
-                        let clone = item.cloneNode(true);
-
-                        clone.textContent = comm[i].name;
-
-                        item.before(clone);
-                    }
-                });
-        }
-
-        function showUsersList() {
-            fetch(`http://localhost:3000/getUsers`, {method: 'GET'})
-                .then((res) => res.json())
-                .then((users) => {
-                    let userList = document.getElementById('userList');
-                    console.log(userList);
-
-                    for (let i = 0; i < users.length; i++) {
-                        let clone = userList.cloneNode(true);
-                        console.log(users[i].username);
-                        clone.textContent = users[i].username;
-                        userList.before(clone);
-                    }
-                });
-        }
-
-        showUsersList();
-
-
+ 
     </script>
   </body>
 </html>

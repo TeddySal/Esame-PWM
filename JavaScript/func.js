@@ -1,4 +1,5 @@
 let auth = {};
+let utentiInvitati = [];
 
 async function getApiToken() {
     let url = 'https://accounts.spotify.com/api/token';
@@ -104,12 +105,6 @@ function addGenre(genre) {
       list.before(clone);
       likedGenres.push(genre);
     }
-}
-
-async function connectToDatabase() {
-  if (!client.isConnected()) {
-      await client.connect();
-  }
 }
 
 function searchArtist(name) {
@@ -279,14 +274,46 @@ async function salva() {
 }
 
 
+function cercaCommunity(){
+  const q = document.getElementById('searchCommunity').value;
+  document.getElementById('ggg').classList.remove('d-none');
+  document.getElementById('cont').classList.add('d-none');
+  console.log(q);
+  getCommunity(q);
+}
 
+async function showCommunity() {
+  const username = await getUsernameFromId();
+  fetch(`http://localhost:3000/getCommunity/${username}`, {method: 'GET'})
+      .then((res) => res.json())
+      .then((comm) => {
+          let item = document.getElementById('list-home-list');
+          console.log(item);
+          for (let i = 0; i < comm.length; i++) {
+              let clone = item.cloneNode(true);
+
+              clone.textContent = comm[i].name;
+
+              item.before(clone);
+          }
+      });
+}
+
+function aggiungiUtenti(username) {
+  if (utentiInvitati.indexOf(username) > -1) {
+      utentiInvitati.splice(utentiInvitati.indexOf(username), 1);
+  } else {
+      utentiInvitati.push(username);
+      console.log(utentiInvitati);
+  }
+}
 
 
 async function salvaCommunity(){
   let name = document.getElementById('nameCommunity').value;
   let description = document.getElementById('DescriptionCommunity').value;
   let user_id = localStorage.getItem('id_user');
-  console.log(user_id)
+
   const options = {
     method: "POST",
     mode: "cors",
@@ -299,7 +326,7 @@ async function salvaCommunity(){
       admin: await getUsernameFromId(user_id),
       name: name,
       description: description,
-      users: await getUsernameFromId(user_id)
+      users: utentiInvitati
     }
    )
 
@@ -340,11 +367,20 @@ async function joinCommunity(user_id, id, community) {
 
 function searchUser(q){
   fetch(`http://localhost:3000/getUserFromUsername/${q}`, {method: "GET"})
-  .then((res)=>res.json())
-  .then((user)=>{
-    console.log(user);
-    
-  })
+    .then((res) => res.json())
+    .then((user) => {
+      console.log(user);
+      let userList = document.getElementById('userList');
+      let warning = document.getElementById('warningUser');
+      if (user.username !== undefined) {
+        userList.textContent = user.username;
+        warning.textContent = ' ';
+      } else {
+        warning.textContent = user.error.message;
+        userList.textContent = ' ';
+      }
+    }
+  )
 }
 
 

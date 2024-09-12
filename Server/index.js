@@ -163,13 +163,13 @@ async function addPlaylist(res, body){
 async function addCommunity(res, body){
     try {
         await client.connect();
-        console.log(body);
+        body.users.push(body.admin);
         let result = await client.db('Users').collection('community').insertOne(
             {
                 admin: body.admin,
                 name: body.name,
                 description: body.description,
-                users: [body.admin],
+                users: body.users,
             }
 
         );
@@ -471,6 +471,3 @@ app.get('/getUsers', (req, res) => {
 app.listen(port, () => {
     console.log(`Listening to port:${port}`);
 })
-
-
-
