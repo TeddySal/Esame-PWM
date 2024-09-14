@@ -300,6 +300,33 @@ async function deletePlaylist(res, user_id) {
     }
 }
 
+
+async function sharePlaylist(res, body){
+    try{
+        await client.connect();
+
+        let community = await client.db('Users').collection('community').findOne(
+           {
+            name: body.name,
+           } 
+
+        );
+            let result = await client.db('Users').collection('community').updateOne(
+                {name: body.name},
+                {$push: {"shared_playlist": (body.nomePlaylistt)}}
+            );
+           // console.log(result);
+           // res.status(201).send({success: {status: 201, message: "Playlist condivisa"}});
+            
+        
+
+
+    }finally {
+        await client.close();
+    }
+}
+
+
 async function addLikedPlaylist(res, body) {
     try {
         await client.connect();
@@ -415,6 +442,11 @@ app.post('/addPlaylist', (req, res) => {
 
 app.post('/addCommunity', (req, res) => {
     addCommunity(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.post('/sharePlaylist', (req, res) => {
+    sharePlaylist(res, req.body)
         .catch((err) => console.log(err));
 })
 

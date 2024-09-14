@@ -299,6 +299,25 @@ async function showCommunity() {
       });
 }
 
+async function showCommunityS() {
+  const username = await getUsernameFromId();
+  fetch(`http://localhost:3000/getCommunity/${username}`, {method: 'GET'})
+      .then((res) => res.json())
+      .then((comm) => {
+          let item = document.getElementById('list-community-share');
+          console.log(item);
+          for (let i = 0; i < comm.length; i++) {
+              let clone = item.cloneNode(true);
+
+              clone.textContent = comm[i].name;
+
+              item.before(clone);
+          }
+
+
+      });
+}
+
 function aggiungiUtenti(username) {
   if (utentiInvitati.indexOf(username) > -1) {
       utentiInvitati.splice(utentiInvitati.indexOf(username), 1);
@@ -399,6 +418,8 @@ async function getCommunity(q){
  
   })
 }
+
+
 
 async function getUserPlaylist(id_user) {
   fetch('http://localhost:3000/getPlaylist/'+await getUsernameFromId(), {method: "GET"})
