@@ -293,10 +293,38 @@ async function showCommunity() {
               let clone = item.cloneNode(true);
 
               clone.textContent = comm[i].name;
+              clone.addEventListener('click', (e) => {
+                e.preventDefault();
+                showCommunityInfo(comm[i]._id);
+                clone.classList.add('disabled'); // TODO: Da fare meglio
+              })
+
+              clone.classList.remove('d-none');
 
               item.before(clone);
           }
       });
+}
+
+function showCommunityInfo(id_comm) {
+  fetch(`http://localhost:3000/getCommunityInfo/${id_comm}`)
+    .then((res) => res.json())
+    .then((comm) => {
+      console.log(comm);
+      document.getElementById('nav-tabContent').classList.remove('d-none');
+      let playlist = document.getElementById('listPlaylist');
+      console.log(playlist);
+      
+      for (let i = 0; i < comm.shared_playlist.length; i++) {
+        let clone = playlist.cloneNode(true);
+        clone.getElementsByClassName('img-fluid')[0].src = 'img/playlist_img.png';
+        clone.getElementsByClassName('card-title')[0].textContent = comm.shared_playlist[i];
+        clone.classList.remove('d-none');
+        playlist.before(clone);
+      }
+
+
+    });
 }
 
 async function showCommunityS() {

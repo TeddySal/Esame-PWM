@@ -274,6 +274,25 @@ async function getPlaylistInfo(res, id_play) {
     }
 }
 
+async function getPlaylists(res, user_id) {
+    try {
+        await client.connect();
+        let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(user_id)});
+        let playlists = [];
+        for (let i = 0; i < user.playlist.personal.length; i++) {
+            playlists.push(await client.db('Users').collection('playlist').findOne({_id: new ObjectId(user.playlist.personal[i])}));
+        }
+
+        if (playlists.length == 0) {
+            res.status(404).send({error: {status: 404, message: "Playlist non presenti"}});
+        } else {
+            res.status(200).send(playlists);
+        }
+    } finally {
+        await client.close();
+    }
+}
+
 async function getCommunity(res, q){
 
     try{
@@ -394,7 +413,18 @@ async function getCommunity(res, user) {
         } else {
             res.status(200).send(comm);
         }
-        console.log(comm.length);
+    } finally {
+        await client.close();
+    }
+}
+
+async function getCommunityInfo(res, id) {
+    try {
+        await client.connect();
+
+        let comm = await client.db('Users').collection('community').findOne({_id: new ObjectId(id)});
+
+        res.status(200).send(comm);
     } finally {
         await client.close();
     }
@@ -465,6 +495,11 @@ app.get('/getPlaylist/:username', (req, res) => {
         .catch((err) => console.log(err));
 })
 
+app.get('/getPlaylists/:user_id', (req, res) => {
+    getPlaylists(res, req.params.user_id)
+        .catch((err) => console.log(err));
+})
+
 app.get('/getCommunity/:q', (req, res) => {
     getCommunity(res, req.params.q)
         .catch((err) => console.log(err));
@@ -492,6 +527,11 @@ app.post('/joinCom', (req, res) => {
 
 app.get('/getCommunity/:user', (req, res) => {
     getCommunity(res, req.params.user)
+        .catch((err) => console.log(err));
+})
+
+app.get('/getCommunityInfo/:id', (req, res) => {
+    getCommunityInfo(res, req.params.id)
         .catch((err) => console.log(err));
 })
 

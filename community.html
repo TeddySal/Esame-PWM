@@ -203,23 +203,45 @@
                         <div class="row" style="margin-left: 10px; margin-bottom: 50px;">
                             <div class="col-4">
                               <div class="list-group" id="list-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home"></a>
+                                <a class="list-group-item list-group-item-action active d-none" id="list-home-list"></a>
                               </div>
                             </div>
                             <div class="col-8">
-                              <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">CONDIVISIONI COMMUNITY 1</div>
-                                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">CONDIVISIONI COMMUNITY 2</div>
-                                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">CONDIVISIONI COMMUNITY 3</div>
-                                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">CONDIVISIONI COMMUNITY 4</div>
+                              <div class="tab-content me-3 d-none" id="nav-tabContent">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="card-title h5">Playlist condivise</h5>
+                                    </div>
+                                    <div class="col-12  mt-3">
+                                        <div class="overflow-auto">
+                                            <ul class="list-group" style="max-height: 400px;">
+                                                <li class="list-group-item d-none" id="listPlaylist">
+                                                    <div class="card bg-transparent border-0">
+                                                        <div class="row g-0">
+                                                          <div class="col-md-4">
+                                                            <img src="..." width="100" height="100" class="img-fluid rounded-2" alt="...">
+                                                          </div>
+                                                          <div class="col-md-8">
+                                                            <div class="card-body">
+                                                              <h5 class="card-title text-white"></h5>
+                                                              <p class="card-text text-white"></p>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <button type="button" class="btn btn-light w-100" data-bs-toggle="modal" data-bs-target="#sharePlaylist" onclick="showPersonalPlaylists(localStorage.getItem('id_user'));">Condividi playlist</button>
+                                    </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                      </div>
-
-                      
-                            
-                           
+                      </div>   
                     </div>
 
                     
@@ -227,7 +249,35 @@
             </div>
         </div>
 
-
+        <div class="modal fade" id="sharePlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Condividi una tua playlist</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" style="max-height: 400px;">
+                        <li class="list-group-item d-none">
+                            <div class="card bg-transparent border-0">
+                                <div class="row g-0">
+                                  <div class="col-md-4">
+                                    <img src="..." width="100" height="100" class="img-fluid rounded-2" alt="...">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <h5 class="card-title text-white">Hello</h5>
+                                      <button type="button" class="btn btn-light float-end">Condividi</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
     </div>
@@ -307,6 +357,14 @@
 
         const setUsername = async () => {
           document.getElementById('username').textContent = await getUsernameFromId();
+        }
+
+        function showPersonalPlaylists(id_user) {
+            fetch(`http://localhost:3000/getPlaylists/${id_user}`, {method: 'GET'})
+                .then((res) => res.json())
+                .then((playlists) => {
+                    console.log(playlists);
+                });
         }
  
     </script>
