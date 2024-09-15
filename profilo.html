@@ -50,7 +50,7 @@
                     <ul class="navbar-nav w-100 justify-content-center">
                         <li class="nav-item">
                             <div class="box">
-                                <a class="nav-link nav-box" href="home.html">
+                                <a class="nav-link nav-box" href="index.html">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                                         <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
                                       </svg>
@@ -188,15 +188,37 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Modal title</h5>
+                  <h5 class="modal-title">Modifica profilo</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>Modal body text goes here.</p>
+                    <div>
+                        <h6>Cambia username</h6>
+                        <div class="mb-2">
+                            <input placeholder="Scegliere un username nuovo" class="form-control" id="username" aria-describedby="emailHelp" name="username">
+                            <div id="usernameHelpBlock" class="form-text mt-3 mb-3 d-none" style="color: red;">*Username gia in uso</div>
+                            <button type="button" class="btn btn-primary" style="margin-top: 15px;  float: right;">Salva</button>
+                          </div>
+                    </div>  
+                  <div style="margin-top: 50px;">
+                    <h6>Cambia password</h6>
+                    <div class="mb-2">
+                        <input placeholder="Vecchia password" type="password" class="form-control" id="vecchiapassword">
+                        <input placeholder="Nuova Password" type="password" class="form-control" id="password" name="password" style="margin-top: 10px;">
+                        <div id="passwordHelpBlock" class="form-text mt-3 mb-3" style="color: white;">
+                          *La tua password deve contenere almeno 8 caretteri, almeno una lettera maiuscola e almeno un carettere speciale
+                        </div>
+                        <button type="button" class="btn btn-primary" style="margin-top: 5px; float: right;">Salva</button>
+                      </div>
+                  </div>
+                  <div style="margin-top: 50px;">
+                    <h6>Cambia e-mail</h6>
+                    <input placeholder="Inserire la nuova mail" type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                    <button type="button" class="btn btn-primary" style="margin-top: 15px;  float: right;">Salva</button>
+                  </div>
+                  
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
