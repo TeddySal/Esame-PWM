@@ -259,6 +259,42 @@ async function getUserFromUsername(res, user) {
     }
   }
 
+async function changeUsername(res, body){
+    try{
+        await client.connect();
+        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "username": body.newUser } });
+        res.status(200);
+
+    } finally{
+        await client.close();
+    }
+}
+
+
+async function changeEmail(res, body){
+    try{
+        await client.connect();
+        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "email": body.newEmail } });
+        res.status(200);
+
+    } finally{
+        await client.close();
+    }
+}
+
+
+async function changePassword(res, body){
+    try{
+        await client.connect();
+        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "password": body.newPassword } });
+        res.status(200);
+
+    } finally{
+        await client.close();
+    }
+}
+
+
 async function getPlaylistInfo(res, id_play) {
     try {
         await client.connect();
@@ -478,6 +514,21 @@ app.post('/addCommunity', (req, res) => {
 app.post('/sharePlaylist', (req, res) => {
     sharePlaylist(res, req.body)
         .catch((err) => console.log(err));
+})
+
+app.post('/changeUsername', (req,res)=> {
+    changeUsername(res, req.body)
+    .catch((err) => console.log(err));
+})
+
+app.post('/changeEmail', (req,res)=> {
+    changeEmail(res, req.body)
+    .catch((err) => console.log(err));
+})
+
+app.post('/changePassword', (req,res)=> {
+    changePassword(res, req.body)
+    .catch((err) => console.log(err));
 })
 
 app.get('/getPublicPlaylist', (req, res) => {
