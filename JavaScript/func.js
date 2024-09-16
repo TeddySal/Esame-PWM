@@ -392,6 +392,88 @@ async function salvaCommunity(){
 }
 
 
+
+
+function changeUser(){
+  newUser = document.getElementById('cUsername').value;
+  oldUsername = localStorage.getItem('id_user');
+  const options = {
+  method: "POST",
+  mode: "cors",
+  headers: {
+  "Content-Type": "application/json",
+  },
+
+  body: JSON.stringify(
+  {
+  id: oldUsername,
+  newUser: newUser
+  }
+  )
+
+  };
+  
+  fetch('http://localhost:3000/changeUsername', options)
+  .then((res)=>{
+      window.location = 'profilo.html';
+  }).catch((err) => console.log(err));
+  
+  }
+
+
+  function changePass(){
+    newPassword = document.getElementById('cPassword').value;
+    user_id = localStorage.getItem('id_user');
+    const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+    "Content-Type": "application/json",
+    },
+  
+    body: JSON.stringify(
+    {
+    id: user_id,
+    newPassword: newPassword
+    }
+    )
+  
+    };
+    
+    fetch('http://localhost:3000/changePassword', options)
+    .then((res)=>{
+        window.location = 'profilo.html';
+    }).catch((err) => console.log(err));
+    
+    }
+
+
+    function changeEmail(){
+      newEmail = document.getElementById('cEmail').value;
+      user_id = localStorage.getItem('id_user');
+      const options = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+      "Content-Type": "application/json",
+      },
+    
+      body: JSON.stringify(
+      {
+      id: user_id,
+      newEmail: newEmail
+      }
+      )
+    
+      };
+      
+      fetch('http://localhost:3000/changeEmail', options)
+      .then((res)=>{
+          window.location = 'profilo.html';
+      }).catch((err) => console.log(err));
+      
+      }
+
 async function joinCommunity(user_id, id, community) {
   
   fetch(`http://localhost:3000/joinCom`, {
@@ -489,6 +571,11 @@ async function getUserPlaylist(id_user) {
         
   }).catch((err) => console.log(err));
 }
+
+
+
+
+
 
 async function showPlaylistInfo(viewPlaylist, playlistId) {
   const options =  {
