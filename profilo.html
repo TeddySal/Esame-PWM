@@ -154,7 +154,7 @@
                                     </div>
                                 </li>
                                 <li id="myplay" class="list-group-item card bg-transparent d-none">
-                                    <div class="card bg-transparent border-0" style="width: 150px;">
+                                    <div role="button" class="card bg-transparent border-0" style="width: 150px;" id="infoPlaylist" data-bs-toggle="modal" data-bs-target="#viewPlaylist">
                                         <img src="img/playlist_img.png" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
                                         <div class="card-body text-center">
                                           <h6 class="text-white"></h3>
@@ -171,7 +171,7 @@
                             <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
                                 <li id="myfavplay" class="list-group-item card bg-transparent d-none">
                                     <div class="card bg-transparent border-0" style="width: 150px;">
-                                        <img src="... class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
+                                        <img src="..." class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
                                         <div class="card-body text-center">
                                           <h6 class="text-white"></h3>
                                         </div>
@@ -183,6 +183,102 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade modal-lg" id="viewPlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header" style="border-bottom: none;">
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col d-flex">
+                            <img src="img/playlist_img.png" alt="" width="200" height="200" class="me-4">
+                            <div class="vstack">
+                                <div class="hstack">
+                                    <div>
+                                        <h1 class="modal-title " id="nomePlaylistt"></h1>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                            </svg>
+                                            
+                                        </div>
+                                    </div>
+                                   
+                                </div> 
+    
+                                <div>
+                                    <p class="playlist-username fs-2 text-white-50" style="color: gray;" id="nomePlaylist" ></p>
+                                </div>
+                                <div>
+                                    <small class="playlist-descr" style="color: gray;"></small>
+                                    <div class="row" style="margin-top: 12px;">
+                                          
+                                          <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" id="selzionaCommunity" style="background-color: var(--main-bg-color);">
+                                            
+                                            <div class="offcanvas-header">
+                                              <h5 class="offcanvas-title" id="staticBackdropLabel" style="color: white;">Condividi</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                            </div>
+                                            <div class="offcanvas-body">
+                                              <div>
+                                               <p style="color: grey;">Seleziona la community a cui vuoi condividere la playlist</p> 
+                                               <div class="list-group">
+                                                <button type="button" class="list-group-item list-group-item-action" id="list-community-share" onclick="condividi(this, document.getElementById('nomePlaylistt').innerHTML);" ></button>
+                                              </div>
+                                               
+                                              
+                                          </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                   
+                                    
+                                </div>
+                                
+                                </div>
+                                </div>
+    
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 mt-4 song-list " >
+                            <div class="list-group list-group">
+                                <div id="showSong" class="list-group-item d-none">
+                                    <div class="d-flex w-100">
+                                        <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
+                                        <div class="row w-100">
+                                            <div class="col-8">
+                                                <h5 class="mb-1 song-name" id="song-name"></h5>
+                                            </div>
+                                            <div class="col-4">
+                                                <small class="float-end s-duration"></small>
+                                            </div>
+                                            <div class="col">
+                                                <small class="artist-name" style="color: gray;" id="artist-name"></small>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <div class="modal fade" tabindex="-1" id="modifyModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog">
@@ -370,7 +466,7 @@
             </div>
         </div>
     </div>
-
+<!--
     <footer class="footer d-none" id="mobileHead">
         <nav class="navbar  p-0 fixed-bottom justify-content-center">
             <div class="container-fluid">
@@ -418,6 +514,7 @@
             </div>
         </nav>
     </footer>
+    -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="JavaScript/func.js"></script>
     <script>
@@ -463,23 +560,19 @@
             document.getElementById('modCard').classList.add('d-none');
         }
 
-        let media = window.matchMedia('((max-width: 768px))');
+        /*let media = window.matchMedia('((max-width: 768px))');
 
         changeScreenMedia(media);
 
         media.addEventListener('change', function() {
             changeScreenMedia(media);
-        });
+        });*/
 
         document.getElementById('cercaBtn').addEventListener('click',()=>{  
             console.log("ciao");
             let q = document.getElementById('cerca').value;
             search(q);
         });
-
-        document.getElementById('createPlt').onclick = () => {
-            //console.log('Hello');
-        };
 
         
        fetch("http://localhost:3000/getUser/"+localStorage.getItem('id_user'), {method:'GET'})

@@ -240,9 +240,6 @@
                             <div>
                                 <small class="playlist-descr" style="color: gray;"></small>
                                 <div class="row" style="margin-top: 12px;">
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" onclick="showCommunityS();">
-                                        <i class="bi bi-share"></i> Condividi Playlist</i>
-                                      </button>
                                       
                                       <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" id="selzionaCommunity" style="background-color: var(--main-bg-color);">
                                         
@@ -274,12 +271,20 @@
                     </div>
                     <div class="col-12 mt-4 song-list " >
                         <div class="list-group list-group">
-                            <div id="showSong" class="list-group-item ">
+                            <div id="showSong" class="list-group-item d-none">
                                 <div class="d-flex w-100">
                                     <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
-                                    <div>
-                                        <h5 class="mb-1 song-name" id="song-name">Quest For Fire</h5>
-                                        <small class="artist-name" style="color: gray;" id="artist-name">Skrillex</small>
+                                    <div class="row w-100">
+                                        <div class="col-8">
+                                            <h5 class="mb-1 song-name" id="song-name"></h5>
+                                        </div>
+                                        <div class="col-4">
+                                            <small class="float-end s-duration"></small>
+                                        </div>
+                                        <div class="col">
+                                            <small class="artist-name" style="color: gray;" id="artist-name"></small>
+                                        </div>
+                                        
                                     </div>
                                     
                                 </div>

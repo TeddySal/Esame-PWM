@@ -1,5 +1,12 @@
 @import url(variables.css);
 
+@media screen and (max-width: 768px){
+  .elevated {
+      width: 100% !important;
+      text-align: center;
+  }
+}
+
 #cerca, #namePlaylist{
     background-color: var(--input-bg-color); 
     border: none; 

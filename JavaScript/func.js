@@ -454,12 +454,13 @@ async function getUserPlaylist(id_user) {
     .then((res) => res.json())
     .then((playlist) => {  
       const myPlaylist = document.getElementById('myplay');
-      //console.log(myPlaylist);
+      console.log(playlist);
 
       for (let i = 0; i < playlist.personal.length; i++) {
           let clone = myPlaylist.cloneNode(true);
 
           clone.getElementsByClassName('text-white')[0].textContent = playlist.personal[i].name;
+          clone.children[0].setAttribute('data-bs-playlistId', playlist.personal[i]._id);
 
           clone.classList.remove('d-none');
 
@@ -541,12 +542,13 @@ async function showPlaylistInfo(viewPlaylist, playlistId) {
           console.log(json);
           document.querySelectorAll('[id=song]').forEach((element) => element.remove());
           const song = document.getElementById('showSong');
-          for (let i = 0; i < json.tracks.length-1; i++) {
+          for (let i = 0; i < json.tracks.length; i++) {
             let clone = song.cloneNode(true);
             clone.id = 'song';
 
             clone.getElementsByClassName('song-img')[0].src = json.tracks[i].album.images[0].url;
             clone.getElementsByClassName('song-name')[0].textContent = json.tracks[i].name;
+            clone.getElementsByClassName('s-duration')[0].textContent = millisToMinutesAndSeconds(json.tracks[i].duration_ms);
 
             json.tracks[i].artists.forEach((artist) => {
               if (clone.getElementsByClassName('artist-name')[0].textContent == '') {
@@ -565,4 +567,25 @@ async function showPlaylistInfo(viewPlaylist, playlistId) {
     }).catch((err) => console.log(err));
 }
 
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
 
+const viewPlaylist = document.getElementById('viewPlaylist');
+console.log(viewPlaylist);
+if (viewPlaylist) {
+    viewPlaylist.addEventListener('show.bs.modal', (event) => {
+        const btn = event.relatedTarget;
+        const playlistId = btn.getAttribute('data-bs-playlistId');
+        showPlaylistInfo(viewPlaylist, playlistId);
+        //res = showPlaylistInfo(viewPlaylist, playlistId);
+        //console.log(res);
+        //res =>res.json();
+        /*for(let i=0;i<2;i++){
+        document.getElementById('song-name').textContent = res.name[i];
+        //
+        }*/
+    });
+}
