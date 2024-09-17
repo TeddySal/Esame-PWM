@@ -170,6 +170,7 @@ async function addCommunity(res, body){
                 name: body.name,
                 description: body.description,
                 users: body.users,
+                shared_playlist: []
             }
 
         );
@@ -185,6 +186,23 @@ async function addCommunity(res, body){
         //console.log(respn);
 
         res.status(201).send("Community creata");
+
+        
+    } finally {
+        await client.close();
+    }
+}
+
+async function addPlaylistToCommunity(res, body){
+    try {
+        await client.connect();
+        
+        let result = await client.db('Users').collection('community').updateOne(
+            { _id: new ObjectId(body.id_comm)},
+            { $push: { "shared_playlist": new ObjectId(body.id_playlist) }}
+        );
+
+        res.status(201).send({success: {status: 201, message: 'Playlist inserita nella community'}});
 
         
     } finally {
@@ -454,6 +472,22 @@ async function getCommunity(res, user) {
     }
 }
 
+async function getCommunitySharedPlaylist(res, id_comm) {
+    try {
+        await client.connect();
+        let playlist_ids = (await client.db('Users').collection('community').findOne({_id: new ObjectId(id_comm)})).shared_playlist;
+        let playlists = []
+        for (let i = 0; i < playlist_ids.length; i++) {
+            //console.log(await client.db('Users').collection('playlist').findOne({_id: new ObjectId(playlist_ids[i])}));
+            playlists.push(await client.db('Users').collection('playlist').findOne({_id: new ObjectId(playlist_ids[i])}));
+        }
+
+        res.status(200).send(playlists);
+    } finally {
+        await client.close();
+    }
+}
+
 async function getCommunityInfo(res, id) {
     try {
         await client.connect();
@@ -471,6 +505,16 @@ async function getUsers(res) {
         await client.connect();
         let users = await client.db('Users').collection('user').find().toArray();
         res.status(200).send(users);
+    } finally {
+        await client.close();
+    }
+}
+
+async function deleteUser(res, id_user) {
+    try {
+        await client.connect();
+        await client.db('Users').collection('user').deleteOne({_id: new ObjectId(id_user)});
+        res.status(200).send({success: {status: 200, message: 'User elliminato correttamente'}});
     } finally {
         await client.close();
     }
@@ -508,6 +552,11 @@ app.post('/addPlaylist', (req, res) => {
 
 app.post('/addCommunity', (req, res) => {
     addCommunity(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.post('/addPlaylistToCommunity', (req, res) => {
+    addPlaylistToCommunity(res, req.body)
         .catch((err) => console.log(err));
 })
 
@@ -556,6 +605,10 @@ app.get('/getCommunity/:q', (req, res) => {
         .catch((err) => console.log(err));
 })
 
+app.get('/getCommunitySharedPlaylist', (req, res) => {
+    getCommunitySharedPlaylist(res, req.query.id).catch((err) => console.log(err));
+})
+
 app.get('/getUserFromUsername/:q', (req, res) => {
     getUserFromUsername(res, req.params.q)
         .catch((err) => console.log(err));
@@ -588,6 +641,11 @@ app.get('/getCommunityInfo/:id', (req, res) => {
 
 app.get('/getUsers', (req, res) => {
     getUsers(res)
+        .catch((err) => console.log(err));
+})
+
+app.delete('/deleteUser/:id', (req, res) => {
+    deleteUser(res, req.params.id)
         .catch((err) => console.log(err));
 })
 

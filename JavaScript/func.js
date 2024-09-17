@@ -293,9 +293,11 @@ async function showCommunity() {
               let clone = item.cloneNode(true);
 
               clone.textContent = comm[i].name;
+              clone.setAttribute('data-commId', comm[i]._id);
               clone.addEventListener('click', (e) => {
                 e.preventDefault();
                 showCommunityInfo(comm[i]._id);
+                document.querySelectorAll('.disabled').forEach((el) => el.classList.remove('disabled'));
                 clone.classList.add('disabled'); // TODO: Da fare meglio
               })
 
@@ -311,16 +313,35 @@ function showCommunityInfo(id_comm) {
     .then((res) => res.json())
     .then((comm) => {
       console.log(comm);
-      document.getElementById('nav-tabContent').classList.remove('d-none');
+
+      document.querySelectorAll('[id=lPlaylist]').forEach((el) => el.remove());
+      
+      let community = document.getElementById('nav-tabContent');
+      community.classList.remove('d-none');
+      community.querySelector('[id=notPlaylistWarn]').classList.add('d-none');
+      community.querySelector('[id=commName]').textContent = comm.name;
+      community.setAttribute('data-idComm', comm._id);
       let playlist = document.getElementById('listPlaylist');
       console.log(playlist);
       
-      for (let i = 0; i < comm.shared_playlist.length; i++) {
-        let clone = playlist.cloneNode(true);
-        clone.getElementsByClassName('img-fluid')[0].src = 'img/playlist_img.png';
-        clone.getElementsByClassName('card-title')[0].textContent = comm.shared_playlist[i];
-        clone.classList.remove('d-none');
-        playlist.before(clone);
+      if (comm.shared_playlist.length != 0) {
+        for (let i = 0; i < comm.shared_playlist.length; i++) {
+          let clone = playlist.cloneNode(true);
+          clone.getElementsByClassName('img-fluid')[0].src = 'img/playlist_img.png';
+          fetch(`http://localhost:3000/getPlaylistInfo/${comm.shared_playlist[i]}`, {method: 'GET'})
+            .then((res) => res.json())
+            .then((plist) => {
+              clone.getElementsByClassName('card-title')[0].textContent = plist.name;
+              clone.getElementsByClassName('card-text')[0].textContent = plist.username;
+              clone.getElementsByClassName('btn-light')[0].setAttribute('data-bs-playlistId', plist._id);
+              clone.id = 'lPlaylist';
+              clone.classList.remove('d-none');
+              playlist.before(clone);
+            });
+
+        }
+      } else {
+        community.querySelector('[id=notPlaylistWarn]').classList.remove('d-none');
       }
 
 
@@ -665,14 +686,9 @@ console.log(viewPlaylist);
 if (viewPlaylist) {
     viewPlaylist.addEventListener('show.bs.modal', (event) => {
         const btn = event.relatedTarget;
+        
         const playlistId = btn.getAttribute('data-bs-playlistId');
+        console.log(playlistId);
         showPlaylistInfo(viewPlaylist, playlistId);
-        //res = showPlaylistInfo(viewPlaylist, playlistId);
-        //console.log(res);
-        //res =>res.json();
-        /*for(let i=0;i<2;i++){
-        document.getElementById('song-name').textContent = res.name[i];
-        //
-        }*/
     });
 }

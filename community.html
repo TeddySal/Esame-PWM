@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Community</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -129,9 +129,7 @@
     </header>
 
     <div class="container d-flex justify-content-center align-content-center" id="cont">
-        
         <div class="elevated rounded-4 position-absolute" id="elevated">
-            
             <div class="card" style="background-color: transparent; color: white; border: none;">
                 <div class="row">
                     <div class="col-md-8">
@@ -210,7 +208,13 @@
                               <div class="tab-content me-3 d-none" id="nav-tabContent">
                                 <div class="row">
                                     <div class="col-12">
+                                        <h3 class="h3" id="commName"></h3>
+                                    </div>
+                                    <div class="col-12">
                                         <h5 class="card-title h5">Playlist condivise</h5>
+                                    </div>
+                                    <div class="col-12 d-none mt-2" id="notPlaylistWarn">
+                                        <h5 class="card-title h6 text-white-50">Non ci sono playlist condivise</h5>
                                     </div>
                                     <div class="col-12  mt-3">
                                         <div class="overflow-auto">
@@ -224,7 +228,14 @@
                                                           <div class="col-md-8">
                                                             <div class="card-body">
                                                               <h5 class="card-title text-white"></h5>
-                                                              <p class="card-text text-white"></p>
+                                                              <div class="row">
+                                                                <div class="col-6">
+                                                                    <p class="card-text text-white"></p>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <button class="btn btn-sm btn-light float-end" data-bs-toggle="modal" data-bs-target="#viewPlaylist">Dettagli</button>
+                                                                </div>
+                                                              </div>
                                                             </div>
                                                           </div>
                                                         </div>
@@ -258,16 +269,16 @@
                 </div>
                 <div class="modal-body">
                     <ul class="list-group" style="max-height: 400px;">
-                        <li class="list-group-item d-none">
+                        <li class="list-group-item d-none" id="playlistList">
                             <div class="card bg-transparent border-0">
                                 <div class="row g-0">
                                   <div class="col-md-4">
-                                    <img src="..." width="100" height="100" class="img-fluid rounded-2" alt="...">
+                                    <img src="img/playlist_img.png" width="100" height="100" class="img-fluid rounded-2" alt="...">
                                   </div>
                                   <div class="col-md-8">
                                     <div class="card-body">
-                                      <h5 class="card-title text-white">Hello</h5>
-                                      <button type="button" class="btn btn-light float-end">Condividi</button>
+                                      <h5 class="card-title text-white"></h5>
+                                      <button type="button" class="btn btn-light float-end" >Condividi</button>
                                     </div>
                                   </div>
                                 </div>
@@ -279,28 +290,105 @@
             </div>
           </div>
 
-
+          <div class="modal fade modal-lg" id="viewPlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header" style="border-bottom: none;">
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col d-flex">
+                            <img src="img/playlist_img.png" alt="" width="200" height="200" class="me-4">
+                            <div class="vstack">
+                                <div class="hstack">
+                                    <div>
+                                        <h1 class="modal-title " id="nomePlaylistt"></h1>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                            </svg>
+                                            
+                                        </div>
+                                    </div>
+                                   
+                                </div> 
+    
+                                <div>
+                                    <p class="playlist-username fs-2 text-white-50" style="color: gray;" id="nomePlaylist" ></p>
+                                </div>
+                                <div>
+                                    <small class="playlist-descr" style="color: gray;"></small>
+                                    <div class="row" style="margin-top: 12px;">
+                                          
+                                          <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" id="selzionaCommunity" style="background-color: var(--main-bg-color);">
+                                            
+                                            <div class="offcanvas-header">
+                                              <h5 class="offcanvas-title" id="staticBackdropLabel" style="color: white;">Condividi</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                            </div>
+                                            <div class="offcanvas-body">
+                                              <div>
+                                               <p style="color: grey;">Seleziona la community a cui vuoi condividere la playlist</p> 
+                                               <div class="list-group">
+                                                <button type="button" class="list-group-item list-group-item-action" id="list-community-share" onclick="condividi(this, document.getElementById('nomePlaylistt').innerHTML);" ></button>
+                                              </div>
+                                               
+                                              
+                                          </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                   
+                                    
+                                </div>
+                                
+                                </div>
+                                </div>
+    
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 mt-4 song-list " >
+                            <div class="list-group list-group">
+                                <div id="showSong" class="list-group-item d-none">
+                                    <div class="d-flex w-100">
+                                        <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
+                                        <div class="row w-100">
+                                            <div class="col-8">
+                                                <h5 class="mb-1 song-name" id="song-name"></h5>
+                                            </div>
+                                            <div class="col-4">
+                                                <small class="float-end s-duration"></small>
+                                            </div>
+                                            <div class="col">
+                                                <small class="artist-name" style="color: gray;" id="artist-name"></small>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 
     
-    <div id="ggg" class="container d-flex justify-content-center align-content-center d-none" >
-        
-        <div class="elevated rounded-4 position-absolute" id="elevated">
-            
-            <div class="card" style="background-color: transparent; color: white; border: none;">
-                <div class="row">
-                    <div class="col-4" style="margin-top: 20px; margin-bottom: 10px; margin-left: 10px;"><h5 id="nomecommunity">NOME COMMUNITY</h5></div>
-                </div>
-                <div class="row" style="  margin-left: 10px;" id="descrizionecommunity">viva l'italia evvai</div>
-            </div>
-            <div class="row">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary me-md-2" type="button" style="margin-bottom: 10px;" id="uniscitiCom">Unisciti</button>
-                    
-                  </div>
-            </div>
-        </div>
-    </div>
+
 
     
     <footer class="footer d-none" id="mobileHead">
@@ -351,8 +439,7 @@
         </nav>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="JavaScript/func.js">
-    </script>
+    <script src="JavaScript/func.js"></script>
     <script>
 
         const setUsername = async () => {
@@ -363,10 +450,36 @@
             fetch(`http://localhost:3000/getPlaylists/${id_user}`, {method: 'GET'})
                 .then((res) => res.json())
                 .then((playlists) => {
-                    console.log(playlists);
+                    document.querySelectorAll('[id=plist]').forEach((el) => el.remove());
+                    let community_id = document.getElementById('nav-tabContent').getAttribute('data-idComm');
+                    let playlistList = document.getElementById('playlistList');
+                    for (let i = 0; i < playlists.length; i++) {
+                        let clone = playlistList.cloneNode(true);
+                        clone.getElementsByClassName('card-title')[0].textContent = playlists[i].name;
+                        clone.getElementsByClassName('btn')[0].addEventListener('click',  (event) => {
+                            event.preventDefault();
+                            addPlaylistToCommunity(community_id ,playlists[i]._id);
+                        });
+                        clone.id = 'plist';
+                        clone.classList.remove('d-none');
+                        playlistList.before(clone);
+                    }
                 });
         }
- 
+
+        function addPlaylistToCommunity(comm_id, p_id) {
+            fetch(`http://localhost:3000/addPlaylistToCommunity`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id_comm: comm_id,
+                    id_playlist: p_id
+                })
+            });
+        } 
     </script>
   </body>
 </html>

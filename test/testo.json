@@ -1,20 +1,17 @@
 {
-    "name": "Detective",
-    "surname": "Ciccio",
-    "username":"DottorCiccio",
+    "name": "Hello",
+    "surname": "Proba",
+    "username":"nnnn",
     "date_of_birth":"12-10-1993",
-    "email":"detective@gmail.com",
-    "password":"ciccio92",
+    "email":"dsa@gmail.com",
+    "password":"cicss92",
     "liked_artist":[],
     "liked_genres":[],
     "playlist":{
         "personal":[],
         "liked":[]
-    },
-    "market":"IT"
-
-
-  }
+    }
+}
   
 
 
