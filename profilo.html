@@ -581,6 +581,12 @@
                 window.location = 'index.html';
             }
         }
+
+        if (localStorage.getItem('id_user') === null) {
+            document.getElementById('elevated').classList.add('d-none');
+        } else {
+            document.getElementById('elevated').classList.remove('d-none');
+        }
     </script>
   </body>
 </html>

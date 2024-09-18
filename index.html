@@ -453,7 +453,11 @@
 
        
 
-
+        if (localStorage.getItem('id_user') === null) {
+            document.querySelectorAll('.like-btn').forEach((el) => el.classList.add('disabled'));
+        } else {
+            document.querySelectorAll('.like-btn').forEach((el) => el.classList.remove('disabled'));
+        }
 
     </script>
   </body>

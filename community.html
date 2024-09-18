@@ -477,6 +477,12 @@
                 })
             });
         } 
+
+        if (localStorage.getItem('id_user') === null) {
+            document.getElementById('creaCommunity').classList.add('disabled');
+        } else {
+            document.getElementById('elevated').classList.remove('disabled');
+        }
     </script>
   </body>
 </html>

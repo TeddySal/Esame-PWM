@@ -167,7 +167,14 @@
       }
     
       fetch('http://localhost:3000/addUser', options)
-          .then((res) => res.json())
+          .then((res) => {
+            if (!res.ok) {
+              alert('Campi mancanti o sbagliati');
+              location.reload();
+            } else {
+              return res.json();
+            }
+          })
           .then((res) => {
             console.log(res);
             if (res.success.status == 201) {
