@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const crypto = require('crypto');
 const { MongoClient, ObjectId } = require('mongodb');
 const fs = require('fs');
 
@@ -13,6 +14,12 @@ app.use(express.json());
 
 let port = 3000;
 
+function hashPassword(password) {
+    const hash = crypto.createHash('sha256').update(password).digest('hex');
+    return hash;
+}
+
+
 async function loginUser(res, body) {
     if (body.email === undefined) {
         res.status(400).send({error: {status: 400, message: 'Email mancante'}});
@@ -21,13 +28,14 @@ async function loginUser(res, body) {
         res.status(400).send({error: {status: 400, message: 'Password mancante'}});
         return;
     }
-
+    let checkpass = hashPassword(body.password);
+    
     try {
         await client.connect();
-        let user = await client.db('Users').collection('user').findOne({email: body.email, password: body.password});
+        let user = await client.db('Users').collection('user').findOne({email: body.email, password: checkpass});
         //console.log(user);
         if (user == null) {
-            res.status(404).send({error: {status: 400, message: "Utente non trovato"}});
+            res.status(404).send({error: {status: 404, message: "Utente non trovato"}});
         } else {
             res.json(user._id);
         }
@@ -63,6 +71,7 @@ async function addUser(res, newUser) {
         res.status(400).send({"code":400,"type":"password","error": "La password deve contenere almeno un carattere speciale"});
         return;
     }
+    let hashpass = hashPassword(newUser.password);
 
     try {
         await client.connect();
@@ -75,7 +84,7 @@ async function addUser(res, newUser) {
                         name: newUser.name,
                         surname: newUser.surname,
                         email: newUser.email,
-                        password: newUser.password,
+                        password: hashpass,
                         username: newUser.username,
                         date_of_birth: newUser.date_of_birth,
                         liked_artist:[],
@@ -103,7 +112,8 @@ async function addUser(res, newUser) {
 
 async function addLikedArtistAndGenres(res, body) {
     try {
-        await client.connect()
+        await client.connect();
+        console.log(body.id);
         for (let i = 0; i < body.liked_genres.length; i++) {
             await client.db('Users').collection('user').updateOne(
                 {_id: new ObjectId(body.id)},
@@ -288,9 +298,14 @@ async function getUserFromUsername(res, user) {
 async function changeUsername(res, body){
     try{
         await client.connect();
-        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "username": body.newUser } });
-        res.status(200);
-
+        let checkUser = await client.db('Users').collection('user').findOne({username: body.newUser}); 
+        if(checkUser==null){
+            let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "username": body.newUser } });
+            res.status(200).send();
+        }else{
+            res.status(400).send({error: {status: 400, message: 'Utente gia presente, cambiare username'}});
+        }
+        
     } finally{
         await client.close();
     }
@@ -300,8 +315,14 @@ async function changeUsername(res, body){
 async function changeEmail(res, body){
     try{
         await client.connect();
-        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "email": body.newEmail } });
-        res.status(200);
+        let checkEmail = await client.db('Users').collection('user').findOne({email: body.newEmail}); 
+        if(checkEmail==null){
+            let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "email": body.newEmail } });
+            res.status(200).send();
+        }else{
+            res.status(400).send({error: {status: 400, message: 'Utente gia presente, cambiare email'}});
+        }
+
 
     } finally{
         await client.close();
@@ -312,8 +333,28 @@ async function changeEmail(res, body){
 async function changePassword(res, body){
     try{
         await client.connect();
-        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "password": body.newPassword } });
-        res.status(200);
+        console.log(body.newPassword);
+        if (body.newPassword === "") {
+            res.status(400).send({error: {status: 400, type: 'password', message: 'Password mancante'}});
+            return;
+        }
+        if(body.newPassword.length<8){
+            res.status(400).send({"code":400,"type":"password","error": "Password troppo corta"});
+            return;
+        }
+        if ((body.newPassword.match(/[a-z]/g)==null) || (body.newPassword.match(/[A-Z]/g)==null)) {
+            res.status(400).send({"code":400,"type":"password","error": "La password deve contenere caratteri maiuscoli e minuscoli"});
+            return;
+        }
+       //console.log(newUser.password.match(/[A-Z]/g));
+        if ((body.newPassword.match(/[^a-zA-Z\d]/g)==null)){
+            res.status(400).send({"code":400,"type":"password","error": "La password deve contenere almeno un carattere speciale"});
+            return;
+        }
+        let hashedNewpass = hashPassword(body.newPassword);
+        console.log(hashedNewpass);
+        let cuser = await client.db('Users').collection('user').updateOne({_id: new ObjectId(body.id)},{ $set: { "password": hashedNewpass } });
+        res.status(200).send();
 
     } finally{
         await client.close();

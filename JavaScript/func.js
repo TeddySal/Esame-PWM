@@ -458,7 +458,15 @@ function changeUser() {
   };
   
   fetch('http://localhost:3000/changeUsername', options)
-    .then((res) => window.location = 'profilo.html')
+  .then((res)=> {
+    console.log('hello');
+    if(res.ok){
+      console.log('gg');
+      window.location = 'profilo.html';
+    }else{
+      alert("USER GIA' PRESENTE");
+    }
+  })
     .catch((err) => console.log(err));
   
 }
@@ -482,7 +490,15 @@ function changePass(){
   };
   
   fetch('http://localhost:3000/changePassword', options)
-    .then((res)=> window.location = 'profilo.html')
+    .then((res)=> {
+      console.log('hello');
+      if(res.ok){
+        console.log('gg');
+        window.location = 'profilo.html';
+      }else{
+        alert("CONTROLLA PASSWORD");
+      }
+    })
     .catch((err) => console.log(err));
     
 }
@@ -505,7 +521,15 @@ function changeEmail(){
   };
   
   fetch('http://localhost:3000/changeEmail', options)
-    .then((res) => window.location = 'profilo.html')
+  .then((res)=> {
+    console.log('hello');
+    if(res.ok){
+      console.log('gg');
+      window.location = 'profilo.html';
+    }else{
+      alert("EMAIL GIA' PRESENTE");
+    }
+  })
     .catch((err) => console.log(err));
   
 }
