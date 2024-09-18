@@ -66,14 +66,19 @@
         }
 
         fetch('http://localhost:3000/login', options)
-            .then((res) => res.json())
             .then((res) => {
-              console.log(res);
-              if (res.code != 404) {
+              if(!res.ok){
+                alert('EMAIL O PASSWORD ERRATI');
+                throw new Error('EMAIL O PASSWORD ERRATI');
+              }else{
+                return res.json();
+              }
+            })
+            .then((res) => {
                 console.log(res);
                 localStorage.setItem('id_user', res);
                 window.location = 'index.html';
-              }
+              
             })
             .catch((err) => console.log(err));
         
