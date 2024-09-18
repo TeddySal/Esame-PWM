@@ -55,21 +55,21 @@
 
     </style>
   </head>
-  <body onload="checkForAccount();">
+  <body onload="checkForAccount();showPlaylistSongs();">
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
-                <a href="/" class="navbar-brand d-flex w-50 me-auto">
+                <a href="home.html" class="navbar-brand d-flex w-50 me-auto">
                     <img src="img/logo1.png" alt="" width="50" height="50">
                 </a> 
                 <div class="navbar-collapse collapse w-100">
                     <ul class="navbar-nav w-100 justify-content-center">
                         <li class="nav-item">
                             <div class="box">
-                                <a class="nav-link nav-box" href="index.html">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-                                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
-                                      </svg>
+                                <a class="nav-link active nav-box" href="index.html">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                        <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+                                    </svg>
                                 </a>
                             </div>
                         </li>
@@ -93,10 +93,10 @@
                         </li>
                         <li class="nav-item">
                             <div class="box">
-                                <a href="profilo.html" class="nav-link nav-box active" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                                      </svg>
+                                <a href="profilo.html" class="nav-link nav-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                    </svg>
                                 </a>
                             </div>
                         </li>
@@ -111,10 +111,11 @@
                             </svg>
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">Impostazioni</a></li>
-                            <li><a class="dropdown-item" href="#">Salvati</a></li>
-                            <li><a class="dropdown-item" href="#">I tuoi mi piace</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end float-end" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="index.html">Home</a></li>
+                            <li><a class="dropdown-item" href="search.html">Ricerca</a></li>
+                            <li><a class="dropdown-item" href="community.html">Community</a></li>
+                            <li><a class="dropdown-item" href="profilo.html">Profilo</a></li>
                             <li><a class="dropdown-item" href="#" onclick="localStorage.clear();location.reload();">Esci</a></li>
                         </ul>
                         
@@ -146,8 +147,8 @@
             <div class="col-12  mt-3 ms-3 me-3">
                 <h5 class="h5 text-white">Cambia nome playlist</h5>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nome playlist" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="liveToastBtn">Salva</button>
+                    <input type="text" class="form-control" placeholder="Nome playlist" aria-label="Recipient's username" aria-describedby="button-addon2" id="newPlaylistName">
+                    <button class="btn btn-outline-secondary" type="button" onclick="changePlaylistName();">Salva</button>
                 </div>
             </div>
             <div class="col-12  mt-3 ms-3 me-3">
@@ -155,21 +156,14 @@
                 <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
                     <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
                     <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch"></label>
-                    <button class="btn btn-outline-secondary float-end" type="button" id="liveToastBtn">Salva</button>
+                    <button class="btn btn-outline-secondary float-end" type="button" onclick="changePlaylistIsPublic();">Salva</button>
                 </div>
             </div>
             <div class="col-12  mt-3 ms-3 me-3">
                 <h5 class="h5 text-white">Cambia descrizione</h5>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Descrizione" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Salva</button>
-                </div>
-            </div>
-            <div class="col-12  mt-3 ms-3 me-3">
-                <h5 class="h5 text-white">Cambia nome playlist</h5>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nome playlist" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Salva</button>
+                    <input type="text" id="newDescr" class="form-control" placeholder="Descrizione" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="changePlaylistDescription();">Salva</button>
                 </div>
             </div>
             <div class="col-12 mt-3 ms-3 me-3">
@@ -177,13 +171,13 @@
                 <div class="list-group list-group">
                     <div id="showSong" class="list-group-item d-none">
                         <div class="d-flex w-100">
-                            <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
+                            <img src="..." alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
                             <div class="row w-100">
                                 <div class="col-8">
                                     <h5 class="mb-1 song-name" id="song-name"></h5>
                                 </div>
                                 <div class="col-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg float-end" viewBox="0 0 16 16" id="delSong">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg float-end" viewBox="0 0 16 16" id="delSong" onclick="location.replace(location.href);;">
                                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                                     </svg>
                                 </div>
@@ -200,11 +194,11 @@
             <div class="col-12  mt-3 ms-3 me-3">
                 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="songName" placeholder="Nome playlist" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <input type="text" class="form-control" id="songName" placeholder="Ricerca canzone" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="button" id="cercaSong" onclick="search(document.getElementById('songName').value);">Salva</button>
                 </div>
                 <div class="song-list mt-3">
-                    <ul class="list-group" id="songList">
+                    <ul class="list-group">
                         <li class="list-group-item d-none" id="song">
                             <div class="row">
                                 <div class="col-2">
@@ -234,17 +228,6 @@
                 </div>
                 <button class="btn btn-outline-secondary float-end" type="button" id="addSongs">Salva</button>
             </div>
-
-            <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                  <div class="toast-header">
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
-                  </div>
-                  <div class="toast-body">
-                    
-                  </div>
-                </div>
-              </div>
 
         </div>
 
@@ -312,16 +295,17 @@
     }
   }
 
-        fetch(`http://localhost:3000/getPlaylistInfo/${playlist_id}`, {method: "GET"})
+  function showPlaylistSongs() {
+    fetch(`http://localhost:3000/getPlaylistInfo/${playlist_id}`, {method: "GET"})
             .then((res) => res.json())
             .then((playlist) => {
-                console.log(playlist);
+                //console.log(playlist);
                 let songsId = "";
                 document.getElementById('nomePlaylist').textContent = playlist.name;
                 document.getElementById('textSwitch').textContent = (playlist.isPublic) ? 'Playlist pubblica' : 'Playlist privata';
                 playlist.songs.forEach((song) => songsId = songsId+song+",");
 
-                console.log(songsId)
+                //console.log(songsId)
                 fetch('https://api.spotify.com/v1/tracks?ids='+songsId,options)
                     .then((res) => {
                         if (!res.ok) {
@@ -338,12 +322,12 @@
                         }
                     })
                     .then((json) => {
-                        console.log(json);
-                        document.querySelectorAll('[id=song]').forEach((element) => element.remove());
+                        //console.log(json);
+                        document.querySelectorAll('[id=songS]').forEach((element) => element.remove());
                         const songEl = document.getElementById('showSong');
                         for (let i = 0; i < json.tracks.length; i++) {
                           let clone = songEl.cloneNode(true);
-                          clone.id = 'song';
+                          clone.id = 'songS';
                         
                           clone.getElementsByClassName('song-img')[0].src = json.tracks[i].album.images[0].url;
                           clone.getElementsByClassName('song-name')[0].textContent = json.tracks[i].name;
@@ -371,6 +355,9 @@
                         }
                     }).catch((err) => console.log(err));
             });
+  }
+
+
         
         document.getElementById('privata').addEventListener('click', (event) => {
             if (document.getElementById('privata').checked) {
@@ -382,19 +369,59 @@
             }
         });
 
+        function changePlaylistName() {
+            let newName = document.getElementById('newPlaylistName').value;
+            fetch(`http://localhost:3000/changePlaylistName`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    _id: playlist_id,
+                    newName: newName
+                })         
+            });
+            window.location = 'index.html';
+        }
 
-        function changePlaylistIsPublic(isPublic) {
 
-        }   
-
-        const toastTrigger = document.getElementById('liveToastBtn')
-        const toastLiveExample = document.getElementById('liveToast')
-
-        if (toastTrigger) {
-          const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-          toastTrigger.addEventListener('click', () => {
-            toastBootstrap.show()
-          })
+        function changePlaylistIsPublic() {
+            let isPublic;
+            if (document.querySelector('.form-check-label').textContent == 'Playlist pubblica') {
+                isPublic = true
+            } else {
+                isPublic = false;
+            }
+            
+            fetch(`http://localhost:3000/changePlaylistIsPublic`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    _id: playlist_id,
+                    isPublic: isPublic
+                })         
+            });
+            window.href = 'index.html';
+        }
+        
+        function changePlaylistDescription() {
+            let newDescr = document.getElementById('newDescr').value;
+            fetch(`http://localhost:3000/changePlaylistDescription`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    _id: playlist_id,
+                    newDescr: newDescr
+                })         
+            });
+            window.location = 'index.html';
         }
 
         function deleteSongFromPlaylist(playlist_id, song_id) {
@@ -408,12 +435,13 @@
                     song_id: song_id
                 })
             });
+            window.location = 'index.html';
         }
 
         document.querySelectorAll('[id=delSong]').forEach((el) => {
             el.addEventListener('click', (event) => {
                 event.preventDefault();
-                //console.log('hello');
+                console.log(el.parentElement.parentElement.parentElement);
                 el.parentElement.parentElement.parentElement.remove();
             });
         });
@@ -441,7 +469,7 @@
                     song_id: songs
                 })
             });
-
+            window.location = 'index.html';
         }
 
 

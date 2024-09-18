@@ -26,9 +26,6 @@
                   <span class="spinner-border spinner-border-sm d-none" id="load" aria-hidden="true"></span>
                 </button>
               </div>
-              <div class="mb-2 text-center">
-                <a href="#" style="text-decoration: none; color: gray;">Password dimenticata?</a>
-              </div>
               <div class="mb-2">
                 <!--<hr style="background-color: rgba(243, 245, 247, 0.15);">-->
                 <hr class="hr-text gradient" data-content="o">
@@ -73,8 +70,9 @@
             .then((res) => {
               console.log(res);
               if (res.code != 404) {
+                console.log(res);
                 localStorage.setItem('id_user', res);
-                window.location = 'home.html';
+                window.location = 'index.html';
               }
             })
             .catch((err) => console.log(err));

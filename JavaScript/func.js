@@ -203,7 +203,7 @@ function search(q){
       console.log(song);
       let clone = song.cloneNode(true);
       clone.id = 'artistSong';
-
+      //console.log(clone);
       clone.getElementsByClassName('songImg')[0].src = track.tracks.items[0].album.images[2].url;
       clone.getElementsByClassName('songName')[0].textContent = track.tracks.items[0].name;
       clone.getElementsByClassName('id-song')[0].textContent = track.tracks.items[0].id;
@@ -658,6 +658,14 @@ async function showPlaylistInfo(viewPlaylist, playlistId) {
         document.getElementById('dropMenu').classList.add('d-none');
       }
 
+      document.querySelector('.modify').addEventListener('click', (event) => {
+        window.location = `modifica-playlist.html?id=${playlistId}`;
+      });
+
+      document.querySelector('.elliminate').addEventListener('click', (event) => {
+        deletePlaylist(playlistId);
+      });
+
       document.querySelectorAll('[id=tag]').forEach((el) => el.remove());
       for (let i = 0; i < playlist.tags.length; i++) {
         let clone = tags.cloneNode(true);
@@ -733,9 +741,9 @@ const viewPlaylist = document.getElementById('viewPlaylist');
 if (viewPlaylist) {
     viewPlaylist.addEventListener('show.bs.modal', (event) => {
         const btn = event.relatedTarget;
-        
+        //console.log(btn);
         const playlistId = btn.getAttribute('data-bs-playlistId');
-        //console.log(playlistId);
+        console.log(playlistId);
         showPlaylistInfo(viewPlaylist, playlistId);
     });
 }

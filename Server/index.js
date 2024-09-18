@@ -39,15 +39,15 @@ async function loginUser(res, body) {
 
 async function addUser(res, newUser) {
     if (newUser.email === "") {
-        res.status(400).send({error: {status: 400, message: 'Email mancante'}});
+        res.status(400).send({error: {status: 400, type: 'email', message: 'Email mancante'}});
         return;
     }
     if (newUser.password === "") {
-        res.status(400).send({error: {status: 400, message: 'Password mancante'}});
+        res.status(400).send({error: {status: 400, type: 'password', message: 'Password mancante'}});
         return;
     }
     if (newUser.date_of_birth === "") {
-        res.status(400).send({error: {status: 400, message: 'Data di nascita mancante'}});
+        res.status(400).send({error: {status: 400, type:'dob', message: 'Data di nascita mancante'}});
         return;
     }
     if(newUser.password.length<8){
@@ -87,7 +87,7 @@ async function addUser(res, newUser) {
                     }
                 );
                 user = await client.db('Users').collection('user').findOne({email: newUser.email});
-                res.status(201).send({id: user._id});
+                res.status(201).send({success: {status: 201, id: user._id}});
             } else {
                 res.status(400).send({error: {status: 400, message: 'Utente gia presente, cambiare password'}});
             }
@@ -237,7 +237,7 @@ async function searchPlaylist(res, name) {
             uniqueSet = new Set(jsonObject);
             uniqueResult = Array.from(uniqueSet).map(JSON.parse);
             //---------------
-            res.status(200).send(removeDuplicates(uniqueResult));
+            res.status(200).send(uniqueResult);
         }
     } finally {
         await client.close();
@@ -454,6 +454,16 @@ async function changePlaylistIsPublic(res, body) {
     try {
         await client.connect();
         await client.db('Users').collection('playlist').updateOne({_id: new ObjectId(body._id)}, {$set: {isPublic: body.isPublic}});
+        res.status(200).send({success: {status: "200", message: "Playlist modificata con successo"}});
+    } finally {
+        await client.close();
+    }
+}
+
+async function changePlaylistDescription(res, body) {
+    try {
+        await client.connect();
+        await client.db('Users').collection('playlist').updateOne({_id: new ObjectId(body._id)}, {$set: {description: body.newDescr}});
         res.status(200).send({success: {status: "200", message: "Playlist modificata con successo"}});
     } finally {
         await client.close();
@@ -703,6 +713,11 @@ app.post('/addSongFromPlaylist', (req, res) => {
 
 app.post('/changePlaylistIsPublic', (req, res) => {
     changePlaylistIsPublic(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.post('/changePlaylistDescription', (req, res) => {
+    changePlaylistDescription(res, req.body)
         .catch((err) => console.log(err));
 })
 

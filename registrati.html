@@ -170,18 +170,19 @@
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-            if (res.code == 400) {
-              if ((res.type)=="email")
-                document.getElementById('emailHelpBlock').classList.remove('d-none');
-              else if ((res.type)=="username")
-                document.getElementById('usernameHelpBlock').classList.remove('d-none');
-              else if(res.type=="password")
-                document.getElementById('passwordHelpBlock').innerHTML = res.error;
-            } else if (res.code == 201) {
+            if (res.success.status == 201) {
               localStorage.setItem('id_user', res.id);
               reg_form.classList.add('d-none');
               pref_form.classList.remove('d-none');
             }
+              if (res.error.status == 400) {
+                if ((res.error.type)=="email")
+                  document.getElementById('emailHelpBlock').classList.remove('d-none');
+                else if ((res.error.type)=="username")
+                  document.getElementById('usernameHelpBlock').classList.remove('d-none');
+                else if(res.error.type=="password")
+                  document.getElementById('passwordHelpBlock').innerHTML = res.error;
+              }
           })
           .catch((err) => console.log(err));
     });

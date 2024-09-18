@@ -19,6 +19,13 @@
             }
         }
 
+        @media screen and (max-width: 768px){
+  .elevated {
+      width: 100% !important;
+      text-align: center;
+  }
+}
+
         .border-bottom-color {
             border-bottom: 1px solid rgb(45, 45, 45) !important;
         }
@@ -50,7 +57,7 @@
                     <ul class="navbar-nav w-100 justify-content-center">
                         <li class="nav-item">
                             <div class="box">
-                                <a class="nav-link active nav-box" href="index.html">
+                                <a class="nav-link nav-box" href="index.html">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                                         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
                                     </svg>
@@ -59,7 +66,7 @@
                         </li>
                         <li class="nav-item">
                             <div class="box">
-                                <a href="search.html" class="nav-link nav-box">
+                                <a href="search.html" class="nav-link active nav-box">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                     </svg>
@@ -95,10 +102,11 @@
                             </svg>
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">Impostazioni</a></li>
-                            <li><a class="dropdown-item" href="#">Salvati</a></li>
-                            <li><a class="dropdown-item" href="#">I tuoi mi piace</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end float-end" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="index.html">Home</a></li>
+                            <li><a class="dropdown-item" href="search.html">Ricerca</a></li>
+                            <li><a class="dropdown-item" href="community.html">Community</a></li>
+                            <li><a class="dropdown-item" href="profilo.html">Profilo</a></li>
                             <li><a class="dropdown-item" href="#" onclick="localStorage.clear();location.reload();">Esci</a></li>
                         </ul>
                         
@@ -114,6 +122,9 @@
     <div class="container d-flex justify-content-center align-content-center" id="cont">
         <div class="elevated rounded-4 position-absolute" id="elevated">
             <div class="row">
+                <div class="col-12 ">
+                    <h5 class="h3 text-white ms-3 mt-3">Ricerca</h5>
+                </div>
                 <div class="col-12">
                     <div class="input-group p-3">
                         <input type="text" class="form-control" placeholder="Ricerca" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -206,8 +217,8 @@
                                                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                                             </svg>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Aggiungi canzone</a></li>
-                                                <li><a class="dropdown-item" href="#" onclick="deletePlaylist(document.querySelector('.like-btn').getAttribute('data-bs-playlistId'));">Elimina playlist</a></li>
+                                                <li><a class="dropdown-item modify">Modifica playlist</a></li>
+                                                <li><a class="dropdown-item elliminate">Elimina playlist</a></li>
                                               </ul>
                                         </div>
 
