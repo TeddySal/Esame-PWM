@@ -350,7 +350,30 @@ function showCommunityInfo(id_comm) {
       console.log(playlist);
       
       if (comm.shared_playlist.length != 0) {
-        
+        fetch(`http://localhost:3000/getAllPlaylistInfo`,             {method: "POST",
+          mode: "cors",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(
+          { 
+              ids: comm.shared_playlist
+          }
+      )})
+        .then((res) => res.json())
+        .then((plist) => {
+          console.log(plist);
+          for (let i = 0; i < comm.shared_playlist.length; i++) {
+            let clone = playlist.cloneNode(true);
+            clone.id = 'lPlaylist';
+            clone.getElementsByClassName('card-title')[0].textContent = plist[i].name;
+            clone.getElementsByClassName('card-text')[0].textContent = plist[i].username;
+            clone.getElementsByClassName('btn-light')[0].setAttribute('data-bs-playlistId', plist[i]._id);
+            clone.classList.remove('d-none');
+            playlist.before(clone);
+          }
+        });
+        /*
         for (let i = 0; i < comm.shared_playlist.length; i++) {
           console.log(comm.shared_playlist[i]);
           let clone = playlist.cloneNode(true);
@@ -366,7 +389,7 @@ function showCommunityInfo(id_comm) {
               playlist.before(clone);
             });
 
-        }
+        }*/
       } else {
         community.querySelector('[id=notPlaylistWarn]').classList.remove('d-none');
       }
