@@ -15,19 +15,19 @@ let port = 3000;
 
 async function loginUser(res, body) {
     if (body.email === undefined) {
-        res.status(400).send('[ERRORE]: Email mancante');
+        res.status(400).send({error: {status: 400, message: 'Email mancante'}});
         return;
     } else if (body.password === undefined) {
-        res.status(400).send('[ERRORE]: Password mancante');
+        res.status(400).send({error: {status: 400, message: 'Password mancante'}});
         return;
     }
 
     try {
         await client.connect();
         let user = await client.db('Users').collection('user').findOne({email: body.email, password: body.password});
-        console.log(user);
+        //console.log(user);
         if (user == null) {
-            res.status(404).send({code:404, error: "[ERRORE]: Utente non trovato"});
+            res.status(404).send({error: {status: 400, message: "Utente non trovato"}});
         } else {
             res.json(user._id);
         }
@@ -39,19 +39,15 @@ async function loginUser(res, body) {
 
 async function addUser(res, newUser) {
     if (newUser.email === "") {
-        res.status(400).send({"error": "email mancante"});
+        res.status(400).send({error: {status: 400, message: 'Email mancante'}});
         return;
     }
     if (newUser.password === "") {
-        res.status(400).send({"error": "password mancante"});
+        res.status(400).send({error: {status: 400, message: 'Password mancante'}});
         return;
     }
     if (newUser.date_of_birth === "") {
-        res.status(400).send({"error": "Data di nascita mancante"});
-        return;
-    }
-    if (newUser.market === "") {
-        res.status(400).send({"error": "market mancante"});
+        res.status(400).send({error: {status: 400, message: 'Data di nascita mancante'}});
         return;
     }
     if(newUser.password.length<8){
@@ -91,12 +87,12 @@ async function addUser(res, newUser) {
                     }
                 );
                 user = await client.db('Users').collection('user').findOne({email: newUser.email});
-                res.status(201).send({code: 201, text: 'Utente aggiunto', id: user._id});
+                res.status(201).send({id: user._id});
             } else {
-                res.status(400).send({code: 400,type:"username", errore: "Utente gia presente, cambiare username"});
+                res.status(400).send({error: {status: 400, message: 'Utente gia presente, cambiare password'}});
             }
         } else {
-            res.status(400).send({code: 400,type:"email", errore: "Utente gia presente, cambiare email"});
+            res.status(400).send({error: {status: 400, message: 'Utente gia presente, cambiare email'}});
         }
 
         
@@ -121,7 +117,7 @@ async function addLikedArtistAndGenres(res, body) {
                 {$push: {liked_artist: body.liked_artist[i]}}
             );
         }
-        res.status(201).send({message: "Fatto"});
+        res.status(201).send({success: {status: 201, message: 'Informazioni aggiornate'}});
     } finally {
         await client.close();
     }
@@ -137,6 +133,7 @@ async function addPlaylist(res, body){
                 isPublic: body.isPublic,
                 name: body.name,
                 description: body.description,
+                tags: body.tags,
                 songs: body.songs
             }
 
@@ -152,7 +149,7 @@ async function addPlaylist(res, body){
 
         //console.log(respn);
 
-        res.status(201).send("playlist creata");
+        res.status(201).send({success: {status: 201, message: 'Playlist creata con successo'}});
 
         
     } finally {
@@ -174,18 +171,8 @@ async function addCommunity(res, body){
             }
 
         );
-        //let id = result.insertedId.toHexString();
-        //console.log(id);
-        //let user = await client.db('Users').collection('user').findOne({_id: new ObjectId(body.id_user)});
-        //console.log(user);
-        /*await client.db('Users').collection('user').updateOne(
-            { username: body.username},
-            { $push: { "playlist.personal": new ObjectId(id) }}
-        );*/
 
-        //console.log(respn);
-
-        res.status(201).send("Community creata");
+        res.status(201).send({success: {status: 201, message: 'Community creata con successo'}});
 
         
     } finally {
@@ -227,9 +214,30 @@ async function getPublicPlaylist(res) {
         let playlist = await client.db('Users').collection('playlist').find({isPublic: true}).toArray();
 
         if (playlist === null) {
-            res.status(404).send('Non esistono playlist pubbliche');
+            res.status(404).send({error: {status: 404, message: 'Non esistono playlist pubbliche'}});
         } else {
             res.status(200).send(playlist);
+        }
+    } finally {
+        await client.close();
+    }
+}
+
+async function searchPlaylist(res, name) {
+    try {
+        await client.connect();
+        let playlist = await client.db('Users').collection('playlist').find({name: {$regex: `(?i)${name}(?-i)`}}).toArray();
+        let tag = await client.db('Users').collection('playlist').find({tags: {$regex: `(?i)${name}(?-i)`}}).toArray();
+        let result = playlist.concat(tag);
+        if (result.length == 0) {
+            res.status(404).send({error: {status: 404, message: 'La ricerca non ha dato risultati'}});
+        } else {
+            //Ellimina i doppioni nell'array di oggetti
+            jsonObject = result.map(JSON.stringify);
+            uniqueSet = new Set(jsonObject);
+            uniqueResult = Array.from(uniqueSet).map(JSON.parse);
+            //---------------
+            res.status(200).send(removeDuplicates(uniqueResult));
         }
     } finally {
         await client.close();
@@ -317,7 +325,7 @@ async function getPlaylistInfo(res, id_play) {
     try {
         await client.connect();
         let plalist = await client.db('Users').collection('playlist').findOne({_id: new ObjectId(id_play)});
-
+        console.log(plalist);
         if (plalist === null) {
             res.status(404).send({error: {status: 404, message: "Playlist non trovata"}});
         } else {
@@ -362,17 +370,50 @@ async function getCommunity(res, q){
     }
 }
 
-// TODO: Creare una funzione che ellimini le playlist dal db
-async function deletePlaylist(res, user_id) {
+async function deletePlaylist(res, playlist_id) {
     try {
         await client.connect();
-
-        const result = null;
+        await client.db('Users').collection('playlist').deleteOne({_id: new ObjectId(playlist_id)});
+        await client.db('Users').collection('user').findOneAndUpdate({"playlist.personal": new ObjectId(playlist_id)}, {$pull: {"playlist.personal": new ObjectId(playlist_id)}});
+        await client.db('Users').collection('community').updateMany({shared_playlist: new ObjectId(playlist_id)}, {$pull: {shared_playlist: new ObjectId(playlist_id)}});
+        //res.status(200).send(response);
+        res.status(200).send({success: {status: 200, message: 'Playlist ellimanata con successo'}});
     } finally {
         await client.close();
     }
 }
 
+async function addSongFromPlaylist(res, body) {
+    try {
+        await client.connect();
+
+        for (let i = 0; i < body.song_id.length; i++) {
+            await client.db('Users').collection('playlist').updateOne(
+                { _id: new ObjectId(body._id)},
+                { $push: { songs: body.song_id[i] }}
+            );
+        }
+        
+
+
+        res.status(201).send({success: {status: 201, message: 'Canzone inserita nella playlist'}});
+
+        
+    } finally {
+        await client.close();
+    }
+}
+
+async function deleteSongFromPlaylist(res, body) {
+    try {
+        await client.connect();
+        console.log(body);
+        await client.db('Users').collection('playlist').updateOne({_id: new ObjectId(body._id)}, {$pull: {songs: body.song_id}});
+        res.status(200).send({success: {status: 200, message: 'Canzone ellimanata con successo'}});
+    } finally {
+        await client.close();
+    }
+}
 
 async function sharePlaylist(res, body){
     try{
@@ -399,6 +440,25 @@ async function sharePlaylist(res, body){
     }
 }
 
+async function changePlaylistName(res, body) {
+    try {
+        await client.connect();
+        await client.db('Users').collection('playlist').updateOne({_id: new ObjectId(body._id)}, {$set: {name: body.newName}});
+        res.status(200).send({success: {status: "200", message: "Nome Playlist modificata con successo"}});
+    } finally {
+        await client.close();
+    }
+}
+
+async function changePlaylistIsPublic(res, body) {
+    try {
+        await client.connect();
+        await client.db('Users').collection('playlist').updateOne({_id: new ObjectId(body._id)}, {$set: {isPublic: body.isPublic}});
+        res.status(200).send({success: {status: "200", message: "Playlist modificata con successo"}});
+    } finally {
+        await client.close();
+    }
+}
 
 async function addLikedPlaylist(res, body) {
     try {
@@ -449,11 +509,11 @@ async function removeLikedPlaylist(res, body) {
 
 async function joinCom(res, body){
  
-    await client.connect();
+    /*await client.connect();
     const filter = {name: body.community};
     const update = {$set: {users: body.user_id}};
     
-    await client.db('Users').collection('community').updateOne(filter, update);
+    await client.db('Users').collection('community').updateOne(filter, update);*/
   
 }
 
@@ -471,7 +531,7 @@ async function getCommunity(res, user) {
         await client.close();
     }
 }
-
+/*
 async function getCommunitySharedPlaylist(res, id_comm) {
     try {
         await client.connect();
@@ -486,7 +546,7 @@ async function getCommunitySharedPlaylist(res, id_comm) {
     } finally {
         await client.close();
     }
-}
+}*/
 
 async function getCommunityInfo(res, id) {
     try {
@@ -513,6 +573,7 @@ async function getUsers(res) {
 async function deleteUser(res, id_user) {
     try {
         await client.connect();
+        console.log(id_user);
         await client.db('Users').collection('user').deleteOne({_id: new ObjectId(id_user)});
         res.status(200).send({success: {status: 200, message: 'User elliminato correttamente'}});
     } finally {
@@ -585,6 +646,11 @@ app.get('/getPublicPlaylist', (req, res) => {
         .catch((err) => console.log(err));
 })
 
+app.get('/searchPlaylist/:name', (req, res) => {
+    searchPlaylist(res, req.params.name)
+        .catch((err) => console.log(err));
+})
+
 app.get('/getPlaylistInfo/:id', (req, res) => {
     getPlaylistInfo(res, req.params.id)
         .catch((err) => console.log(err));
@@ -606,7 +672,8 @@ app.get('/getCommunity/:q', (req, res) => {
 })
 
 app.get('/getCommunitySharedPlaylist', (req, res) => {
-    getCommunitySharedPlaylist(res, req.query.id).catch((err) => console.log(err));
+    getCommunitySharedPlaylist(res, req.query.id)
+        .catch((err) => console.log(err));
 })
 
 app.get('/getUserFromUsername/:q', (req, res) => {
@@ -616,6 +683,26 @@ app.get('/getUserFromUsername/:q', (req, res) => {
 
 app.delete('/deletePlaylist/:id', (req, res) => {
     deletePlaylist(res, req.params.id)
+        .catch((err) => console.log(err));
+})
+
+app.delete('/deleteSongFromPlaylist', (req, res) => {
+    deleteSongFromPlaylist(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.post('/changePlaylistName', (req, res) => {
+    changePlaylistName(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.post('/addSongFromPlaylist', (req, res) => {
+    addSongFromPlaylist(res, req.body)
+        .catch((err) => console.log(err));
+})
+
+app.post('/changePlaylistIsPublic', (req, res) => {
+    changePlaylistIsPublic(res, req.body)
         .catch((err) => console.log(err));
 })
 
@@ -645,6 +732,7 @@ app.get('/getUsers', (req, res) => {
 })
 
 app.delete('/deleteUser/:id', (req, res) => {
+    console.log(req.params.id);
     deleteUser(res, req.params.id)
         .catch((err) => console.log(err));
 })

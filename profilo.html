@@ -37,9 +37,21 @@
             fill: white;
             cursor: pointer;
         }
+
+        #selected-genres {
+  background-color: var(--input-bg-color);
+  color: white;
+  border: 1px solid gray;
+  border-radius: 20px;
+}
+
+#selected-genres label {
+  margin-left: 10px;
+}
+
     </style>
   </head>
-  <body onload="checkForAccount(); getUserPlaylist(localStorage.getItem('id_user'));">
+  <body onload="checkForAccount(); getUserPlaylist(localStorage.getItem('id_user'));loadGenres();">
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
@@ -164,13 +176,13 @@
                             </ol>
                         </div>
                         <div id="dispMyFavPlaylist" class="d-flex flex-row flex-nowrap overflow-auto d-none">
-                            <div class="w-100 text-center" id="nolpText">
+                            <div  class="w-100 text-center" id="nolpText">
                                 <p style="color: gray;">Non ci sono playlist</p>
                             </div>
                             
                             <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
                                 <li id="myfavplay" class="list-group-item card bg-transparent d-none">
-                                    <div class="card bg-transparent border-0" style="width: 150px;">
+                                    <div role="button" class="card bg-transparent border-0 fav" style="width: 150px;" data-bs-toggle="modal" data-bs-target="#viewPlaylist">
                                         <img src="img/playlist_img.png" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
                                         <div class="card-body text-center">
                                           <h6 class="text-white"></h3>
@@ -214,15 +226,6 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="ms-auto">
-                                        <div role="button" class="add-track" onclick="addTrack();">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                              </svg>
-                                            
-                                        </div>
-                                    </div>
                                 </div> 
     
                                 <div>
@@ -230,35 +233,32 @@
                                 </div>
                                 <div>
                                     <small class="playlist-descr" style="color: gray;"></small>
-                                    <div class="row" style="margin-top: 12px;">
-                                          
-                                          <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" id="selzionaCommunity" style="background-color: var(--main-bg-color);">
-                                            
-                                            <div class="offcanvas-header">
-                                              <h5 class="offcanvas-title" id="staticBackdropLabel" style="color: white;">Condividi</h5>
-                                              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <ul class="list-group list-group-horizontal-md" style="max-width: 700px; overflow: scroll;">
+                                                <li class="item d-flex d-none"  id="tags">
+                                                    <label class="form-check-label me-2" id="lbl" for="firstRadio"></label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-4 float-end">
+                                            <div role="button" onclick="" class="dropdown d-none" id="dropMenu">
+                                                <svg data-bs-toggle="dropdown" aria-expanded="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                                </svg>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Aggiungi canzone</a></li>
+                                                    <li><a class="dropdown-item" href="#" onclick="deletePlaylist(document.getElementById('infoPlaylist').getAttribute('data-bs-playlistId'))">Elimina playlist</a></li>
+                                                  </ul>
                                             </div>
-                                            <div class="offcanvas-body">
-                                              <div>
-                                               <p style="color: grey;">Seleziona la community a cui vuoi condividere la playlist</p> 
-                                               <div class="list-group">
-                                                <button type="button" class="list-group-item list-group-item-action" id="list-community-share" onclick="condividi(this, document.getElementById('nomePlaylistt').innerHTML);" ></button>
-                                              </div>
-                                               
-                                              
-                                          </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                   
-                                    
+
+                                        </div>
+                                    </div>
+
                                 </div>
-                                
-                                </div>
-                                </div>
-    
                             </div>
-                            
                         </div>
                         <div class="col-12 mt-4 song-list " >
                             <div class="list-group list-group">
@@ -286,7 +286,7 @@
                 </div>
               </div>
             </div>
-          </div>
+        </div>
 
         <div class="modal fade" tabindex="-1" id="modifyModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog">
@@ -328,76 +328,6 @@
             </div>
         </div>
 
-        <!--
-        <div class="modify-card rounded-4 position-absolute mt-4 d-none" id="modCard">
-            <button class="btn" onclick="showElev();">Ritorna normale</button>
-        </div>
-        
-        <div class="add-playlist-card rounded-4 position-absolute p-4 d-none" id="creaPlaylist">
-            <form action="#">
-                <div class="row">
-                    <div class="col-12">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16" onclick="returnPlaylist();" style="float: right">
-                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                        </svg>
-                    </div>
-                    <div class="col-12">
-                        <p style="color: white; font-size: 20pt; margin-top: 5px;" >Crea la tua playlist</p>
-                    </div>
-                    <div class="col-12">
-                        <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
-                        <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist" required>
-                    </div>
-                    <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
-                        <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
-                        <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch">Playlist privata</label>
-                    </div>
-                    <div class="col-12">
-                        <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
-                        <form class="d-flex" role="search" action="#">
-                          <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
-                          <button class="btn btn-light" type="submit" id="cercaBtn" >Cerca</button>
-                        </form>
-                    </div>
-                    <div class="col-12">
-                        <div class="song-list mt-3">
-                            <ul class="list-group" id="songList">
-                                <li class="list-group-item d-none" id="song">
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <img class="songImg" src="..." alt="..." width="60" height="60">
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="vstack">
-                                                <div class="pt-2">
-                                                    <h6 class="songName"></h6>
-                                                </div>
-                                                <div class="">
-                                                    <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2 d-flex align-items-center justify-content-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
-                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="float-end">
-                            <button type="submit" class="btn btn-light" onclick="salva();">Salva</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        -->
-
         <div class="modal fade" id="createPlaylistModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg  modal-fullscreen-md-down">
               <div class="modal-content">
@@ -426,6 +356,32 @@
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Inserisci la descrizione qui" id="floatingTextarea"></textarea>
                                 </div>
+                            </div>
+                            <div class="col-12">
+                                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Aggiungi i tuoi generi preferiti</p>
+                                <div class="hstack">
+                                    <div class="w-50">
+                                        <select class="form-select mb-3" aria-label="Large select example" onchange="addTag(this.value);" id="sel-gen" style="background-color: var(--input-bg-color); border: none;">
+                                            <option value="" selected>Genres</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-50 p-2">
+                                        <ul class="list-group list-group-horizontal-md" style="max-width: 700px; overflow: scroll;">
+                                            <li class="item d-flex d-none"  id="selected-tags">
+                                                <label class="form-check-label me-2" id="lbl" for="firstRadio">item</label>
+                                                <div role="button" id="close-btn" onclick="this.parentElement.remove();">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                    </svg>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                
+
+
                             </div>
                             <div class="col-12">
                                 <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
@@ -581,7 +537,7 @@
         });*/
 
         document.getElementById('cercaBtn').addEventListener('click',()=>{  
-            console.log("ciao");
+            //console.log("ciao");
             let q = document.getElementById('cerca').value;
             search(q);
         });
@@ -600,7 +556,7 @@
         document.querySelectorAll('[id=delSong]').forEach((el) => {
             el.addEventListener('click', (event) => {
                 event.preventDefault();
-                console.log('hello');
+                //console.log('hello');
                 el.parentElement.parentElement.parentElement.remove();
             });
         });
@@ -614,9 +570,10 @@
         });
 
         function deleteAccount(id_user) {
-            const scelta = confirm('Sei sicuro di voler cancellare il tuo account?');
-            if (scelta == true) {
-                fetch(`http://localhost:3000/getUser/${+localStorage.getItem('id_user')}`, {method: 'DELETE'});
+            if (confirm('Sei sicuro di voler cancellare il tuo account?')) {
+                fetch(`http://localhost:3000/deleteUser/${localStorage.getItem('id_user')}`, {method: 'DELETE'});
+                localStorage.removeItem('id_user');
+                window.location = 'index.html';
             }
         }
     </script>

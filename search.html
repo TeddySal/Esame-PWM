@@ -22,9 +22,24 @@
         .border-bottom-color {
             border-bottom: 1px solid rgb(45, 45, 45) !important;
         }
+
+        .form-control {
+            background-color: var(--input-bg-color);
+            color: white;
+            border: none;
+        }
+
+        .form-control::placeholder {
+            color: white;
+        }
+
+        .card {
+            background-color: var(--input-bg-color);
+            border-color: black;
+        }
     </style>
   </head>
-  <body onload="checkForAccount();showPublicPlaylist();">
+  <body onload="checkForAccount();">
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
@@ -35,7 +50,7 @@
                     <ul class="navbar-nav w-100 justify-content-center">
                         <li class="nav-item">
                             <div class="box">
-                                <a class="nav-link active nav-box" href="home.html">
+                                <a class="nav-link active nav-box" href="index.html">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                                         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
                                     </svg>
@@ -95,67 +110,176 @@
             </div>
         </nav>
     </header>
-    <div class="container d-flex justify-content-center align-items-center">
-        <div style="width: 42rem;">
-            <form>
-                <div class="d-flex">
-                    <input type="text" class="form-control me-3 search-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Cerca...">
-                    <button class="btn btn-light">Cerca</button>
-                </div>
 
-            </form>
-        </div>
-    </div>
-    
-    <footer class="footer d-none" id="mobileHead">
-        <nav class="navbar navbar-expand p-0 fixed-bottom justify-content-center">
-            <div class="container-fluid">
-                <div class="w-100">
-                    <ul class="navbar-nav w-100 justify-content-center flex-row">
-                        <li class="nav-item">
-                            <div class="box">
-                                <a class="nav-link active nav-box" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                                        <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="box">
-                                <a href="#" class="nav-link nav-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="box">
-                                <a class="nav-link nav-box" href="preferiti.html">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="box">
-                                <a href="profilo.html" class="nav-link nav-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                                    </svg>
-                                </a>
+    <div class="container d-flex justify-content-center align-content-center" id="cont">
+        <div class="elevated rounded-4 position-absolute" id="elevated">
+            <div class="row">
+                <div class="col-12">
+                    <div class="input-group p-3">
+                        <input type="text" class="form-control" placeholder="Ricerca" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn " type="button" id="button-addon2" onclick="ricerca(document.querySelector('.form-control').value);">Cerca</button>
+                    </div>
+                </div>
+                <div class="col-12 p-3 d-none" id="noSearch">
+                    <h5 class="h5 text-white text-center">La ricerca non ha dato nessun risultato</h5>
+                </div>
+                <div class="col-12 p-3">
+                    <ul class="list-group">
+                        <li class="list-group-item d-none">
+                            <div class="card border-0">
+                                <div class="row g-0">
+                                  <div class="col-md-4 p-2">
+                                    <img src="img/playlist_img.png" width="100" height="100" class="img-fluid rounded-2" alt="...">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <h5 class="card-title text-white"></h5>
+                                      <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-text text-white"></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-sm btn-light float-end" data-bs-toggle="modal" data-bs-target="#viewPlaylist">Dettagli</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                             </div>
                         </li>
                     </ul>
-                    
                 </div>
             </div>
-        </nav>
-    </footer>
+        </div>
+    </div>
+
+    <div class="modal fade modal-lg" id="viewPlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col d-flex">
+                        <img src="img/playlist_img.png" alt="" width="200" height="200" class="me-4">
+                        <div class="vstack">
+                            <div class="hstack">
+                                <div>
+                                    <h1 class="modal-title " id="nomePlaylistt"></h1>
+                                </div>
+                                <div class="ms-auto">
+                                    <div role="button" class="like-playlist" onclick="addOrRemoveLikedPlaylist();">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill d-none" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                        </svg>
+                                        
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div>
+                                <p class="playlist-username fs-2 text-white-50" style="color: gray;" id="nomePlaylist" ></p>
+                            </div>
+                            <div>
+                                <small class="playlist-descr" style="color: gray;"></small>
+                            </div>
+                            <div class="mt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <ul class="list-group list-group-horizontal-md" style="max-width: 700px; overflow: scroll;">
+                                            <li class="item d-flex d-none"  id="tags">
+                                                <label class="form-check-label me-2" id="lbl" for="firstRadio"></label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-4 float-end">
+                                        <div role="button" onclick="" class="dropdown d-none" id="dropMenu">
+                                            <svg data-bs-toggle="dropdown" aria-expanded="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                            </svg>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Aggiungi canzone</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="deletePlaylist(document.querySelector('.like-btn').getAttribute('data-bs-playlistId'));">Elimina playlist</a></li>
+                                              </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4 song-list " >
+                        <div class="list-group list-group">
+                            <div id="showSong" class="list-group-item d-none">
+                                <div class="d-flex w-100">
+                                    <img src="img/prova-playlist.jpg" alt="..." width="50" height="50" class="song-img me-4 shadow-sm">
+                                    <div class="row w-100">
+                                        <div class="col-8">
+                                            <h5 class="mb-1 song-name" id="song-name"></h5>
+                                        </div>
+                                        <div class="col-4">
+                                            <small class="float-end s-duration"></small>
+                                        </div>
+                                        <div class="col">
+                                            <small class="artist-name" style="color: gray;" id="artist-name"></small>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="JavaScript/func.js"></script>
+    <script>
+        function ricerca(q) {
+            fetch(`http://localhost:3000/searchPlaylist/${q}`, {method: 'GET'})
+                .then((res) => {
+                    let warning = document.getElementById('noSearch');
+                    if (!res.ok) {
+                        warning.classList.remove('d-none');
+                    } else {
+                        warning.classList.add('d-none')
+                        return res.json();
+                    }
+                })
+                .then((search) => {
+                    console.log(search);
+                    document.querySelectorAll('[id=searchList]').forEach((el) => el.remove());
+                    let list = document.querySelector('.list-group-item');
+                    
+                    for (let i = 0; i < search.length; i++) {
+                        if (search[i].isPublic == true) {
+                            let clone = list.cloneNode(true);
+
+                            clone.id = 'searchList';
+                            clone.getElementsByClassName('card-title')[0].textContent = search[i].name;
+                            clone.getElementsByClassName('card-text')[0].textContent = search[i].username;
+                            clone.getElementsByClassName('btn-light')[0].setAttribute('data-bs-playlistId', search[i]._id);
+
+                            clone.classList.remove('d-none');
+
+                            list.before(clone);
+                        }
+                    }
+                });
+        }
+    </script>
   </body>
 </html>

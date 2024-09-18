@@ -231,7 +231,6 @@
                                         
                                     </div>
                                 </div>
-                               
                             </div> 
 
                             <div>
@@ -239,35 +238,32 @@
                             </div>
                             <div>
                                 <small class="playlist-descr" style="color: gray;"></small>
-                                <div class="row" style="margin-top: 12px;">
-                                      
-                                      <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" id="selzionaCommunity" style="background-color: var(--main-bg-color);">
-                                        
-                                        <div class="offcanvas-header">
-                                          <h5 class="offcanvas-title" id="staticBackdropLabel" style="color: white;">Condividi</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="mt-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <ul class="list-group list-group-horizontal-md" style="max-width: 700px; overflow: scroll;">
+                                            <li class="item d-flex d-none"  id="tags">
+                                                <label class="form-check-label me-2" id="lbl" for="firstRadio"></label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-4 float-end">
+                                        <div role="button" onclick="" class="dropdown d-none" id="dropMenu">
+                                            <svg data-bs-toggle="dropdown" aria-expanded="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                            </svg>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Aggiungi canzone</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="deletePlaylist(document.querySelector('.like-btn').getAttribute('data-bs-playlistId'));">Elimina playlist</a></li>
+                                              </ul>
                                         </div>
-                                        <div class="offcanvas-body">
-                                          <div>
-                                           <p style="color: grey;">Seleziona la community a cui vuoi condividere la playlist</p> 
-                                           <div class="list-group">
-                                            <button type="button" class="list-group-item list-group-item-action" id="list-community-share" onclick="condividi(this, document.getElementById('nomePlaylistt').innerHTML);" ></button>
-                                          </div>
-                                           
-                                          
-                                      </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                               
-                                
-                            </div>
-                            
-                            </div>
-                            </div>
 
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        
                     </div>
                     <div class="col-12 mt-4 song-list " >
                         <div class="list-group list-group">
@@ -295,7 +291,7 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
     
     <footer class="footer d-none" id="mobileHead">
         <nav class="navbar navbar-expand p-0 fixed-bottom justify-content-center">
@@ -360,7 +356,7 @@
         });
 
 
-        const viewPlaylist = document.getElementById('viewPlaylist');
+        /*const viewPlaylist = document.getElementById('viewPlaylist');
         if (viewPlaylist) {
             viewPlaylist.addEventListener('show.bs.modal', (event) => {
                 const btn = event.relatedTarget;
@@ -372,14 +368,15 @@
                 /*for(let i=0;i<2;i++){
                 document.getElementById('song-name').textContent = res.name[i];
                 //
-                }*/
+                }
             });
-        }
+        }*/
 
         const likeBtn = document.querySelector('.like-playlist');
-        console.log(likeBtn);
+        //console.log(likeBtn);
         async function addOrRemoveLikedPlaylist() {
             const btn = document.querySelector('.like-btn');
+
             fetch(`http://localhost:3000/addlikedPlaylist`, {
                 method: "POST",
                 mode: "cors",
@@ -452,7 +449,6 @@
         }
 
        
-        
 
 
 
