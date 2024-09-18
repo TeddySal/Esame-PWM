@@ -147,6 +147,8 @@
                             <div class="card-body p-4">
                                 <h5 class="card-title h2" id="nomeSong"></h5>
                               <p class="card-text" id="artist"></p>
+
+                              <a class="card-text song-link" href="#">Ascolta la canzone su spotify</a>
                             </div>
                         </div>
                     </div>
@@ -236,6 +238,7 @@
                         document.getElementById('artist').textContent = document.getElementById('artist').textContent + ', '+ song.artists[i].name;
                     }
                     document.querySelector('.img-fluid').src = song.album.images[1].url;
+                    document.querySelector('.song-link').href = song.external_urls.spotify;
                 }).catch((err) => console.log(err));
         }
 

@@ -645,6 +645,9 @@ async function showPlaylistInfo(viewPlaylist, playlistId) {
       }
       title.textContent = playlist.name;
       user.textContent = playlist.username;
+      user.addEventListener('click', (event) => {
+        window.location = `utente.html?user=${playlist.username}`;
+      });
       descr.textContent = playlist.description;
 
       //console.log(playlist.username);
@@ -737,11 +740,11 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 const viewPlaylist = document.getElementById('viewPlaylist');
-//console.log(viewPlaylist);
+console.log(viewPlaylist);
 if (viewPlaylist) {
     viewPlaylist.addEventListener('show.bs.modal', (event) => {
         const btn = event.relatedTarget;
-        //console.log(btn);
+        console.log(btn);
         const playlistId = btn.getAttribute('data-bs-playlistId');
         console.log(playlistId);
         showPlaylistInfo(viewPlaylist, playlistId);

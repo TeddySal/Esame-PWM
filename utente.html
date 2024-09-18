@@ -55,7 +55,7 @@
 
     </style>
   </head>
-  <body onload="checkForAccount(); getUserPlaylist(localStorage.getItem('id_user'));loadGenres();">
+  <body onload="checkForAccount();">
     <header id="header">
         <nav class="navbar navbar-expand-md justify-content-center">
             <div class="container">
@@ -130,75 +130,53 @@
 
     <div class="container d-flex justify-content-center align-content-center" id="cont">
         <div class="elevated rounded-4 position-absolute" id="elevated">
-            <div class="card" style="background-color: transparent; color: white; border: none;">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card-body p-4">
-                          <h5 class="card-title h2" id="nome"></h5>
-                          <p class="card-text" id="username"></p>
-                        </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mt-3 ms-3 float-start">
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                              </svg>
+                        </a>
                     </div>
-                    <div class="col-md-4 d-flex justify-content-center">
-                        <img src="img/Default_pfp.svg.png" class="img-fluid p-3" alt="..." style="border-radius: 50%; width: 150px; height: 150px;">
-                    </div>
-                    <div class="col-md-12">
-                        <button class="btn modify-btn" style="width: 90%; margin-left: 30px;margin-right: 30px;" onclick="/*showMod();*/" data-bs-target="#modifyModal" data-bs-toggle="modal">Modifica profilo</button>
-                    </div>
-                    <div class="col-md-12 d-flex">
-                        <div role="button" id="myPlaylist" class="user-tab user-tab-active">
-                            <p>Le tue playlist</p>
-                        </div>
-                        <div role="button" id="myFavPlaylist" class="user-tab">
-                            <p>Playlist preferite</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div id="dispMyPlaylist" class="d-flex flex-row flex-nowrap overflow-auto">
-                            <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
-                                <li class="list-group-item card bg-transparent">
-                                    <div class="card bg-transparent border-0" style="width: 150px;" >
-                                        <div class="card-head" style="height: 150px;">
-                                            <div  data-bs-toggle="modal" data-bs-target="#createPlaylistModal">
-                                                <svg id="createPlt" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16" >
-                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div class="card-body text-center">
-                                          <h6 class="text-white">Crea</h3>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li id="myplay" class="list-group-item card bg-transparent d-none">
-                                    <div role="button" class="card bg-transparent border-0" style="width: 150px;" id="infoPlaylist" data-bs-toggle="modal" data-bs-target="#viewPlaylist">
-                                        <img src="img/playlist_img.png" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
-                                        <div class="card-body text-center">
-                                          <h6 class="text-white"></h3>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-                        <div id="dispMyFavPlaylist" class="d-flex flex-row flex-nowrap overflow-auto d-none">
-                            <div  class="w-100 text-center" id="nolpText">
-                                <p style="color: gray;">Non ci sono playlist</p>
+                </div>
+                <div class="col">
+                    <div class="card p-1" style="background-color: transparent; color: white; border: none;">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                  <h5 class="card-title h2" id="nome"></h5>
+                                  <p class="card-text" id="username"></p>
+                                </div>
                             </div>
-                            
-                            <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
-                                <li id="myfavplay" class="list-group-item card bg-transparent d-none">
-                                    <div role="button" class="card bg-transparent border-0 fav" style="width: 150px;" data-bs-toggle="modal" data-bs-target="#viewPlaylist">
-                                        <img src="img/playlist_img.png" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
-                                        <div class="card-body text-center">
-                                          <h6 class="text-white"></h3>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
+                            <div class="col-md-4 d-flex justify-content-center">
+                                <img src="img/Default_pfp.svg.png" class="img-fluid p-3" alt="..." style="border-radius: 50%; width: 150px; height: 150px;">
+                            </div>
+                            <div class="col-md-12 d-flex">
+                                <div role="button" id="myPlaylist" class="user-tab user-tab-active w-100">
+                                    <p>Playlist pubbliche</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div id="dispMyFavPlaylist" class="d-flex flex-row flex-nowrap overflow-auto">                 
+                                    <ol class="list-group list-group-horizontal" style="--bs-list-group-border-color: 0px;">
+                                        <li id="myfavplay" class="list-group-item card bg-transparent d-none">
+                                            <div role="button" class="card bg-transparent border-0 fav" style="width: 150px;" data-bs-toggle="modal" data-bs-target="#viewPlaylist">
+                                                <img src="img/playlist_img.png" class="card-img-top rounded-3" alt="..." style="width: 150px; height: 150px;">
+                                                <div class="card-body text-center">
+                                                  <h6 class="text-white"></h3>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
         <div class="modal fade modal-lg" id="viewPlaylist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -292,149 +270,6 @@
               </div>
             </div>
         </div>
-
-        <div class="modal fade" tabindex="-1" id="modifyModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Modifica profilo</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <h6>Cambia username</h6>
-                        <div class="mb-2">
-                            <input placeholder="Scegliere un username nuovo" class="form-control" id="cUsername"  name="username">
-                            <div id="usernameHelpBlock" class="form-text mt-3 mb-3 d-none" style="color: red;">*Username gia in uso</div>
-                            <button type="button" class="btn btn-primary" style="margin-top: 15px;  float: right;" onclick="changeUser();">Salva</button>
-                          </div>
-                    </div>  
-                  <div style="margin-top: 50px;">
-                    <h6>Cambia password</h6>
-                    <div class="mb-2">
-                        <input placeholder="Nuova Password" type="password" class="form-control" id="cPassword" name="password" style="margin-top: 10px;">
-                        <div id="passwordHelpBlock" class="form-text mt-3 mb-3" style="color: white;">
-                          *La tua password deve contenere almeno 8 caretteri, almeno una lettera maiuscola e almeno un carettere speciale
-                        </div>
-                        <button type="button" class="btn btn-primary" style="margin-top: 5px; float: right;" onclick="changePass();">Salva</button>
-                      </div>
-                  </div>
-                  <div style="margin-top: 50px;">
-                    <h6>Cambia e-mail</h6>
-                    <input placeholder="Inserire la nuova mail" type="email" class="form-control" id="cEmail" name="email" aria-describedby="emailHelp">
-                    <button type="button" class="btn btn-primary" style="margin-top: 15px;  float: right;" onclick="changeEmail();">Salva</button>
-                  </div>
-                  
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: white;" onclick="deleteAccount(localStorage.getItem('id_user'));" data-bs-toggle="modal" data-bs-target="#warningModal">Ellimina account</button>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="createPlaylistModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg  modal-fullscreen-md-down">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5 text-white" id="staticBackdropLabel">Crea Playlist</h1>
-                  <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="bi bi-x-lg close-btn" viewBox="0 0 16 16">
-                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                    </svg>
-                  </button>
-
-                </div>
-                <div class="modal-body">
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-12">
-                                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci il nome della tua playlist</p>
-                                <input placeholder="Nome playlist" type="input" class="form-control" id="namePlaylist" required>
-                            </div>
-                            <div class="form-check form-switch col-12" style=" margin-top: 20px; margin-left: 15px;">
-                                <input class="form-check-input" type="checkbox" role="switch" id="privata" style="transform: scale(1.2);">
-                                <label class="form-check-label" for="flexSwitchCheckDefault" style="color: grey;" id="textSwitch">Playlist privata</label>
-                            </div>
-                            <div class="col-12">
-                                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Inserisci una descrizione della playlist</p>
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Inserisci la descrizione qui" id="floatingTextarea"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <p style="color: grey; font-size: 15pt; margin-top: 5px;" >Aggiungi i tuoi generi preferiti</p>
-                                <div class="hstack">
-                                    <div class="w-50">
-                                        <select class="form-select mb-3" aria-label="Large select example" onchange="addTag(this.value);" id="sel-gen" style="background-color: var(--input-bg-color); border: none;">
-                                            <option value="" selected>Genres</option>
-                                        </select>
-                                    </div>
-                                    <div class="w-50 p-2">
-                                        <ul class="list-group list-group-horizontal-md" style="max-width: 700px; overflow: scroll;">
-                                            <li class="item d-flex d-none"  id="selected-tags">
-                                                <label class="form-check-label me-2" id="lbl" for="firstRadio">item</label>
-                                                <div role="button" id="close-btn" onclick="this.parentElement.remove();">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                                    </svg>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                
-
-
-                            </div>
-                            <div class="col-12">
-                                <p style="color: grey; font-size: 15pt; margin-top: 15px; " >Inserire le canzoni:</p>
-                                <div class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="Cerca" id="cerca">
-                                    <button class="btn btn-light" type="button" id="cercaBtn" >Cerca</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="song-list mt-3">
-                                    <ul class="list-group" id="songList">
-                                        <li class="list-group-item d-none" id="song">
-                                            <div class="row">
-                                                <div class="col-2">
-                                                    <img class="songImg" src="..." alt="..." width="60" height="60">
-                                                </div>
-                                                <div class="col-8">
-                                                    <div class="vstack">
-                                                        <div class="pt-2">
-                                                            <h6 class="songName"></h6>
-                                                        </div>
-                                                        <div class="">
-                                                            <p class="artistsNames" style="font-size: .7rem; color: gray;"></p>
-                                                        </div>
-                                                        <div class="id-song d-none">
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-2 d-flex align-items-center justify-content-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="delSong">
-                                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-light" onclick="salva();">Salva</button>
-                </div>
-              </div>
-            </div>
-        </div>
     </div>
 <!--
     <footer class="footer d-none" id="mobileHead">
@@ -488,34 +323,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="JavaScript/func.js"></script>
     <script>
-
-
-
-        document.getElementById('myPlaylist').addEventListener('click', (e) => {
-            document.getElementById('myPlaylist').classList.add('user-tab-active');
-            document.getElementById('myFavPlaylist').classList.remove('user-tab-active');
-            document.getElementById('dispMyPlaylist').classList.remove('d-none');
-            document.getElementById('dispMyFavPlaylist').classList.add('d-none');
-        });
-
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('user');
+/*
         document.getElementById('myFavPlaylist').addEventListener('click', (e) => {
             document.getElementById('myPlaylist').classList.remove('user-tab-active');
             document.getElementById('myFavPlaylist').classList.add('user-tab-active');
             document.getElementById('dispMyPlaylist').classList.add('d-none');
             document.getElementById('dispMyFavPlaylist').classList.remove('d-none');
-        });
-
-        function showMod() {
-            document.getElementById('header').classList.add('blur');
-            document.getElementById('elevated').classList.add('blur');
-            document.getElementById('modCard').classList.remove('d-none');
-        }
-
-        function creaPlaylist() {
-            document.getElementById('header').classList.add('blur');
-            document.getElementById('elevated').classList.add('blur');
-            document.getElementById('creaPlaylist').classList.remove('d-none');
-        }
+        });*/
 
         /*
 
@@ -540,47 +356,46 @@
         media.addEventListener('change', function() {
             changeScreenMedia(media);
         });*/
-
+/*
         document.getElementById('cercaBtn').addEventListener('click',()=>{  
             //console.log("ciao");
             let q = document.getElementById('cerca').value;
             search(q);
-        });
+        });*/
 
         
-       fetch("http://localhost:3000/getUser/"+localStorage.getItem('id_user'), {method:'GET'})
+       fetch("http://localhost:3000/getUserFromUsername/"+username, {method:'GET'})
         .then((res) => res.json())
         .then((res) => {
             document.getElementById('username').textContent = res.username;
             document.getElementById('nome').textContent = res.name+" "+res.surname;
-
+            console.log(res);
+            fetch(`http://localhost:3000/getAllPlaylistInfo`,       
+            {method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                { 
+                    ids: res.playlist.personal
+                }
+            )} )
+                    .then((res) => res.json())
+                    .then((playlist) => {
+                        console.log(playlist);
+                        let list = document.getElementById('myfavplay');
+                        for (let i = 0; i < playlist.length; i++) {
+                            if (playlist[i].isPublic) {
+                                let clone = list.cloneNode(true);
+                                clone.getElementsByClassName('fav')[0].setAttribute('data-bs-playlistId', playlist[i]._id);
+                                clone.getElementsByClassName('text-white')[0].textContent = playlist[i].name;
+                                clone.classList.remove('d-none');
+                                list.before(clone);
+                            }
+                        }
+                    })
         });
-
-        
-
-        document.querySelectorAll('[id=delSong]').forEach((el) => {
-            el.addEventListener('click', (event) => {
-                event.preventDefault();
-                //console.log('hello');
-                el.parentElement.parentElement.parentElement.remove();
-            });
-        });
-
-        document.getElementById('privata').addEventListener('click', (event) => {
-            if (document.getElementById('privata').checked) {
-                document.getElementById('textSwitch').textContent = 'Playlist pubblica';
-            } else {
-                document.getElementById('textSwitch').textContent = 'Playlist privata';
-            }
-        });
-
-        function deleteAccount(id_user) {
-            if (confirm('Sei sicuro di voler cancellare il tuo account?')) {
-                fetch(`http://localhost:3000/deleteUser/${localStorage.getItem('id_user')}`, {method: 'DELETE'});
-                localStorage.removeItem('id_user');
-                window.location = 'index.html';
-            }
-        }
     </script>
   </body>
 </html>

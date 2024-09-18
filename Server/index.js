@@ -320,6 +320,25 @@ async function changePassword(res, body){
     }
 }
 
+async function getAllPlaylistInfo(res, id_plays) {
+    try {
+        await client.connect();
+        let playlist = [];
+        for (let i = 0; i < id_plays.length; i++) {
+            playlist.push(await client.db('Users').collection('playlist').findOne({_id: new ObjectId(id_plays[i])}));
+        }
+
+        
+        //console.log(plalist);
+        if (playlist === null) {
+            res.status(404).send({error: {status: 404, message: "Playlist non trovata"}});
+        } else {
+            res.status(200).send(playlist);
+        }
+    } finally {
+        await client.close();
+    }
+}
 
 async function getPlaylistInfo(res, id_play) {
     try {
@@ -663,6 +682,11 @@ app.get('/searchPlaylist/:name', (req, res) => {
 
 app.get('/getPlaylistInfo/:id', (req, res) => {
     getPlaylistInfo(res, req.params.id)
+        .catch((err) => console.log(err));
+})
+
+app.post('/getAllPlaylistInfo', (req, res) => {
+    getAllPlaylistInfo(res, req.body.ids)
         .catch((err) => console.log(err));
 })
 
