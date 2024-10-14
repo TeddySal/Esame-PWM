@@ -379,7 +379,7 @@
         //console.log(likeBtn);
         async function addOrRemoveLikedPlaylist() {
             const btn = document.querySelector('.like-btn');
-
+            
             fetch(`http://localhost:3000/addlikedPlaylist`, {
                 method: "POST",
                 mode: "cors",
@@ -389,7 +389,7 @@
                 body: JSON.stringify(
                     {
                       username: await getUsernameFromId(), 
-                      id_playlist: btn.getAttribute('data-bs-playlistId')
+                      id_playlist: localStorage.getItem('playlist_id')//btn.getAttribute('data-bs-playlistId')
                     }
                 ) 
             }).then((res) => res.json())

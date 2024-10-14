@@ -15,6 +15,7 @@ async function getApiToken() {
     return res;
 }
 
+
 if (localStorage.getItem('api_key') == null) {
     getApiToken()
     .then((res) => {
@@ -663,6 +664,7 @@ async function getUserPlaylist(id_user) {
 
 
 async function showPlaylistInfo(viewPlaylist, playlistId) {
+  localStorage.setItem('playlist_id', playlistId);
   const options =  {
     method: "GET",
     headers: {
